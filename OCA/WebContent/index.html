@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	Nombre: <input type="text" id="nombre"><br>
+	Número de jugadores: <input type="number" id="numero"><br>
+	<button onclick="crearPartida()">Crear</button>
+	<br>
+	<button onclick="unirse()">Unirse</button>
+	
+	<svg id="tablero" width="500" height="500" style="background-color:grey">
+	</svg>
+	
+	<script>
+	if (localStorage.nombre!=undefined)
+		document.getElementById("nombre").value=localStorage.nombre;	
+	</script>
+	
+	<script src="scripts/partidas.js"></script>
+	<script src="scripts/tablero.js"></script>
+	<script>
+	var tablero=new Tablero();
+	var lienzo=document.getElementById("tablero");
+	tablero.dibujar(lienzo);
+	</script>
+</body>
+</html>
