@@ -23,9 +23,9 @@ public class Pool {
 			try {
 				bd = DriverManager.getConnection(url, "listadelacompra", "");
 				this.libres.add(bd);
-				System.out.println("ConexiÃ³n establecida: " + i);
+				System.out.println("Conexión establecida: " + i);
 			} catch (SQLException e) {
-				System.out.println("FallÃ³ con la conexiÃ³n: " + i);
+				System.out.println("Falló con la conexión: " + i);
 				e.printStackTrace();
 				break;
 			}

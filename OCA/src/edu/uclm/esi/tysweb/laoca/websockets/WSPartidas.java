@@ -23,7 +23,7 @@ public class WSPartidas {
 		HttpSession httpSession=(HttpSession) config.getUserProperties().get(HttpSession.class.getName());
 		String nombreDeUsuario=httpSession.getAttribute("nombreDeUsuario").toString();
 		
-		System.out.println("SesiÃ³n " + sesion.getId());
+		System.out.println("Sesión " + sesion.getId());
 		sesionesPorId.put(sesion.getId(), sesion);
 		sesionesPorNombre.put(nombreDeUsuario, sesion);
 		broadcast("Ha llegado " + nombreDeUsuario);
