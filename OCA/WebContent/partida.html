@@ -1,15 +1,53 @@
+<!-- 
+LA OCA - 2017 - Tecnologias y Sistemas Web
+Escuela Superior de Informatica de Ciudad Real 
+
+Josue Gutierrez Duran
+Sonia Querencia Martin
+Enrique Simarro Santamaria
+Eduardo Fuentes Garcia De Blas
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<title>LA OCA | Tablero</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
 </head>
 
 <body>
-	<div class="row">
-		<div class="col-md-2">.col-md-4</div>
-		<div class="col-md-8">.col-md-4</div>
+	<div align="center" style="padding: 20px;">
+		<h1>LA OCA</h1>
+	</div>
+	<div class="row" style="padding:20px; ">
+
+		<!-- LISTA DE JUGADORES -->
+		<div class="col-md-2" align="center" style="padding: 20px;">
+			<div class=" panel panel-default">
+				<h3 style="padding: 10px;">Jugadores</h3>
+				<div class="card" style="width: 20rem;">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">JUGADOR1</li>
+						<li class="list-group-item">JUGADOR2</li>
+						<li class="list-group-item">JUGADOR3</li>
+						<li class="list-group-item">JUGADOR4</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- TABLERO -->
+		<div class="col-md-8" align="center">
+			<svg id="tablero" width="550" height="550"
+				style="background-color: white">
+		</svg>
+		</div>
+
+		<!-- JUGABILIDAD -->
 		<div class="col-md-2">.col-md-4</div>
 	</div>
 
@@ -22,9 +60,7 @@
 	<br>
 	<button onclick="unirse()">Unirse</button>
 
-	<svg id="tablero" width="550" height="550"
-		style="background-color: white">
-		</svg>
+
 
 	<script>
 		if (localStorage.nombre != undefined)
@@ -39,6 +75,6 @@
 		tablero.dibujar(lienzo);
 	</script>
 </body>
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </html>
