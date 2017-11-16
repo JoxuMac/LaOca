@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>sistema de login</title>
+<title>EL MARAVILLOSO JUEGO DE LA OCA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Temas-->
@@ -20,9 +20,9 @@
 	<div class="ContentForm">
 		 	<form action="" method="post" name="FormEntrar">				
 				<br>
-				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" onclick="crearPartida()">Registrarse</button>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" href="/Cuenta"">Registrarse</button>
 				<br>
-				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" onclick="unirse()">Ya tengo cuenta</button>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" type="button" value="enviar" onclick = "location='./cuenta.html'">Ya tengo cuenta</button>
 				<div class="opcioncontra"><a href="">Olvidaste tu contraseña?</a></div>
 		 	</form>
 		 </div>
@@ -31,16 +31,6 @@
          <?php 
 
           ?>
-	
-	
-	<svg id="tablero" width="550" height="550" style="background-color:white">
-	</svg>
-	
-	<script>
-	if (localStorage.nombre!=undefined)
-		document.getElementById("nombre").value=localStorage.nombre;	
-	</script>
-
 	
 </body>
 </html>
