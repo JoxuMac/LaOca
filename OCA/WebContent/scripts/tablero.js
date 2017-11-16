@@ -27,7 +27,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=500; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(100, 50, count);
+			this.casillas[count].crearCirculo(100, 50, count, this.casillas);
 		}
 		
 		// casillas 2 - 10
@@ -36,7 +36,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=500; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(50, 50, count);
+			this.casillas[count].crearCirculo(50, 50, count, this.casillas);
 		}
 		
 		// casillas 11 - 20
@@ -45,7 +45,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=950-count*50; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(50, 50, count);
+			this.casillas[count].crearCirculo(50, 50, count, this.casillas);
 		}
 		
 		// casillas 21 - 30
@@ -55,7 +55,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=0; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(50, 50, count);
+			this.casillas[count].crearCirculo(50, 50, count, this.casillas);
 			if(aux == 5500){aux = 50}
 		}
 		
@@ -65,7 +65,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=aux-1500; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(50, 50, count);
+			this.casillas[count].crearCirculo(50, 50, count, this.casillas);
 			aux = aux + 50;
 		}
 		
@@ -75,7 +75,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=400; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(50, 50, count);
+			this.casillas[count].crearCirculo(50, 50, count, this.casillas);
 		}
 		
 		// casillas 47 - 52
@@ -84,7 +84,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=2650-count*50; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(50, 50, count);
+			this.casillas[count].crearCirculo(50, 50, count, this.casillas);
 		}
 		
 		// casillas 53 - 58
@@ -93,7 +93,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=100; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(50, 50, count);
+			this.casillas[count].crearCirculo(50, 50, count, this.casillas);
 		}
 		
 		// casillas 59 - 62
@@ -102,7 +102,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=aux-1800; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(50, 50, count);
+			this.casillas[count].crearCirculo(50, 50, count, this.casillas);
 			aux = aux + 50;
 		}
 		
@@ -112,7 +112,7 @@ Tablero.prototype.crearCasillas = function() {
 			this.casillas[count].y0=200; //y
 			this.casillas[count].xF=this.casillas[count].x0+50;
 			this.casillas[count].yF=this.casillas[count].y0+50;
-			this.casillas[count].crearCirculo(200, 150, count);
+			this.casillas[count].crearCirculo(200, 150, count, this.casillas);
 		}
 	}
 }
@@ -126,7 +126,7 @@ Casilla.prototype.dibujar = function(lienzo) {
 	lienzo.appendChild(this.g);
 }
 
-Casilla.prototype.crearCirculo = function(width, heigth, casill) {
+Casilla.prototype.crearCirculo = function(width, heigth, casill, casillas) {
 	
 	this.g=document.createElementNS("http://www.w3.org/2000/svg", "g");
 	
@@ -149,7 +149,11 @@ Casilla.prototype.crearCirculo = function(width, heigth, casill) {
 	this.numero.innerHTML=(casill+1);
 	this.g.appendChild(this.numero);
 	
-	//if((this.casillas[casill]).tipo=="OCA"){
+	
+	console.log(casill);
+//	console.log(this.casillas.tipo);
+	console.log(casillas);
+	if(casillas[casill].tipo=="OCA"){
 		this.img=document.createElementNS("http://www.w3.org/2000/svg", "image");
 		this.img.setAttribute("x", this.x0+5);
 		this.img.setAttribute("y", this.y0+10);
@@ -157,7 +161,7 @@ Casilla.prototype.crearCirculo = function(width, heigth, casill) {
 		this.img.setAttribute("height", "40");
 		this.img.setAttribute("width", "40");
 		this.g.appendChild(this.img);
-	//}
+	}
 	
 }
 
