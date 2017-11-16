@@ -2,14 +2,36 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>sistema de login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Temas-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="./css/estilo.css">
 </head>
 <body>
-	Nombre: <input type="text" id="nombre"><br>
-	Número de jugadores: <input type="number" id="numero"><br>
-	<button onclick="crearPartida()">Crear</button>
-	<br>
-	<button onclick="unirse()">Unirse</button>
+	<div id="Contenedor">	 
+	<div class="Icon"><span class="glyphicon glyphicon-user"></span></div>
+	
+	<div class="page-header">
+  		<h1>LA OCA</h1>
+	</div>
+		
+	<div class="ContentForm">
+		 	<form action="" method="post" name="FormEntrar">				
+				<br>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" onclick="crearPartida()">Registrarse</button>
+				<br>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" onclick="unirse()">Ya tengo cuenta</button>
+				<div class="opcioncontra"><a href="">Olvidaste tu contraseña?</a></div>
+		 	</form>
+		 </div>
+			
+		 </div>
+         <?php 
+
+          ?>
+	
 	
 	<svg id="tablero" width="550" height="550" style="background-color:white">
 	</svg>
@@ -18,13 +40,7 @@
 	if (localStorage.nombre!=undefined)
 		document.getElementById("nombre").value=localStorage.nombre;	
 	</script>
+
 	
-	<script src="scripts/partidas.js"></script>
-	<script src="scripts/tablero.js"></script>
-	<script>
-	var tablero=new Tablero();
-	var lienzo=document.getElementById("tablero");
-	tablero.dibujar(lienzo);
-	</script>
 </body>
 </html>
