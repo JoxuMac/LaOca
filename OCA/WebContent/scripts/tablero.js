@@ -128,25 +128,36 @@ Casilla.prototype.dibujar = function(lienzo) {
 
 Casilla.prototype.crearCirculo = function(width, heigth, casill) {
 	
+	this.g=document.createElementNS("http://www.w3.org/2000/svg", "g");
+	
 	this.rectangulo=document.createElementNS("http://www.w3.org/2000/svg", "rect");
 	this.rectangulo.setAttribute("x", this.x0);
 	this.rectangulo.setAttribute("y", this.y0);
 	this.rectangulo.setAttribute("width", width);
 	this.rectangulo.setAttribute("height", heigth);
-	this.rectangulo.setAttribute("stroke", "green");
+	this.rectangulo.setAttribute("stroke", "rgb(200,93,93)");
 	this.rectangulo.setAttribute("stroke-width", "4");
-	this.rectangulo.setAttribute("fill", "rgb(100,100,100)");
+	this.rectangulo.setAttribute("fill", "rgb(220,220,220)");
+	this.g.appendChild(this.rectangulo);
 	
 	this.numero=document.createElementNS("http://www.w3.org/2000/svg", "text");
 	this.numero.setAttribute("x", this.x0+2);
 	this.numero.setAttribute("y", this.y0+15);
-	this.numero.setAttribute("fill", "white");
+	this.numero.setAttribute("fill", "black");
+	this.numero.setAttribute("font-weight", "bold");
+	this.numero.setAttribute("font-family", "Arial");
 	this.numero.innerHTML=(casill+1);
-	
-	this.g=document.createElementNS("http://www.w3.org/2000/svg", "g");
-	
-	this.g.appendChild(this.rectangulo);
 	this.g.appendChild(this.numero);
+	
+	//if((this.casillas[casill]).tipo=="OCA"){
+		this.img=document.createElementNS("http://www.w3.org/2000/svg", "image");
+		this.img.setAttribute("x", this.x0+5);
+		this.img.setAttribute("y", this.y0+10);
+		this.img.setAttribute("href", "./images/oca2.png");
+		this.img.setAttribute("height", "40");
+		this.img.setAttribute("width", "40");
+		this.g.appendChild(this.img);
+	//}
 	
 }
 
