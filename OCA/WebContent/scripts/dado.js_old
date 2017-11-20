@@ -1,26 +1,57 @@
 /**
- * LA OCA - 2017 - Tecnologias y Sistemas Web 
- * Escuela Superior de Informatica de Ciudad Real
+ * LA OCA - 2017 - Tecnologias y Sistemas Web Escuela Superior de Informatica de
+ * Ciudad Real
  * 
- * Josue Gutierrez Duran 
- * Sonia Querencia Martin 
- * Enrique Simarro Santamaria
+ * Josue Gutierrez Duran Sonia Querencia Martin Enrique Simarro Santamaria
  * Eduardo Fuentes Garcia De Blas
  */
 
 // Creacion de Tablero
-function Tablero() {
-	this.casillas = [];
-	this.crearCasillas();
-}
+function Dado() {}
 
 // Dibujo de Casillas
-Tablero.prototype.dibujar = function(lienzo) {
-	for (var i = 0; i < 63; i++)
-		this.casillas[i].dibujar(lienzo);
+Tablero.prototype.realizarTidada = function(lienzo) {
+	//for (var i = 0; i < 63; i++)
+		//this.casillas[i].dibujar(lienzo);
+	console.log(Math.floor(Math.random() * 6) + 1);
+}
+/*
+window.onload = function() {
+	document.getElementById("lanzarDado").onclick = function fun() {
+		var tirada = Math.floor(Math.random() * 6) + 1;
+		//switch(tirada){
+		//case 1:
+			
+			// Grupo
+			this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+			// Rectangulo
+			this.rectangulo = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			this.rectangulo.setAttribute("x", 0);
+			this.rectangulo.setAttribute("y", 0);
+			this.rectangulo.setAttribute("width", 0);
+			this.rectangulo.setAttribute("height", 0);
+			this.rectangulo.setAttribute("stroke", "rgb(200,93,93)");
+			this.rectangulo.setAttribute("stroke-width", "4");
+			this.rectangulo.setAttribute("fill", "rgb(220,220,220)");
+			this.g.appendChild(this.rectangulo);
+
+			
+	/*		break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		}*/
+	/*}
 }
 
-// Creacion de Casillas
 Tablero.prototype.crearCasillas = function() {
 	// Creacion Casillas
 	for (var i = 0; i < 63; i++) {
@@ -171,8 +202,15 @@ function Casilla() {
 	this.tipo = "NORMAL";
 }
 
+function Dado(){}
+
 // Dibujar en Lienzo
 Casilla.prototype.dibujar = function(lienzo) {
+	lienzo.appendChild(this.g);
+}
+
+//Dibujar en Dado
+Dado.prototype.dibujar = function(lienzo) {
 	lienzo.appendChild(this.g);
 }
 
@@ -181,7 +219,6 @@ Casilla.prototype.crearCirculo = function(width, heigth, casill, casillas) {
 
 	// Grupo
 	this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-	this.g.setAttribute("id", "casilla"+casill);
 
 	// Rectangulo
 	this.rectangulo = document.createElementNS("http://www.w3.org/2000/svg",
@@ -270,3 +307,4 @@ Casilla.prototype.crearCirculo = function(width, heigth, casill, casillas) {
 	this.g.appendChild(this.img);
 
 }
+// Math.floor(Math.random() * 6) + 1
