@@ -13,6 +13,7 @@ Eduardo Fuentes Garcia De Blas
 <head>
 <meta charset="UTF-8">
 <title>LA OCA | Tablero</title>
+<link rel="shortcut icon" href="./images/favicon.ico" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -25,7 +26,7 @@ Eduardo Fuentes Garcia De Blas
 	<div align="center" style="padding: 20px;">
 		<h1>LA OCA</h1>
 	</div>
-	<div class="row" style="padding: 20px;">
+	<div class="row" style="padding: 20px; padding-bottom: 0px;">
 
 		<!-- COLUMNA 1 -->
 		<div class="col-md-2" align="center" style="padding: 20px;">
@@ -58,7 +59,7 @@ Eduardo Fuentes Garcia De Blas
 		</div>
 
 		<!-- COLUMNA 3 -->
-		<div class="col-md-2" align="center" style="padding: 20px;">
+		<div class="col-md-2" align="center" style="padding: 20px; padding-bottom: 0px;">
 			<div class="panel panel-default">
 
 				<!-- JUGABILIDAD -->
@@ -73,10 +74,10 @@ Eduardo Fuentes Garcia De Blas
 				</div>
 
 				<!-- DADO -->
-				<h3 style="padding: 10px;">Dado</h3>
+				<h3 style="padding: 10px; padding-bottom: 0px;">Dado</h3>
 				<div class="panel panel-default">
 					<div style="padding: 20px;">
-						<button type="button" class="btn btn-info btn-lg" id="lanzarDado"
+						<button type="button" style="white-space: normal" class="btn btn-info btn-lg" id="lanzarDado"
 							onclick="lanzarDado()">¡Lanzar Dado!</button>
 					</div>
 					<svg id="tablerodado" width="200" height="200"
@@ -85,12 +86,15 @@ Eduardo Fuentes Garcia De Blas
 				</div>
 			</div>
 		</div>
+		
+			<!-- PUBLICIDAD -->
+	<div class="col-md-12" align="center" style="padding: 20px;">
+		<div class="panel panel-default"><img src="./images/publicidad.png" alt="Smiley face" height="90" width="728"></div>
+	</div>
+		
 	</div>
 
-	<!-- PUBLICIDAD -->
-	<div class="col-md-12" align="center" style="padding: 20px;">
-		<div class="panel panel-default">#PUBLICIDAD</div>
-	</div>
+
 
 	<!-- SCRIPTS -->
 <!-- 	<script>

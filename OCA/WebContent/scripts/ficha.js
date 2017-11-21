@@ -94,5 +94,4 @@ function pintarFicha4(lienzo){
 // Dibujar en Lienzo
 function dibujar(lienzo, g) {
 	lienzo.appendChild(g);
-	console.log("hola");
 }

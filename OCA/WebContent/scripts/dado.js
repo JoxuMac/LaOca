@@ -20,7 +20,7 @@ Dado.prototype.realizarTidada = function(lienzo) {
 	// Tirada entre 1 y 6
 	var tirada = Math.floor(Math.random() * 6) + 1;
 	
-	console.log(tirada);
+	console.log("TIRADA: "+tirada);
 	
 	// Grupo
 	this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");

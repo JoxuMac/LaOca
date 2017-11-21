@@ -1,0 +1,52 @@
+<!-- 
+LA OCA - 2017 - Tecnologias y Sistemas Web
+Escuela Superior de Informatica de Ciudad Real 
+
+Josue Gutierrez Duran
+Sonia Querencia Martin
+Enrique Simarro Santamaria
+Eduardo Fuentes Garcia De Blas
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>LA OCA | Entrar</title>
+	<link rel="shortcut icon" href="./images/favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
+	<!-- Temas-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="./css/estilo.css">
+</head>
+<body>
+	<div id="Contenedor" style="height:auto; padding-bottom:10px;"">	 
+		<div class="Icon"><span class="glyphicon glyphicon-user"></span></div>
+		
+		<div class="page-header">
+	  		<h1>LA OCA - Entrar</h1>
+		</div>
+			
+		<div class="ContentForm">
+		 	<form action="" method="post" name="FormEntrar">	
+		 		<div class="input-group input-group-lg">
+				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-user"></i></span>
+				  <input type="email" class="form-control" name="nombre" placeholder="Usuario" id="Nombre" aria-describedby="sizing-addon1" required>
+				</div>
+				<br>
+				<div class="input-group input-group-lg">
+				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
+				  <input type="password" name="pass" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required>
+				</div>			
+				<br>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" href="/Cuenta"">Aceptar</button>
+				<br>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" type="button" value="enviar" onclick = "location='./index.html'">Cancelar</button>
+				<!-- <div class="opcioncontra"><a href="">Olvidaste tu contraseña?</a></div> -->
+		 	</form>
+		 </div>	
+	 </div>
+</body>
+</html>
