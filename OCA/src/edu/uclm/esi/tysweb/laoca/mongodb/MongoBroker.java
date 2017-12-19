@@ -20,27 +20,34 @@ public class MongoBroker {
 	private ConcurrentLinkedQueue<MongoClient> usadas, libres;
 	private MongoClient conexionPrivilegiada;
 	
-	private MongoBroker() {
-		MongoCredential credenciales=MongoCredential.createCredential("creadorDeUsuarios", 
-					"admin", "creadorDeUsuarios".toCharArray());
-		ServerAddress address=new ServerAddress("alarcosj.esi.uclm.es");
-		List<MongoCredential> lista=Arrays.asList(credenciales);
-		this.conexionPrivilegiada=new MongoClient(address, lista);
+	public MongoBroker() {
+	//	MongoCredential credenciales=MongoCredential.createCredential("creadorDeUsuarios", 
+				//	"admin", "creadorDeUsuarios".toCharArray());
+		//ServerAddress address=new ServerAddress("alarcosj.esi.uclm.es");
+		
+		
+		MongoClient mongo = new MongoClient("localhost", 27017);
+		conexionPrivilegiada = mongo;
+		
+		
+		//ServerAddress address=new ServerAddress("localhost");
+		//List<MongoCredential> lista=Arrays.asList(credenciales);
+		//this.conexionPrivilegiada=new MongoClient(address, lista);
 		
 		this.usadas=new ConcurrentLinkedQueue<>();
 		this.libres=new ConcurrentLinkedQueue<>();
 		
-		credenciales=MongoCredential.createCredential("jugador", "MACARIO", "jugador".toCharArray());
+		/*credenciales=MongoCredential.createCredential("jugador", "OCA", "jugador".toCharArray());
 		lista=Arrays.asList(credenciales);
 		for (int i=0; i<10; i++) {
 			MongoClient conexion=new MongoClient(address, lista);
 			this.libres.add(conexion);
-		}
+		}*/
 	}
-	
+	/*
 	public static void main(String[] args) {
 		MongoBroker broker=MongoBroker.get();
-		MongoDatabase db = broker.conexionPrivilegiada.getDatabase("MACARIO");
+		MongoDatabase db = broker.conexionPrivilegiada.getDatabase("OCA");
 		
 		if (db.getCollection("usuarios")==null)
 			db.createCollection("usuarios");
@@ -62,7 +69,7 @@ public class MongoBroker {
 		System.out.println(elementoBuscado.getString("pwd"));
 		
 		broker.conexionPrivilegiada.close();
-	}
+	}*/
 	
 	private static class MongoBrokerHolder {
 		static MongoBroker singleton=new MongoBroker();
@@ -89,6 +96,33 @@ public class MongoBroker {
 	
 	public MongoClient getConexionPrivilegiada() {
 		return this.conexionPrivilegiada;
+	}
+	
+	public void CREARPRUEBA() {
+		
+		MongoBroker broker=MongoBroker.get();
+		MongoDatabase db = broker.conexionPrivilegiada.getDatabase("OCA");
+		
+		if (db.getCollection("usuarios")==null)
+			db.createCollection("usuarios");
+		
+		MongoCollection<BsonDocument> usuarios = db.getCollection("usuarios", BsonDocument.class);
+				
+		for (int i=1; i<=100; i++) {
+			BsonDocument pepe=new BsonDocument();
+			pepe.put("email", new BsonString("pepe" + i + "@pepe.com"));
+			pepe.put("pwd", new BsonString("pepe"));
+			usuarios.insertOne(pepe);
+		}
+		
+		BsonDocument criterio=new BsonDocument();
+		criterio.append("email", new BsonString("pepe100@pepe.com"));
+		FindIterable<BsonDocument> busqueda = usuarios.find(criterio);
+		BsonDocument elementoBuscado = busqueda.first();
+		System.out.println(elementoBuscado.getString("email"));
+		System.out.println(elementoBuscado.getString("pwd"));
+		
+		broker.conexionPrivilegiada.close();
 	}
 }
 

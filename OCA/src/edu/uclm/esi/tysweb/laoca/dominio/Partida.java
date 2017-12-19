@@ -17,6 +17,8 @@ public class Partida {
 	private Usuario ganador;
 
 	public Partida(Usuario creador, int numeroDeJugadores) {
+		
+		
 		this.jugadores=new Vector<>();
 		this.jugadores.add(creador);
 		this.numeroDeJugadores=numeroDeJugadores;

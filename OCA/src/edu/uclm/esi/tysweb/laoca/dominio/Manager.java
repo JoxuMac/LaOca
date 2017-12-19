@@ -5,6 +5,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.json.JSONObject;
 
+import edu.uclm.esi.tysweb.laoca.mongodb.MongoBroker;
+
 public class Manager {
 	private ConcurrentHashMap<String, Usuario> usuarios;
 	private ConcurrentHashMap<Integer, Partida> partidasPendientes;
@@ -18,6 +20,12 @@ public class Manager {
 	}
 	
 	public Usuario crearPartida(String nombreJugador, int numeroDeJugadores) throws Exception {
+		/////////////
+	MongoBroker mg = new MongoBroker();
+	mg.CREARPRUEBA();
+		/////////////////
+	
+	
 		Usuario usuario = findUsuario(nombreJugador);
 		if (usuario.getPartida()!=null)
 			throw new Exception("El usuario ya está asociado a una partida. Desconéctate para crear una nueva o unirte a otra");
