@@ -51,15 +51,42 @@ function conectarWebSocket() {
 	ws=new WebSocket("ws://localhost:8080/LaOca/servidorDePartidas");
 	
 	ws.onopen = function() {
-		console.log("Websocket conectado");
+		addMensaje("Websocket conectado");
+		divTablero.setAttribute("style", "display:visible");
+		var tablero=new Tablero();
+		tablero.dibujar(svgTablero);
 	}
 	
 	ws.onmessage = function(datos) {
 		var mensaje=datos.data;
 		mensaje=JSON.parse(mensaje);
 		if (mensaje.tipo=="DIFUSION") {
-			console.log(mensaje.mensaje);
-		} 
-	}
+			addMensaje(mensaje.mensaje);
+		} else if (mensaje.tipo=="COMIENZO") {
+			addMensaje("Comienza la partida");
+			comenzar(mensaje);
+		}
+	}	
 }
 
+function comenzar(mensaje) {
+	var btnDado=document.getElementById("btnDado");
+	if (mensaje.jugadorConElTurno==localStorage.nombre) {
+		btnDado.setAttribute("style", "display:visible");
+	} else {
+		btnDado.setAttribute("style", "display:none");
+	}
+	var spanListaJugadores=document.getElementById("spanListaJugadores");
+	var jugadores=mensaje.jugadores;
+	var r="";
+	for (var i=0; i<jugadores.length; i++)
+		r=r+jugadores[i] + " / ";
+	spanListaJugadores.innerHTML=r;
+	sessionStorage.idPartida=mensaje.idPartida;
+}
+
+function addMensaje(texto) {
+	var div=document.createElement("div");
+	divChat.appendChild(div);
+	div.innerHTML=texto;
+}
