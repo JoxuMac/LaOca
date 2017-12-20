@@ -28,7 +28,7 @@ public class DAOUsuario {
 		criterio.append("email", new BsonString(nombreJugador));
 		
 		MongoClient conexion=broker.getConexionPrivilegiada();
-		MongoDatabase db=conexion.getDatabase("MACARIO");
+		MongoDatabase db=conexion.getDatabase("OCA");
 		MongoCollection<BsonDocument> usuarios = db.getCollection("usuarios", BsonDocument.class);
 		BsonDocument usuario=usuarios.find(criterio).first();
 		return usuario!=null;
@@ -40,10 +40,10 @@ public class DAOUsuario {
 		
 		MongoClient conexion=MongoBroker.get().getConexionPrivilegiada();
 		MongoCollection<BsonDocument> usuarios = 
-				conexion.getDatabase("MACARIO").getCollection("usuarios", BsonDocument.class);
+				conexion.getDatabase("OCA").getCollection("usuarios", BsonDocument.class);
 		try {
 			usuarios.insertOne(bUsuario);
-			crearComoUsuarioDeLaBD(usuario, pwd);
+		//	crearComoUsuarioDeLaBD(usuario, pwd);
 		}
 		catch (MongoWriteException e) {
 			if (e.getCode()==11000)
@@ -52,7 +52,7 @@ public class DAOUsuario {
 		}
 	}
 
-	private static void crearComoUsuarioDeLaBD(Usuario usuario, String pwd) throws Exception {
+	/*private static void crearComoUsuarioDeLaBD(Usuario usuario, String pwd) throws Exception {
 		BsonDocument creacionDeUsuario=new BsonDocument();
 		creacionDeUsuario.append("createUser", new BsonString(usuario.getLogin()));
 		creacionDeUsuario.append("pwd", new BsonString(pwd));
@@ -65,7 +65,7 @@ public class DAOUsuario {
 
 		MongoBroker.get().getConexionPrivilegiada().getDatabase("MACARIO").runCommand(creacionDeUsuario);
 	}
-
+*/
 	private static BsonString encriptar(String pwd) throws Exception {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		byte[] messageDigest = md.digest(pwd.getBytes());
@@ -79,12 +79,12 @@ public class DAOUsuario {
 	}
 
 	public static Usuario login(String email, String pwd) throws Exception {
-		MongoClient conexion=MongoBroker.get().getDatabase("MACARIO", email, pwd);
+		MongoClient conexion=MongoBroker.get().getDatabase("OCA", email, pwd);
 		
 		BsonDocument criterio=new BsonDocument();
 		criterio.append("email", new BsonString(email));
 		MongoCollection<BsonDocument> usuarios=
-				conexion.getDatabase("MACARIO").getCollection("usuarios", BsonDocument.class);
+				conexion.getDatabase("OCA").getCollection("usuarios", BsonDocument.class);
 		FindIterable<BsonDocument> resultado = usuarios.find(criterio);
 		Usuario usuario=null;
 		if (resultado.first()!=null) {

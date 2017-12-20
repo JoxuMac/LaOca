@@ -22,12 +22,3 @@
 	}
 	out.println(respuesta.toString());
 %>
-
-
-
-
-
-
-
-
-

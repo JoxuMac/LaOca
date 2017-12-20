@@ -21,8 +21,8 @@ public class Manager {
 	
 	public Usuario crearPartida(String nombreJugador, int numeroDeJugadores) throws Exception {
 		/////////////
-	MongoBroker mg = new MongoBroker();
-	mg.CREARPRUEBA();
+	//MongoBroker mg = new MongoBroker();
+	//mg.CREARPRUEBA();
 		/////////////////
 	
 	

@@ -20,7 +20,7 @@
 		
 		
 		
-		<form action="solicitarCambioDePassword.jsp" method="POST">
+		<form action="subirFoto.jsp" method="POST" enctype="multipart/form-data">
 			<input type="file" placeholder="Selecciona tu foto" name="foto" accept="image/x-png, image/gif, image/jpeg">
 			<button type="submit">Subir la Foto</button>
 		</form>
