@@ -17,9 +17,12 @@ public class MongoBroker {
 	
 	private ConcurrentLinkedQueue<MongoClient> usadas, libres;
 	private MongoClient conexionPrivilegiada;
-	
+	private String server = "localhost";
+	private int puerto = 27017;
+	private String db = "OCA";
+			
 	public MongoBroker() {
-		MongoClient mongo = new MongoClient("localhost", 27017);
+		MongoClient mongo = new MongoClient(server, puerto);
 		conexionPrivilegiada = mongo;
 		
 		this.usadas=new ConcurrentLinkedQueue<>();
@@ -50,7 +53,7 @@ public class MongoBroker {
 	public Usuario loginUsuario(String email, String pwd) {
 		BsonDocument criterio=new BsonDocument();
 		criterio.append("email", new BsonString(email));
-		MongoCollection<BsonDocument> usuarios= MongoBroker.get().getDatabase("OCA").getCollection("usuarios", BsonDocument.class);
+		MongoCollection<BsonDocument> usuarios= MongoBroker.get().getDatabase(db).getCollection("usuarios", BsonDocument.class);
 		FindIterable<BsonDocument> resultado = usuarios.find(criterio);
 		Usuario usuario=null;
 		if (resultado.first()!=null) {
@@ -62,15 +65,18 @@ public class MongoBroker {
 	
 	/* REGISTRAR */
 	public void registrarUsuario(Usuario usuario, String pwd) throws Exception{
-		if(existeUsuario(usuario.geteMail()))
+		
+		if(existeUsuario(usuario))
 			throw new Exception ("ESTAS REGISTRADO");
 		
 		BsonDocument bUsuario=new BsonDocument();
 		bUsuario.append("email", new BsonString(usuario.geteMail()));
+		bUsuario.put("pwd", new BsonString(pwd));
+		bUsuario.put("user", new BsonString(usuario.getNombre()));
 		
 		MongoClient conexion=MongoBroker.get().getConexionPrivilegiada();
 		MongoCollection<BsonDocument> usuarios = 
-				conexion.getDatabase("OCA").getCollection("usuarios", BsonDocument.class);
+				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
 		try {
 			usuarios.insertOne(bUsuario);
 		}
@@ -81,22 +87,35 @@ public class MongoBroker {
 		}
 	}
 	
-	public boolean existeUsuario (String nombreJugador) {
+	public boolean existeUsuario (Usuario usuario) {
+        
 		MongoBroker broker=MongoBroker.get();
-		BsonDocument criterio=new BsonDocument();
-		criterio.append("email", new BsonString(nombreJugador));
+
+        BsonDocument criterio=new BsonDocument();
+        criterio.append("email", new BsonString(usuario.geteMail()));
+        
+        MongoClient conexion=broker.getConexionPrivilegiada();
+        MongoDatabase db=conexion.getDatabase("OCA");
+        MongoCollection<BsonDocument> usuarios = db.getCollection("usuarios", BsonDocument.class);
+        BsonDocument usuario1=usuarios.find(criterio).first();
+        return usuario1!=null;
+/*
 		
-		MongoClient conexion=broker.getConexionPrivilegiada();
-		MongoDatabase db=conexion.getDatabase("OCA");
-		MongoCollection<BsonDocument> usuarios = db.getCollection("usuarios", BsonDocument.class);
-		BsonDocument usuario=usuarios.find(criterio).first();
-		return usuario!=null;
+		
+		BsonDocument criterio=new BsonDocument();
+		criterio.append("email", new BsonString(usuario.geteMail()));
+		MongoCollection<BsonDocument> usuarios= MongoBroker.get().getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		FindIterable<BsonDocument> resultado = usuarios.find(criterio);
+		if (resultado.first()!=null) {
+			return true;
+		}
+		return false;*/
 	}
 	
 	public void CREARPRUEBA() {
 		
 		MongoBroker broker=MongoBroker.get();
-		MongoDatabase db = broker.conexionPrivilegiada.getDatabase("OCA");
+		MongoDatabase db = broker.conexionPrivilegiada.getDatabase(this.db);
 		
 		if (db.getCollection("usuarios")==null)
 			db.createCollection("usuarios");

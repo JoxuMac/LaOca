@@ -85,7 +85,7 @@ public class Manager {
 		usuario.seteMail(email);
 		usuario.setNombre(user);
 		usuario.insert(pwd);
-		DAOUsuario.insert(usuario, pwd);
+		//DAOUsuario.insert(usuario, pwd);
 	}
 	
 	public Usuario login(String email, String pwd) throws Exception {

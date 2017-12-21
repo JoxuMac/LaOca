@@ -10,9 +10,9 @@ import edu.uclm.esi.tysweb.laoca.mongodb.MongoBroker;
 
 public class DAOUsuario {
 
-	public static boolean existe(String nombreJugador) throws Exception {
-		return MongoBroker.get().existeUsuario(nombreJugador);
-	}
+	//public static boolean existe(String nombreJugador) throws Exception {
+		//return MongoBroker.get().existeUsuario(nombreJugador);
+	//}
 	
 	public static void insert(Usuario usuario, String pwd) throws Exception {
 		MongoBroker.get().registrarUsuario(usuario, pwd);

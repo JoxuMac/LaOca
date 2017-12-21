@@ -7,7 +7,7 @@
 	JSONObject respuesta=new JSONObject();
 	try {
 		String email=request.getParameter("email");
-		String usuario=request.getParameter("usuario");
+		String usuario=request.getParameter("nombre");
 		String pwd1=request.getParameter("pwd1");
 		String pwd2=request.getParameter("pwd2");
 		
