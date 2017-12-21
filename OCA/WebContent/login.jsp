@@ -4,15 +4,15 @@
     pageEncoding="UTF-8"%>
 
 <%
-	String p=request.getParameter("p");
-	JSONObject jso=new JSONObject(p);
-	
 	JSONObject respuesta=new JSONObject();
 	try {
-		String email=jso.optString("email");
-		String pwd=jso.optString("pwd");
+		String email=request.getParameter("nombre");
+		String pwd=request.getParameter("pass");
 		
-		Usuario usuario=Manager.get().login(email, pwd);
+		Usuario usuario = Manager.get().login(email, pwd);
+		if(usuario == null)
+			throw new Exception();
+		
 		session.setAttribute("usuario", usuario);
 		respuesta.put("result", "OK");
 	}
@@ -20,5 +20,6 @@
 		respuesta.put("result", "ERROR");
 		respuesta.put("mensaje", e.getMessage());
 	}
+	
 	out.println(respuesta.toString());
 %>

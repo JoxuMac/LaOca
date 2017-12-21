@@ -2,22 +2,16 @@ package edu.uclm.esi.tysweb.laoca.dao;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
-import org.bson.BsonArray;
 import org.bson.BsonDocument;
 import org.bson.BsonString;
-import org.bson.BsonValue;
-import org.bson.conversions.Bson;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoWriteException;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
-import edu.uclm.esi.tysweb.laoca.dominio.UsuarioRegistrado;
 import edu.uclm.esi.tysweb.laoca.mongodb.MongoBroker;
 
 public class DAOUsuario {
@@ -79,20 +73,7 @@ public class DAOUsuario {
 	}
 
 	public static Usuario login(String email, String pwd) throws Exception {
-		MongoClient conexion=MongoBroker.get().getDatabase("OCA", email, pwd);
-		
-		BsonDocument criterio=new BsonDocument();
-		criterio.append("email", new BsonString(email));
-		MongoCollection<BsonDocument> usuarios=
-				conexion.getDatabase("OCA").getCollection("usuarios", BsonDocument.class);
-		FindIterable<BsonDocument> resultado = usuarios.find(criterio);
-		Usuario usuario=null;
-		if (resultado.first()!=null) {
-			usuario=new UsuarioRegistrado();
-			usuario.setNombre(email);
-		} 
-		conexion.close();
-		return usuario;
+		return MongoBroker.get().loginUsuario(email, pwd);
 	}
 
 }

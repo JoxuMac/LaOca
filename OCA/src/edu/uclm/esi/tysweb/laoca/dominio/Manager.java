@@ -5,7 +5,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.json.JSONObject;
 
-import edu.uclm.esi.tysweb.laoca.mongodb.MongoBroker;
+//import edu.uclm.esi.tysweb.laoca.mongodb.MongoBroker;
+import edu.uclm.esi.tysweb.laoca.dao.DAOUsuario;
 
 public class Manager {
 	private ConcurrentHashMap<String, Usuario> usuarios;
@@ -80,13 +81,13 @@ public class Manager {
 	}
 	
 	public void registrar(String email, String pwd) throws Exception {
-		Usuario usuario=new UsuarioRegistrado();
+		Usuario usuario=new Usuario();
 		usuario.setNombre(email);
 		usuario.insert(pwd);
 	}
 	
 	public Usuario login(String email, String pwd) throws Exception {
-		return UsuarioRegistrado.login(email, pwd);
+		return DAOUsuario.login(email, pwd);
 	}
 
 	public JSONObject tirarDado(int idPartida, String jugador, int dado) throws Exception {
