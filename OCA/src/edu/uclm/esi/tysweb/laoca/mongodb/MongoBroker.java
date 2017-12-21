@@ -6,6 +6,7 @@ import org.bson.BsonDocument;
 import org.bson.BsonString;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoWriteException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -40,18 +41,12 @@ public class MongoBroker {
 	public void close() {
 		this.conexionPrivilegiada.close();
 	}
-/*
-	public MongoClient getDatabase(String databaseName, String email, String pwd) throws Exception {
-		MongoCredential credenciales=MongoCredential.createCredential(email, databaseName, pwd.toCharArray());
-		ServerAddress address=new ServerAddress("localhost");
-		List<MongoCredential> lista=Arrays.asList(credenciales);
-		return new MongoClient(address, lista);
-	}*/
-	
+
 	public MongoClient getConexionPrivilegiada() {
 		return this.conexionPrivilegiada;
 	}
 	
+	/* LOGIN */
 	public Usuario loginUsuario(String email, String pwd) {
 		BsonDocument criterio=new BsonDocument();
 		criterio.append("email", new BsonString(email));
@@ -63,6 +58,39 @@ public class MongoBroker {
 			usuario.setNombre(email);
 		}
 		return usuario;
+	}
+	
+	/* REGISTRAR */
+	public void registrarUsuario(Usuario usuario, String pwd) throws Exception{
+		if(existeUsuario(usuario.geteMail()))
+			throw new Exception ("ESTAS REGISTRADO");
+		
+		BsonDocument bUsuario=new BsonDocument();
+		bUsuario.append("email", new BsonString(usuario.geteMail()));
+		
+		MongoClient conexion=MongoBroker.get().getConexionPrivilegiada();
+		MongoCollection<BsonDocument> usuarios = 
+				conexion.getDatabase("OCA").getCollection("usuarios", BsonDocument.class);
+		try {
+			usuarios.insertOne(bUsuario);
+		}
+		catch (MongoWriteException e) {
+			if (e.getCode()==11000)
+				throw new Exception("¿No estarás ya registrado, chaval/chavala?");
+			throw new Exception("Ha pasado algo muy malorrr");
+		}
+	}
+	
+	public boolean existeUsuario (String nombreJugador) {
+		MongoBroker broker=MongoBroker.get();
+		BsonDocument criterio=new BsonDocument();
+		criterio.append("email", new BsonString(nombreJugador));
+		
+		MongoClient conexion=broker.getConexionPrivilegiada();
+		MongoDatabase db=conexion.getDatabase("OCA");
+		MongoCollection<BsonDocument> usuarios = db.getCollection("usuarios", BsonDocument.class);
+		BsonDocument usuario=usuarios.find(criterio).first();
+		return usuario!=null;
 	}
 	
 	public void CREARPRUEBA() {

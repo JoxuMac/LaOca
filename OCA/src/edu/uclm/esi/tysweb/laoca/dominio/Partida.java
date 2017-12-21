@@ -44,9 +44,9 @@ public class Partida {
 		jso.put("idPartida", this.id);
 		JSONArray jsa=new JSONArray();
 		this.jugadorConElTurno=(new Random()).nextInt(this.jugadores.size());
-		jso.put("jugadorConElTurno", getJugadorConElTurno().getLogin());
+		jso.put("jugadorConElTurno", getJugadorConElTurno().geteMail());
 		for (Usuario jugador : jugadores) 
-			jsa.put(jugador.getLogin());
+			jsa.put(jugador.geteMail());
 		jso.put("jugadores", jsa);
 		
 		broadcast(jso);
@@ -78,26 +78,26 @@ public class Partida {
 			this.tablero.moverAJugador(jugador, siguiente);
 			if (siguiente.getPos()==62) { // Llegada
 				this.ganador=jugador;
-				result.put("ganador", this.ganador.getLogin());
+				result.put("ganador", this.ganador.geteMail());
 			}
 		}
 		if (destino.getPos()==57) { // Muerte
 			jugador.setPartida(null);
-			result.put("mensaje", jugador.getLogin() + " cae en la muerte");
+			result.put("mensaje", jugador.geteMail() + " cae en la muerte");
 			this.jugadores.remove(jugador);
 			this.jugadorConElTurno--;
 			if (this.jugadores.size()==1) {
 				this.ganador=this.jugadores.get(0);
-				result.put("ganador", this.ganador.getLogin());
+				result.put("ganador", this.ganador.geteMail());
 			}
 		}
 		if (destino.getPos()==62) { // Llegada
 			this.ganador=jugador;
-			result.put("ganador", this.ganador.getLogin());
+			result.put("ganador", this.ganador.geteMail());
 		}
 		int turnosSinTirar=destino.getTurnosSinTirar();
 		if (turnosSinTirar>0) {
-			result.put("mensajeAdicional", jugador.getLogin() + " está " + turnosSinTirar + " turnos sin tirar porque ha caído en ");
+			result.put("mensajeAdicional", jugador.geteMail() + " está " + turnosSinTirar + " turnos sin tirar porque ha caído en ");
 			jugador.setTurnosSinTirar(destino.getTurnosSinTirar());
 		}
 		result.put("jugadorConElTurno", pasarTurno(conservarTurno));
@@ -117,12 +117,12 @@ public class Partida {
 					pasado=true;
 			} while (!pasado);
 		}
-		return getJugadorConElTurno().getLogin();
+		return getJugadorConElTurno().geteMail();
 	}
 
 	private Usuario findJugador(String nombreJugador) {
 		for (Usuario jugador : jugadores)
-			if (jugador.getLogin().equals(nombreJugador))
+			if (jugador.geteMail().equals(nombreJugador))
 				return jugador;
 		return null;
 	}

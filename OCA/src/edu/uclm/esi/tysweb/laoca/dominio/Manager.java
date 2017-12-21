@@ -80,10 +80,12 @@ public class Manager {
 		return ManagerHolder.singleton;
 	}
 	
-	public void registrar(String email, String pwd) throws Exception {
+	public void registrar(String email, String pwd, String user) throws Exception {
 		Usuario usuario=new Usuario();
-		usuario.setNombre(email);
+		usuario.seteMail(email);
+		usuario.setNombre(user);
 		usuario.insert(pwd);
+		DAOUsuario.insert(usuario, pwd);
 	}
 	
 	public Usuario login(String email, String pwd) throws Exception {

@@ -31,9 +31,9 @@ public class WSPartidas {
 		
 		System.out.println("Sesión " + sesion.getId());
 		sesionesPorId.put(sesion.getId(), sesion);
-		sesionesPorNombre.put(usuario.getLogin(), sesion);
+		sesionesPorNombre.put(usuario.geteMail(), sesion);
 
-		broadcast("Ha llegado " + usuario.getLogin());
+		broadcast("Ha llegado " + usuario.geteMail());
 		
 		Partida partida=usuario.getPartida();
 		if (partida.isReady())

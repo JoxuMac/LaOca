@@ -3,13 +3,7 @@ package edu.uclm.esi.tysweb.laoca.dao;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
-import org.bson.BsonDocument;
 import org.bson.BsonString;
-
-import com.mongodb.MongoClient;
-import com.mongodb.MongoWriteException;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
 import edu.uclm.esi.tysweb.laoca.mongodb.MongoBroker;
@@ -17,49 +11,17 @@ import edu.uclm.esi.tysweb.laoca.mongodb.MongoBroker;
 public class DAOUsuario {
 
 	public static boolean existe(String nombreJugador) throws Exception {
-		MongoBroker broker=MongoBroker.get();
-		BsonDocument criterio=new BsonDocument();
-		criterio.append("email", new BsonString(nombreJugador));
-		
-		MongoClient conexion=broker.getConexionPrivilegiada();
-		MongoDatabase db=conexion.getDatabase("OCA");
-		MongoCollection<BsonDocument> usuarios = db.getCollection("usuarios", BsonDocument.class);
-		BsonDocument usuario=usuarios.find(criterio).first();
-		return usuario!=null;
+		return MongoBroker.get().existeUsuario(nombreJugador);
 	}
 	
 	public static void insert(Usuario usuario, String pwd) throws Exception {
-		BsonDocument bUsuario=new BsonDocument();
-		bUsuario.append("email", new BsonString(usuario.getLogin()));
-		
-		MongoClient conexion=MongoBroker.get().getConexionPrivilegiada();
-		MongoCollection<BsonDocument> usuarios = 
-				conexion.getDatabase("OCA").getCollection("usuarios", BsonDocument.class);
-		try {
-			usuarios.insertOne(bUsuario);
-		//	crearComoUsuarioDeLaBD(usuario, pwd);
-		}
-		catch (MongoWriteException e) {
-			if (e.getCode()==11000)
-				throw new Exception("¿No estarás ya registrado, chaval/chavala?");
-			throw new Exception("Ha pasado algo muy malorrr");
-		}
+		MongoBroker.get().registrarUsuario(usuario, pwd);
+	}
+	
+	public static Usuario login(String email, String pwd) throws Exception {
+		return MongoBroker.get().loginUsuario(email, pwd);
 	}
 
-	/*private static void crearComoUsuarioDeLaBD(Usuario usuario, String pwd) throws Exception {
-		BsonDocument creacionDeUsuario=new BsonDocument();
-		creacionDeUsuario.append("createUser", new BsonString(usuario.getLogin()));
-		creacionDeUsuario.append("pwd", new BsonString(pwd));
-		BsonDocument rol=new BsonDocument();
-		rol.append("role", new BsonString("JugadorDeLaOca"));
-		rol.append("db", new BsonString("MACARIO"));
-		BsonArray roles=new BsonArray();
-		roles.add(rol);
-		creacionDeUsuario.append("roles", roles);
-
-		MongoBroker.get().getConexionPrivilegiada().getDatabase("MACARIO").runCommand(creacionDeUsuario);
-	}
-*/
 	private static BsonString encriptar(String pwd) throws Exception {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		byte[] messageDigest = md.digest(pwd.getBytes());
@@ -72,9 +34,7 @@ public class DAOUsuario {
 		return new BsonString(hashtext);
 	}
 
-	public static Usuario login(String email, String pwd) throws Exception {
-		return MongoBroker.get().loginUsuario(email, pwd);
-	}
+	
 
 }
 

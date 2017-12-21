@@ -12,7 +12,7 @@
 	String email = request.getParameter("email");
 	if(email==null){
 	%>
-		<form action="solicitarCambioDePassword.jsp" method="GET">
+		<form action="servers/solicitarCambioDePassword.jsp" method="GET">
 			<input type="text" placeholder="Correo electronico" name="email"><br>
 			<button type="submit">Enviame un correo</button>
 		</form>
@@ -20,7 +20,7 @@
 		
 		
 		
-		<form action="subirFoto.jsp" method="POST" enctype="multipart/form-data">
+		<form action="servers/subirFoto.jsp" method="POST" enctype="multipart/form-data">
 			<input type="file" placeholder="Selecciona tu foto" name="foto" accept="image/x-png, image/gif, image/jpeg">
 			<button type="submit">Subir la Foto</button>
 		</form>

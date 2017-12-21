@@ -9,7 +9,8 @@ import org.json.JSONObject;
 import edu.uclm.esi.tysweb.laoca.dao.DAOUsuario;
 
 public class Usuario {
-	protected String login;
+	protected String email;
+	protected String nombre;
 	protected Partida partida;
 	private Session session;
 	private Casilla casilla;
@@ -18,14 +19,18 @@ public class Usuario {
 	public Usuario(String nombreJugador) throws Exception {
 		//if (!DAOUsuario.existe(nombreJugador))
 		//	throw new Exception("Usuario no registrado");
-		this.login=nombreJugador;
+		this.email=nombreJugador;
 	}
 
 	public Usuario() {
 	}
 
-	public String getLogin() {
-		return this.login;
+	public String geteMail() {
+		return this.email;
+	}
+	
+	public String getNombre() {
+		return this.nombre;
 	}
 
 	public void setPartida(Partida partida) {
@@ -47,8 +52,12 @@ public class Usuario {
 		
 	}
 
-	public void setNombre(String email) {
-		this.login=email;
+	public void seteMail(String email) {
+		this.email=email;
+	}
+	
+	public void setNombre(String user) {
+		this.nombre=user;
 	}
 
 	public void insert(String pwd) throws Exception {
@@ -77,6 +86,6 @@ public class Usuario {
 	
 	@Override
 	public String toString() {
-		return this.login + " jugando en " + (this.partida!=null ? this.partida.getId() : "ninguna ") + ", " + this.casilla.getPos() + ", turnos: " + this.turnosSinTirar;
+		return this.nombre + " jugando en " + (this.partida!=null ? this.partida.getId() : "ninguna ") + ", " + this.casilla.getPos() + ", turnos: " + this.turnosSinTirar;
 	}
 }
