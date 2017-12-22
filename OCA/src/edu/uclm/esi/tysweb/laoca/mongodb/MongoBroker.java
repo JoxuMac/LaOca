@@ -3,6 +3,7 @@ package edu.uclm.esi.tysweb.laoca.mongodb;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.bson.BsonDocument;
+import org.bson.BsonInt32;
 import org.bson.BsonString;
 
 import com.mongodb.MongoClient;
@@ -73,6 +74,7 @@ public class MongoBroker {
 		bUsuario.append("email", new BsonString(usuario.geteMail()));
 		bUsuario.put("pwd", new BsonString(pwd));
 		bUsuario.put("user", new BsonString(usuario.getNombre()));
+		bUsuario.put("score", new BsonInt32(usuario.getScore()));
 		
 		MongoClient conexion=MongoBroker.get().getConexionPrivilegiada();
 		MongoCollection<BsonDocument> usuarios = 

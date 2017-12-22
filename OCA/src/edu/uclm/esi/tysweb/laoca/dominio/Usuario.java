@@ -12,6 +12,7 @@ public class Usuario {
 	protected String email;
 	protected String nombre;
 	protected Partida partida;
+	protected int score;
 	private Session session;
 	private Casilla casilla;
 	private int turnosSinTirar;
@@ -87,5 +88,13 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return this.nombre + " jugando en " + (this.partida!=null ? this.partida.getId() : "ninguna ") + ", " + this.casilla.getPos() + ", turnos: " + this.turnosSinTirar;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public int getScore() {
+		return this.score;
 	}
 }

@@ -84,6 +84,7 @@ public class Manager {
 		Usuario usuario=new Usuario();
 		usuario.seteMail(email);
 		usuario.setNombre(user);
+		usuario.setScore(0);
 		usuario.insert(pwd);
 		//DAOUsuario.insert(usuario, pwd);
 	}
