@@ -21,7 +21,7 @@
     DiskFileItemFactory factory = new DiskFileItemFactory();
     factory.setSizeThreshold(MAX_MEMORY_SIZE);
     factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
-    String uploadFolder = getServletContext().getRealPath("/") + "fotos";  // Directorio en el que queremos dejar la foto. Ojo: 
+    String uploadFolder = getServletContext().getRealPath("/") + "profile";  // Directorio en el que queremos dejar la foto. Ojo: 
 	new File(uploadFolder).mkdir();
     	
     ServletFileUpload upload = new ServletFileUpload(factory);
