@@ -1,3 +1,24 @@
+function login() {
+	var request = new XMLHttpRequest();	
+	request.open("post", "../servers/login.jsp");
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.onreadystatechange=function() {
+		if (request.readyState==4) {
+			var respuesta=JSON.parse(request.responseText);
+			if (respuesta.result=="OK")
+				//divRegistro.style="display:none";
+				response.sendRedirect("../dashboard.html");
+			else
+				alert("ee");
+				//mensajeRegistro.innerHTML=respuesta.mensaje;
+		}
+	};
+	//var p = {
+	//	email : email.value, pwd1 : pwd1.value, pwd2 : pwd2.value 
+	//};
+	//request.send("p=" + JSON.stringify(p));	
+}
+
 function registrar() {
 	var request = new XMLHttpRequest();	
 	request.open("post", "registrar.jsp");

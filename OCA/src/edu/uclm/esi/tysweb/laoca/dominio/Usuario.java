@@ -13,6 +13,7 @@ public class Usuario {
 	protected String nombre;
 	protected Partida partida;
 	protected int score;
+	protected String photo;
 	private Session session;
 	private Casilla casilla;
 	private int turnosSinTirar;
@@ -43,6 +44,10 @@ public class Usuario {
 	public Partida getPartida() {
 		return partida;
 	}
+	
+	public String getPhoto() {
+		return photo;
+	}
 
 	public void setWSSession(Session sesion) {
 		this.session=sesion;
@@ -61,6 +66,10 @@ public class Usuario {
 		this.nombre=user;
 	}
 
+	public void setPhoto(String photo) {
+		this.photo=photo;
+	}
+	
 	public void insert(String pwd) throws Exception {
 		DAOUsuario.insert(this, pwd);
 	}

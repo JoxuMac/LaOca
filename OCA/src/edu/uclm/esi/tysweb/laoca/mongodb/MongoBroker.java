@@ -1,5 +1,7 @@
 package edu.uclm.esi.tysweb.laoca.mongodb;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.bson.BsonDocument;
@@ -7,7 +9,9 @@ import org.bson.BsonInt32;
 import org.bson.BsonString;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
 import com.mongodb.MongoWriteException;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -20,7 +24,7 @@ public class MongoBroker {
 	private MongoClient conexionPrivilegiada;
 	private String server = "localhost";
 	private int puerto = 27017;
-	private String db = "OCA";
+	private static String db = "OCA";
 			
 	public MongoBroker() {
 		MongoClient mongo = new MongoClient(server, puerto);
@@ -47,19 +51,36 @@ public class MongoBroker {
 	}
 
 	public MongoClient getConexionPrivilegiada() {
-		return this.conexionPrivilegiada;
+		MongoCredential credenciales = MongoCredential.createCredential("root", MongoBroker.db, "root".toCharArray());
+        ServerAddress address = new ServerAddress("localhost");
+        List<MongoCredential> lista = Arrays.asList(credenciales);
+        return new MongoClient(address, lista);
+		
+		//	return this.conexionPrivilegiada;
 	}
 	
 	/* LOGIN */
 	public Usuario loginUsuario(String email, String pwd) {
-		BsonDocument criterio=new BsonDocument();
-		criterio.append("email", new BsonString(email));
-		MongoCollection<BsonDocument> usuarios= MongoBroker.get().getDatabase(db).getCollection("usuarios", BsonDocument.class);
-		FindIterable<BsonDocument> resultado = usuarios.find(criterio);
+		BsonDocument criterio1=new BsonDocument();
+		criterio1.append("email", new BsonString(email));
+		criterio1.append("pwd", new BsonString(pwd));
+		
+		BsonDocument criterio2=new BsonDocument();
+		criterio2.append("user", new BsonString(email));
+		criterio2.append("pwd", new BsonString(pwd));
+		
+		MongoCollection<BsonDocument> usuarios= MongoBroker.get().getConexionPrivilegiada().getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		FindIterable<BsonDocument> resultado = usuarios.find(criterio1);
 		Usuario usuario=null;
 		if (resultado.first()!=null) {
 			usuario=new Usuario();
 			usuario.setNombre(email);
+		}else {
+			resultado = usuarios.find(criterio2);
+			if (resultado.first()!=null) {
+				usuario=new Usuario();
+				usuario.setNombre(email);
+			}
 		}
 		return usuario;
 	}
@@ -75,6 +96,7 @@ public class MongoBroker {
 		bUsuario.put("pwd", new BsonString(pwd));
 		bUsuario.put("user", new BsonString(usuario.getNombre()));
 		bUsuario.put("score", new BsonInt32(usuario.getScore()));
+		bUsuario.put("photo", new BsonString(usuario.getPhoto()));
 		
 		MongoClient conexion=MongoBroker.get().getConexionPrivilegiada();
 		MongoCollection<BsonDocument> usuarios = 

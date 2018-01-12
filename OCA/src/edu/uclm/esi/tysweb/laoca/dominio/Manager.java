@@ -85,6 +85,7 @@ public class Manager {
 		usuario.seteMail(email);
 		usuario.setNombre(user);
 		usuario.setScore(0);
+		usuario.setPhoto("profile/default.png");
 		usuario.insert(pwd);
 		//DAOUsuario.insert(usuario, pwd);
 	}

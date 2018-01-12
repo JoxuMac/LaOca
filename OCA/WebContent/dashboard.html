@@ -41,6 +41,19 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+		
+		<script>
+			function showElement(element) {
+				document.getElementById('crear').style.display = 'none'
+				document.getElementById('ranking').style.display = 'none'
+				document.getElementById('buscarTodo').style.display = 'none'
+				document.getElementById('buscarID').style.display = 'none'
+				document.getElementById('ajustes').style.display = 'none'
+				document.getElementById('perfil').style.display = 'none'
+				
+				document.getElementById(element).style.display = 'block'
+			}
+		</script>
 	</head>
 
 	<body class="no-skin">
@@ -48,11 +61,8 @@
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
-
 					<span class="icon-bar"></span>
-
 					<span class="icon-bar"></span>
-
 					<span class="icon-bar"></span>
 				</button>
 
@@ -60,7 +70,7 @@
 					<a href="index.html" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
-							El maravilloso juego de la oca
+							El maravilloso juego de la OCA
 						</small>
 					</a>
 				</div>
@@ -72,33 +82,33 @@
 								<img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Bienvenido,</small>
-									PACO
+									<div id="nombre" >PACO</div>
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
 							</a>
 
 							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li>
+								<li onclick="showElement('ajustes')">
 									<a href="#">
 										<i class="ace-icon fa fa-cog"></i>
-										Opciones
+										Ajustes
 									</a>
 								</li>
 
-								<li>
-									<a href="profile.html">
+								<li onclick="showElement('perfil')">
+									<a href="#">
 										<i class="ace-icon fa fa-user"></i>
 										Perfil
 									</a>
 								</li>
-
+								
 								<li class="divider"></li>
-
+								
 								<li>
 									<a href="#">
 										<i class="ace-icon fa fa-power-off"></i>
-										Desconectar
+										Salir
 									</a>
 								</li>
 							</ul>
@@ -117,21 +127,19 @@
 				<script type="text/javascript">
 					try{ace.settings.loadState('sidebar')}catch(e){}
 				</script>
-
+				
+<!-- 
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
 						<button class="btn btn-success">
 							<i class="ace-icon fa fa-signal"></i>
 						</button>
-
 						<button class="btn btn-info">
 							<i class="ace-icon fa fa-pencil"></i>
 						</button>
-
 						<button class="btn btn-warning">
 							<i class="ace-icon fa fa-users"></i>
 						</button>
-
 						<button class="btn btn-danger">
 							<i class="ace-icon fa fa-cogs"></i>
 						</button>
@@ -139,42 +147,33 @@
 
 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 						<span class="btn btn-success"></span>
-
 						<span class="btn btn-info"></span>
-
 						<span class="btn btn-warning"></span>
-
 						<span class="btn btn-danger"></span>
 					</div>
 				</div><!-- /.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
-					<li class="active">
-						<a href="index.html">
+					<li class="active" onclick="showElement('crear')">
+						<a href="#">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Crear Partida </span>
 						</a>
-
 						<b class="arrow"></b>
 					</li>
 
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
+							<i class="menu-icon fa fa-search"></i>
 							<span class="menu-text">
 								Buscar partida
 							</span>
-
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
-
 						<b class="arrow"></b>
-
 						<ul class="submenu">
-							
-							
-							<li class="">
-								<a href="elements.html">
+							<li class="" onclick="showElement('buscarTodo')">
+								<a href="#">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Buscar todo
 								</a>
@@ -182,52 +181,40 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
-								<a href="buttons.html">
+							<li class="" onclick="showElement('buscarID')">
+								<a href="#">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Buscar por id
 								</a>
-
 								<b class="arrow"></b>
 							</li>
-
 						</ul>
 					</li>
 
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
+					<li class=""  onclick="showElement('ranking')" >
+						<a class="dropdown-toggle" href="#">
+							<i class="menu-icon fa fa-list-ol"></i>
 							<span class="menu-text"> Ranking </span>
-
-							
 						</a>
 						<b class="arrow"></b>
-						
 					</li>
 
-					<li class="">
+					<li class="" onclick="showElement('ajustes')">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-pencil-square-o"></i>
+							<i class="menu-icon fa fa-cog"></i>
 							<span class="menu-text"> Ajustes </span>
-
-							
 						</a>
-
 						<b class="arrow"></b>
-					
-					
 					</li>
 
-					<li class="">
-						<a href="widgets.html">
-							<i class="menu-icon fa fa-list-alt"></i>
+					<li class="" onclick="getCookie('usuario')">
+						<a href="#">
+							<i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text"> Salir </span>
 						</a>
-
 						<b class="arrow"></b>
 					</li>
 
-					
 				</ul><!-- /.nav-list -->
 
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -237,17 +224,86 @@
 
 			<div class="main-content">
 				<div class="main-content-inner">
+				
+					<div id="crear">
+						<div class="page-content">
+							<div class="page-header">
+								<h1>
+									Crear partida
+								</h1>
+							</div><!-- /.page-header -->
+						</div><!-- /.page-content -->
+					</div>
 					
-					<div class="page-content">
-						
-						<div class="page-header">
-							<h1>
-								Crear partida
-							</h1>
-						</div><!-- /.page-header -->
-
-						
-					</div><!-- /.page-content -->
+					<!-- RANKING -->
+					<div id="ranking" style="display:none">
+						<div class="page-content">
+							<div class="page-header">
+								<h1>
+									Ranking
+								</h1>
+							</div><!-- /.page-header -->
+							
+							<div>
+								<ul class="list-group">
+								  <li class="list-group-item">
+								    <span class="badge">1</span>
+								    Cras justo odio
+								  </li>
+								  <li class="list-group-item">
+								    <span class="badge">2</span>
+								    Cras justo odio
+								  </li>
+								  <li class="list-group-item">
+								    <span class="badge">3</span>
+								    Cras justo odio
+								  </li>
+								</ul>
+							</div>
+							
+						</div><!-- /.page-content -->
+					</div>
+					
+					<div id="buscarTodo" style="display:none">
+						<div class="page-content">
+							<div class="page-header">
+								<h1>
+									BUSCAR TODO
+								</h1>
+							</div><!-- /.page-header -->
+						</div><!-- /.page-content -->
+					</div>
+					
+					<div id="buscarID" style="display:none">
+						<div class="page-content">
+							<div class="page-header">
+								<h1>
+									BUSCAR POR ID
+								</h1>
+							</div><!-- /.page-header -->
+						</div><!-- /.page-content -->
+					</div>
+					
+					<div id="ajustes" style="display:none">
+						<div class="page-content">
+							<div class="page-header">
+								<h1>
+									AJUSTES
+								</h1>
+							</div><!-- /.page-header -->
+						</div><!-- /.page-content -->
+					</div>
+					
+					<div id="perfil" style="display:none">
+						<div class="page-content">
+							<div class="page-header">
+								<h1>
+									PERFIL
+								</h1>
+							</div><!-- /.page-header -->
+						</div><!-- /.page-content -->
+					</div>
+					
 				</div>
 			</div><!-- /.main-content -->
 
@@ -256,7 +312,7 @@
 					<div class="footer-content">
 						<span class="bigger-120">
 							<span class="blue bolder">La Oca</span>
-							Application &copy; 2017 - 2018
+							TySW &copy; 2017 - 2018
 						</span>
 
 						&nbsp; &nbsp;
@@ -521,5 +577,27 @@
 			
 			})
 		</script>
+		
+		<script> 
+			function getCookie(name){
+			    var pattern = RegExp(name + "=.[^;]*")
+			    matched = document.cookie.match(pattern)
+			    if(matched){
+			        var cookie = matched[0].split('=')
+			        return cookie[1]
+			    }
+			    return false
+			}
+		</script>
+
+		<script type="text/javascript">
+			if (localStorage.nombre!=undefined)
+				document.getElementById("nombre").innerHTML=localStorage.nombre;	
+			else{
+				localStorage.nombre = getCookie("usuario");
+				document.getElementById("nombre").innerHTML=localStorage.nombre;	
+			}	
+		</script>
+		
 	</body>
 </html>

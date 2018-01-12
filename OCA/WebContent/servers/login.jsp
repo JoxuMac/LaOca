@@ -13,10 +13,14 @@
 		if(usuario == null)
 			throw new Exception();
 		
-		session.setAttribute("usuario", usuario);
+	//	session.setAttribute("usuario", usuario);
+		javax.servlet.http.Cookie cookieUsuario = new javax.servlet.http.Cookie("usuario", usuario.getNombre());
+		response.addCookie(cookieUsuario) ;
+		response.sendRedirect("../dashboard.html");
 		respuesta.put("result", "OK");
 	}
 	catch (Exception e) {
+		response.sendRedirect("../login.html?err=1");
 		respuesta.put("result", "ERROR");
 		respuesta.put("mensaje", e.getMessage());
 	}
