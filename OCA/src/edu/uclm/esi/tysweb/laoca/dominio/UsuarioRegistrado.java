@@ -5,7 +5,7 @@
  */
 package edu.uclm.esi.tysweb.laoca.dominio;
 
-import edu.uclm.esi.tysweb.laoca.dao.DAOUsuario;
+import edu.uclm.esi.tysweb.laoca.persistencia.DAOUsuario;
 
 public class UsuarioRegistrado extends Usuario {
 
@@ -13,7 +13,7 @@ public class UsuarioRegistrado extends Usuario {
         super();
     }
 
-    Usuario login(String email, String pwd)throws Exception {
+    Usuario login1(String email, String pwd)throws Exception {
        return DAOUsuario.login(email,pwd);
     }
 

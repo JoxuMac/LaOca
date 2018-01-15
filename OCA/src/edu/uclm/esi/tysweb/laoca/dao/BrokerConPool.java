@@ -2,6 +2,8 @@ package edu.uclm.esi.tysweb.laoca.dao;
 
 import java.sql.Connection;
 
+import edu.uclm.esi.tysweb.laoca.persistencia.Pool;
+
 public class BrokerConPool extends AbstractBroker {
 	private Pool pool;
 	
@@ -18,10 +20,11 @@ public class BrokerConPool extends AbstractBroker {
 	}
 
 	public Connection getBD() throws Exception {
-		return this.pool.getBD();
+		//return this.pool.getBD();
+		return null;
 	}
 
 	public void close(Connection bd) {
-		this.pool.close(bd);
+		//this.pool.close(bd);
 	}
 }

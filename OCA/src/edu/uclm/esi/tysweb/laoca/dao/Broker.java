@@ -2,6 +2,8 @@ package edu.uclm.esi.tysweb.laoca.dao;
 
 import java.sql.Connection;
 
+import edu.uclm.esi.tysweb.laoca.persistencia.Pool;
+
 public class Broker {
 	private Pool pool;
 	
@@ -17,11 +19,11 @@ public class Broker {
 		return BrokerHolder.singleton;
 	}
 
-	public Connection getBD() throws Exception {
-		return this.pool.getBD();
-	}
+	//public Connection getBD() throws Exception {
+		//return this.pool.getBD();
+	//}
 
 	public void close(Connection bd) {
-		this.pool.close(bd);
+		//this.pool.close(bd);
 	}
 }

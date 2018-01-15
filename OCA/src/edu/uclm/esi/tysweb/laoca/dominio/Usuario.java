@@ -6,7 +6,7 @@ import javax.websocket.Session;
 
 import org.json.JSONObject;
 
-import edu.uclm.esi.tysweb.laoca.dao.DAOUsuario;
+import edu.uclm.esi.tysweb.laoca.persistencia.DAOUsuario;
 
 public class Usuario {
 	protected String email;
