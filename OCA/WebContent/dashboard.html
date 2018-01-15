@@ -79,10 +79,10 @@
 					<ul class="nav ace-nav">
 						<li class="light-blue dropdown-modal">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" id="photo" src="profile/default.png" />
 								<span class="user-info">
 									<small>Bienvenido,</small>
-									<div id="nombre" >PACO</div>
+									<div id="nombre" >¿?</div>
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -577,7 +577,7 @@
 			
 			})
 		</script>
-		
+	<!-- 	
 		<script> 
 			function getCookie(name){
 			    var pattern = RegExp(name + "=.[^;]*")
@@ -588,14 +588,15 @@
 			    }
 			    return false
 			}
-		</script>
+		</script>-->
 
 		<script type="text/javascript">
-			if (localStorage.nombre!=undefined)
-				document.getElementById("nombre").innerHTML=localStorage.nombre;	
+			if (sessionStorage.getItem("nombre")!=null){
+				document.getElementById("nombre").innerHTML=sessionStorage.getItem("nombre");	
+				document.getElementById("photo").src=sessionStorage.getItem("photo");
+			}
 			else{
-				localStorage.nombre = getCookie("usuario");
-				document.getElementById("nombre").innerHTML=localStorage.nombre;	
+				document.getElementById("nombre").innerHTML="¿-?";	
 			}	
 		</script>
 		
