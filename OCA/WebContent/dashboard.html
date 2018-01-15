@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<script type="text/javascript">
+			if (localStorage.getItem("nombre")==null)
+				location.href="index.html";
+		</script>
+	
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
 		<title>Dashboard - Ace Admin</title>
@@ -105,7 +110,7 @@
 								
 								<li class="divider"></li>
 								
-								<li>
+								<li onclick="cerrarSesion()">
 									<a href="#">
 										<i class="ace-icon fa fa-power-off"></i>
 										Salir
@@ -207,7 +212,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="" onclick="getCookie('usuario')">
+					<li class="" onclick="cerrarSesion()">
 						<a href="#">
 							<i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text"> Salir </span>
@@ -591,14 +596,14 @@
 		</script>-->
 
 		<script type="text/javascript">
-			if (sessionStorage.getItem("nombre")!=null){
-				document.getElementById("nombre").innerHTML=sessionStorage.getItem("nombre");	
-				document.getElementById("photo").src=sessionStorage.getItem("photo");
+			if (localStorage.getItem("nombre")!=null){
+				document.getElementById("nombre").innerHTML=localStorage.getItem("nombre");	
+				document.getElementById("photo").src=localStorage.getItem("photo");
 			}
 			else{
 				document.getElementById("nombre").innerHTML="¿-?";	
 			}	
 		</script>
-		
+		<script src="scripts/GestionCuentas.js"></script>
 	</body>
 </html>

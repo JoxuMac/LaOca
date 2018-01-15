@@ -18,8 +18,8 @@ function registrar() {
 	request.send("p=" + JSON.stringify(p));
 	sleep(1000);
 }
+
 function login(){
-   
     var request = new XMLHttpRequest();
     request.open("post","servers/login.jsp");
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -28,15 +28,13 @@ function login(){
             var respuesta = JSON.parse(request.responseText);
             if(respuesta.result ==="OK"){	
             	
-            	sessionStorage.nombre = respuesta.nombre;
-            	sessionStorage.email = respuesta.email;
-            	sessionStorage.photo = respuesta.photo;
+            	localStorage.nombre = respuesta.nombre;
+            	localStorage.email = respuesta.email;
+            	localStorage.photo = respuesta.photo;
             	
             	location.href="dashboard.html";
             }else{
             	location.href="login.html?err=1";
-                //mensajeRegistro.innerHTML = respuesta.mensaje;
-               // alert("Respuesta distinto a OK");
             }
         }
     };
@@ -61,6 +59,11 @@ function estaConectado() {
 		}
 	};
 	request.send();	
+}
+
+function cerrarSesion() {
+	localStorage.clear();
+	location.href="index.html";
 }
 
 function sleep(milliseconds) {
