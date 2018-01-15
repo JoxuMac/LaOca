@@ -21,6 +21,10 @@ public class DAOUsuario {
 	public static Usuario login(String email, String pwd) throws Exception {
 		return MongoBroker.get().loginUsuario(email, pwd);
 	}
+	
+	public static void changePass(String email, String pwd_old, String pwd1) throws Exception {
+		MongoBroker.get().changePassword(email, pwd_old, pwd1);
+	}
 
 	private static BsonString encriptar(String pwd) throws Exception {
 		MessageDigest md = MessageDigest.getInstance("MD5");

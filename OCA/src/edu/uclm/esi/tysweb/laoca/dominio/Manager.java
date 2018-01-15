@@ -93,6 +93,10 @@ public class Manager {
 	public Usuario login(String email, String pwd) throws Exception {
 		return DAOUsuario.login(email, pwd);
 	}
+	
+	public void changePass(String email, String pwd_old, String pwd1) throws Exception {
+		DAOUsuario.changePass(email, pwd_old, pwd1);
+	}
 
 	public JSONObject tirarDado(int idPartida, String jugador, int dado) throws Exception {
 		Partida partida=this.partidasEnJuego.get(idPartida);

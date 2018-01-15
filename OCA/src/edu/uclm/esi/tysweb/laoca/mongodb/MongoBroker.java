@@ -140,6 +140,43 @@ public class MongoBroker {
 		}
 	}
 	
+	/* CAMBIAR CLAVE */
+	public void changePassword(String email, String pwd_old, String pwd1) throws Exception{
+		
+		Usuario usuario = null;
+		try {
+			usuario = loginUsuario(email, pwd_old);
+		} catch(Exception e) {
+			throw new Exception("El Usuario no Existe");
+		}
+		
+		MongoClient conexion=MongoBroker.get().getConexionPrivilegiada();
+		MongoCollection<BsonDocument> usuarios = 
+				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		
+		BsonDocument bUsuario=new BsonDocument();
+		bUsuario.append("email", new BsonString(email));
+		
+		BsonDocument nPassword=new BsonDocument();
+		nPassword.append("email", new BsonString(usuario.geteMail()));
+		nPassword.put("pwd", new BsonString(pwd1));
+		nPassword.put("user", new BsonString(usuario.getNombre()));
+		nPassword.put("score", new BsonInt32(usuario.getScore()));
+		nPassword.put("photo", new BsonString(usuario.getPhoto()));
+		
+		try {
+			usuarios.findOneAndReplace(bUsuario, nPassword);
+		}
+		catch (MongoWriteException e) {
+			if (e.getCode()==11000)
+				throw new Exception("¿No estarás ya registrado, chaval/chavala?");
+			throw new Exception("Ha pasado algo muy malorrr");
+		}
+		finally {
+			MongoBroker.get().close(conexion);
+		}
+	}
+	
 	public boolean existeUsuario (Usuario usuario) {
         
 		MongoBroker broker=MongoBroker.get();

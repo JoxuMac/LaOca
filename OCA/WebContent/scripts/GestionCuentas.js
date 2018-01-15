@@ -46,6 +46,30 @@ function login(){
 
 }
 
+function actualizarPassword(){
+	if(pass1.value==pass2.value){
+	var request = new XMLHttpRequest();
+    request.open("post","servers/actualizarPassword.jsp");
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = function (){
+        if(request.readyState === 4){
+            var respuesta = JSON.parse(request.responseText);
+            if(respuesta.result ==="OK"){	
+            	location.href="dashboard.html?err=0";
+            }else
+            	location.href="dashboard.html?err=2";
+        }
+    };
+    var p = {
+            email:localStorage.email, pwd_old:pass_old.value, pwd1:pass1.value
+    };
+    request.send("p="+JSON.stringify(p));
+    sleep(1000);
+	}
+	else
+		location.href="dashboard.html?err=1";
+}
+
 function estaConectado() {
 	var request = new XMLHttpRequest();	
 	request.open("get", "../estaConectado.jsp");

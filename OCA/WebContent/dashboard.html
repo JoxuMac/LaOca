@@ -5,13 +5,31 @@
 			if (localStorage.getItem("nombre")==null)
 				location.href="index.html";
 		</script>
+		
+		<script>
+		function $_GET(param) {
+			var vars = {};
+			window.location.href.replace( location.hash, '' ).replace( 
+				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+				function( m, key, value ) { // callback
+					vars[key] = value !== undefined ? value : '';
+				}
+			);
+	
+			if ( param ) {
+				return vars[param] ? vars[param] : null;	
+			}
+			return vars;
+		}
+	</script>
 	
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>Dashboard - Ace Admin</title>
+		<title>LA OCA | Dashboard</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="shortcut icon" href="./images/favicon.ico" />
 
 		<!-- bootstrap & fontawesome -->
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -55,7 +73,8 @@
 				document.getElementById('buscarID').style.display = 'none'
 				document.getElementById('ajustes').style.display = 'none'
 				document.getElementById('perfil').style.display = 'none'
-				
+				document.getElementById('password').style.display = 'none'
+				document.getElementById('foto').style.display = 'none'
 				document.getElementById(element).style.display = 'block'
 			}
 		</script>
@@ -74,8 +93,8 @@
 				<div class="navbar-header pull-left">
 					<a href="index.html" class="navbar-brand">
 						<small>
-							<i class="fa fa-leaf"></i>
-							El maravilloso juego de la OCA
+							<img style="width:20px" src="./images/favicon.ico" />
+							El Maravilloso Juego de la OCA
 						</small>
 					</a>
 				</div>
@@ -295,7 +314,87 @@
 								<h1>
 									AJUSTES
 								</h1>
+								
 							</div><!-- /.page-header -->
+							
+							<div class="row">
+								<div class="col-md-2">
+									<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="photoUpload" onclick = "showElement('foto')">Subir Fotografia</button>
+									<br>
+									<br>
+									<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="changePassword" onclick = "showElement('password')">Cambiar Password</button>
+								</div>
+								<div class="col-md-10">
+								</div>
+							</div>
+						</div><!-- /.page-content -->
+					</div>
+					
+					<div id="password" style="display:none">
+						<div class="page-content">
+							<div class="page-header">
+								<h1>
+									CAMBIAR PASSWORD
+								</h1>
+							</div><!-- /.page-header -->
+							
+							<div id="err0" class="alert alert-success" style="display:none">
+							  <strong>¡EXITO!</strong> La contraseña ha sido actualizada
+							</div>
+							
+							<div id="err1" class="alert alert-danger" style="display:none">
+							  <strong>¡ERROR!</strong> Las nuevas contraseñas no coinciden
+							</div>
+							
+							<div id="err2" class="alert alert-danger" style="display:none">
+							  <strong>¡ERROR!</strong> No se pudo actualizar la contraseña
+							</div>
+							
+							<div class="row">
+								<div class="col-md-3">
+									<input type="password" name="pass" class="form-control" placeholder="Password Antigua" id="pass_old" aria-describedby="sizing-addon1" required>
+									<br>
+									<br>
+									<input type="password" name="pass" class="form-control" placeholder="Password Nueva" id="pass1" aria-describedby="sizing-addon1" required>
+									<br>
+									<br>
+									<input type="password" name="pass" class="form-control" placeholder="Password Nueva" id="pass2" aria-describedby="sizing-addon1" required>
+									<br>
+									<br>
+									<div class="row">
+										<div class="col-md-6">
+											<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="changePassword" onclick = "actualizarPassword()">Aceptar</button>
+										</div>
+										<div class="col-md-6">
+											<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="changePassword" onclick = "showElement('ajustes')">Cancelar</button>							
+										</div>
+									</div>
+								</div>
+								<div class="col-md-9">
+								</div>
+							</div>
+						</div><!-- /.page-content -->
+					</div>
+					
+					<div id="foto" style="display:none">
+						<div class="page-content">
+							<div class="page-header">
+								<h1>
+									CAMBIAR FOTOGRAFIA
+								</h1>
+								
+							</div><!-- /.page-header -->
+							
+							<div class="row">
+								<div class="col-md-2">
+									<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="photoUpload" onclick = "location='./registro.html'">Subir Fotografia</button>
+									<br>
+									<br>
+									<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="changePassword" onclick = "location='./registro.html'">Cambiar Password</button>
+								</div>
+								<div class="col-md-10">
+								</div>
+							</div>
 						</div><!-- /.page-content -->
 					</div>
 					
@@ -605,5 +704,26 @@
 			}	
 		</script>
 		<script src="scripts/GestionCuentas.js"></script>
+		
+		<script>
+			if($_GET('err')==0){
+				showElement('password');
+				document.getElementById('err0').style.display = 'block' ;
+			}
+		</script>
+		
+		<script>
+			if($_GET('err')==1){
+				showElement('password');
+				document.getElementById('err1').style.display = 'block' ;
+			}
+		</script>
+		
+		<script>
+			if($_GET('err')==2){
+				showElement('password');
+				document.getElementById('err2').style.display = 'block' ;
+			}
+		</script>
 	</body>
 </html>
