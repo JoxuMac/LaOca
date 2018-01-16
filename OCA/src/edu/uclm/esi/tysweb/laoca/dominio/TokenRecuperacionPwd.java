@@ -19,8 +19,6 @@ public class TokenRecuperacionPwd {
 		result.put("caducidad", new BsonInt64(this.caducidad));
 		result.put("email", new BsonString(this.email));
 		
-		//result.put("foto", new BsonBinary(data))
-		
 		return result;
 		
 	}

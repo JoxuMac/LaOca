@@ -27,6 +27,23 @@ Eduardo Fuentes Garcia De Blas
 	<!-- Temas-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="./css/estilo.css">
+
+	<script>
+		function $_GET(param) {
+			var vars = {};
+			window.location.href.replace( location.hash, '' ).replace( 
+				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+				function( m, key, value ) { // callback
+					vars[key] = value !== undefined ? value : '';
+				}
+			);
+	
+			if ( param ) {
+				return vars[param] ? vars[param] : null;	
+			}
+			return vars;
+		}
+	</script>
 </head>
 <body>
 	<div id="Contenedor" class="col-md-offset-3">	 
@@ -35,7 +52,9 @@ Eduardo Fuentes Garcia De Blas
 		<div class="page-header">
 	  		<h1>LA OCA</h1>
 		</div>
-		
+		<div id="err" class="alert alert-danger" style="display:none">
+		  <strong>¡ERROR!</strong> No se pudo recuperar la contraseña
+		</div>
 		<div class="ContentForm">
 		 	<form action="" method="post" name="FormEntrar">				
 				<br>
@@ -46,5 +65,10 @@ Eduardo Fuentes Garcia De Blas
 		 	</form>
 		 </div>
 	 </div>
+	 
+	 <script>
+		if($_GET('err')==1)
+			document.getElementById('err').style.display = 'block' ;
+	</script>
 </body>
 </html>

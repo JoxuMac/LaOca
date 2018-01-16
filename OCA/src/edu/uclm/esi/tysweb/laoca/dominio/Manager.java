@@ -96,6 +96,10 @@ public class Manager {
 		DAOUsuario.changePassword(email, pwd_old, pwd1);
 	}
 	
+	public void saveToken(String email, TokenRecuperacionPwd token) throws Exception {
+		DAOUsuario.saveToken(email, token);
+	}
+	
 	public void changePhoto(String email, String photo) throws Exception {
 		DAOUsuario.changePhoto(email, photo);
 	}
@@ -122,6 +126,18 @@ public class Manager {
 		partidasEnJuego.remove(partida.getId());
 	}
 	
+	public void enviarToken(String email, String url) throws Exception {
+		long n= new java.util.Random().nextLong();
+		if(n<0)
+			n=-n;
+		
+		TokenRecuperacionPwd token = new TokenRecuperacionPwd(email, n);
+		Manager.get().saveToken(email, token);
+		// guardarlo en la BD asociado al email y ponerle 10 minutos de caducidad
+	
+		EmailSenderService ess = new EmailSenderService();
+		ess.enviarPorGmail(email, n, url);
+	}
 }
 
 

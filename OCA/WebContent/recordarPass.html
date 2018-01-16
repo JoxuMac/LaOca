@@ -33,18 +33,20 @@ Eduardo Fuentes Garcia De Blas
 		</div>
 			
 		<div class="ContentForm">
-		 	<form action="" method="post" name="FormEntrar">	
+		 	<form method="post" name="FormEntrar" action="./servers/solicitarCambioDePassword.jsp">	
 		 		<div class="input-group input-group-lg">
 				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-user"></i></span>
-				  <input type="email" class="form-control" name="nombre" placeholder="Correo Electronico" id="Nombre" aria-describedby="sizing-addon1" required>
+				  <input type="email" class="form-control" name="email" placeholder="Correo Electronico" id="email" aria-describedby="sizing-addon1" required>
 				</div>
 				<br>
-				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" href="/Cuenta"">Aceptar</button>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" type="submit">Aceptar</button>
 				<br>
 				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" type="button" value="enviar" onclick = "location='./index.html'">Cancelar</button>
 				<!-- <div class="opcioncontra"><a href="">Olvidaste tu contraseña?</a></div> -->
 		 	</form>
 		 </div>	
 	 </div>
+	 
+	<script src="scripts/GestionCuentas.js"></script>
 </body>
 </html>

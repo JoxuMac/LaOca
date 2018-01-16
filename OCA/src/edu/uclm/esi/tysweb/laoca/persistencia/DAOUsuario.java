@@ -6,10 +6,10 @@ import org.bson.BsonString;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoWriteException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
+import edu.uclm.esi.tysweb.laoca.dominio.TokenRecuperacionPwd;
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
 
 public class DAOUsuario {
@@ -88,17 +88,11 @@ public class DAOUsuario {
 		MongoClient conexion=MongoBroker.get().getBD();
 		MongoCollection<BsonDocument> usuarios = 
 				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
-		try {
-			usuarios.insertOne(bUsuario);
-		}
-		catch (MongoWriteException e) {
-			if (e.getCode()==11000)
-				throw new Exception("¿No estarás ya registrado, chaval/chavala?");
-			throw new Exception("Ha pasado algo muy malorrr");
-		}
-		finally {
-			MongoBroker.get().close(conexion);
-		}
+		
+		usuarios.insertOne(bUsuario);
+		
+		MongoBroker.get().close(conexion);
+		
 	}
 	
 	/* CAMBIAR CLAVE */
@@ -125,17 +119,34 @@ public class DAOUsuario {
 		nPassword.put("score", new BsonInt32(usuario.getScore()));
 		nPassword.put("photo", new BsonString(usuario.getPhoto()));
 		
-		try {
-			usuarios.findOneAndReplace(bUsuario, nPassword);
-		}
-		catch (MongoWriteException e) {
-			if (e.getCode()==11000)
-				throw new Exception("¿No estarás ya registrado, chaval/chavala?");
-			throw new Exception("Ha pasado algo muy malorrr");
-		}
-		finally {
-			MongoBroker.get().close(conexion);
-		}
+		
+		usuarios.findOneAndReplace(bUsuario, nPassword);
+		
+		MongoBroker.get().close(conexion);
+		
+	}
+	
+	/* GUARDAR TOKEN CLAVE */
+	public static void saveToken(String email, TokenRecuperacionPwd token) throws Exception{
+		MongoClient conexion=MongoBroker.get().getBD();
+		MongoCollection<BsonDocument> usuarios = 
+				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		
+		BasicDBObject carrier = new BasicDBObject();
+		BasicDBObject query = new BasicDBObject();
+		if(email.contains("@"))
+			query.append("email", email);
+		else
+			query.append("user", email);
+		
+		carrier.put("tokenPassword", token.toBsonDocument());   
+		
+		BasicDBObject set = new BasicDBObject("$set", carrier);
+		
+		usuarios.updateMany(query, set);
+		
+		MongoBroker.get().close(conexion);
+		
 	}
 	
 	/* CAMBIAR FOTOGRAFIA */
@@ -155,17 +166,11 @@ public class DAOUsuario {
 		carrier.put("photo", photo);   
 		
 		BasicDBObject set = new BasicDBObject("$set", carrier);
-		try {
-			usuarios.updateMany(query, set);
-		}
-		catch (MongoWriteException e) {
-			if (e.getCode()==11000)
-				throw new Exception("¿No estarás ya registrado, chaval/chavala?");
-			throw new Exception("Ha pasado algo muy malorrr");
-		}
-		finally {
-			MongoBroker.get().close(conexion);
-		}
+		
+		usuarios.updateMany(query, set);
+		
+		MongoBroker.get().close(conexion);
+		
 	}
 	
 	/* EXISTE USUARIO */
@@ -178,6 +183,8 @@ public class DAOUsuario {
         
         MongoCollection<BsonDocument> usuarios = conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
         BsonDocument usuario1=usuarios.find(criterio).first();
+        
+        MongoBroker.get().close(conexion);
         
         return usuario1!=null;
 	}
