@@ -29,7 +29,7 @@ public class WSPartidas {
 		Usuario usuario=(Usuario) httpSession.getAttribute("usuario");
 		usuario.setWSSession(sesion);
 		
-		System.out.println("SesiÃ³n " + sesion.getId());
+		System.out.println("Sesión " + sesion.getId());
 		sesionesPorId.put(sesion.getId(), sesion);
 		sesionesPorNombre.put(usuario.geteMail(), sesion);
 

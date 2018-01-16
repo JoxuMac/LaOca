@@ -16,6 +16,8 @@ Eduardo Fuentes Garcia De Blas
 			location.href="index.html";
 	</script>
 
+	<script src="scripts/partidas.js"></script>
+	
 <meta charset="UTF-8">
 <title>LA OCA | Tablero</title>
 <link rel="shortcut icon" href="./images/favicon.ico" />
@@ -25,7 +27,7 @@ Eduardo Fuentes Garcia De Blas
 	crossorigin="anonymous">
 </head>
 
-<body>
+<body onload="crearPartida()">
 
 	<!-- TITULO -->
 	<div align="center" style="padding: 20px;">
@@ -51,13 +53,13 @@ Eduardo Fuentes Garcia De Blas
 				<!-- CHAT -->
 				<h3 style="padding: 10px;">Chat</h3>
 				<div class="panel panel-default">
-					<div style="padding: 20px;">#PANEL DE CHAT</div>
+					<div id="divChat" style="padding: 20px;">#PANEL DE CHAT</div>
 				</div>
 			</div>
 		</div>
 
 		<!-- TABLERO -->
-		<div class="col-md-8" align="center">
+		<div id="divTablero" class="col-md-8" align="center">
 			<svg id="tablero" width="550" height="550"
 				style="background-color: white">
 			</svg>

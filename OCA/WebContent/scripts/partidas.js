@@ -10,26 +10,26 @@
 
 function crearPartida() {
 	var request = new XMLHttpRequest();	
-	request.open("post", "crearPartida.jsp");
+	request.open("post", "servers/crearPartida.jsp");
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.onreadystatechange=function() {
 		if (request.readyState==4) {
 			var respuesta=JSON.parse(request.responseText);
 			console.log(respuesta.result);
 			conectarWebSocket();
-			localStorage.nombre=document.getElementById("nombre").value;
+		//	localStorage.nombre=document.getElementById("nombre").value;
 		}
 	};
 	var p = {
-		nombre : document.getElementById("nombre").value,
-		numeroDeJugadores : document.getElementById("numero").value
+		nombre : localStorage.nombre,
+		numeroDeJugadores : 4
 	};
 	request.send("p=" + JSON.stringify(p));
 }
 
 function unirse() {
 	var request = new XMLHttpRequest();	
-	request.open("post", "llegarASalaDeEspera.jsp");
+	request.open("post", "servers/llegarASalaDeEspera.jsp");
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.onreadystatechange=function() {
 		if (request.readyState==4) {
@@ -48,13 +48,13 @@ function unirse() {
 var ws;
 
 function conectarWebSocket() {
-	ws=new WebSocket("ws://localhost:8080/LaOca/servidorDePartidas");
+	ws=new WebSocket("ws://localhost:8080/OCA/servidorDePartidas");
 	
 	ws.onopen = function() {
 		addMensaje("Websocket conectado");
-		divTablero.setAttribute("style", "display:visible");
-		var tablero=new Tablero();
-		tablero.dibujar(svgTablero);
+		//divTablero.setAttribute("style", "display:visible");
+	//	var tablero = new Tablero();
+		//tablero.dibujar(svgTablero);
 	}
 	
 	ws.onmessage = function(datos) {
