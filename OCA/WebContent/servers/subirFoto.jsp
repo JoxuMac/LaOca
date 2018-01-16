@@ -1,20 +1,15 @@
+<%@page import="edu.uclm.esi.tysweb.laoca.dominio.*"%>
+<%@page import="org.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="org.apache.commons.fileupload.*, org.apache.commons.fileupload.disk.*, org.apache.commons.fileupload.servlet.*, java.io.*, java.util.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 
-	<%
+<%
 	int MAX_MEMORY_SIZE = 1024 * 1024 * 2;
     int MAX_REQUEST_SIZE = 10 * 1024 * 1024;
     
     if (!ServletFileUpload.isMultipartContent(request)) {
-    	response.sendRedirect("index.html");
+    	response.sendRedirect("../index.html");
     	return;
     }
     
@@ -26,29 +21,32 @@
     	
     ServletFileUpload upload = new ServletFileUpload(factory);
     upload.setSizeMax(MAX_REQUEST_SIZE);
-
+    String filePath ="";
+    
     try {
-        // Parse the request
+    	String fileName = "";
         List items = upload.parseRequest(request);
         Iterator iter = items.iterator();
+        String email="";
         while (iter.hasNext()) {
-            FileItem item = (FileItem) iter.next();
+        	FileItem item = (FileItem) iter.next();
 
             if (!item.isFormField()) {
-                String fileName = new File(item.getName()).getName();
-                String filePath = uploadFolder + File.separator + fileName;
+            	String name = new File(item.getName()).getName();
+                fileName = name.substring(0, name.length()-4) + (new Random((new java.util.Date()).getTime())).nextInt() + name.substring(name.length()-4,name.length());
+                filePath = uploadFolder + File.separator + fileName;
                 File uploadedFile = new File(filePath);
-                System.out.println(filePath);
                 item.write(uploadedFile);
-            }
+            } else
+            	if(item.getFieldName().contains("email"))
+             		email=item.getString();
         }
+        
+        Manager.get().changePhoto(email, "profile/"+fileName);
+       
+        response.sendRedirect("../reloadPhoto.html");
+        
     } catch (Exception ex) {
         out.print(ex.toString());
-    }
-
-    out.print("Foto subida correctamente");
-	%>
-
-	
-</body>
-</html>
+   	}
+%>

@@ -86,7 +86,6 @@ public class Manager {
 		usuario.setScore(0);
 		usuario.setPhoto("profile/default.png");
 		usuario.insert(pwd);
-		//DAOUsuario.insert(usuario, pwd);
 	}
 	
 	public Usuario login(String email, String pwd) throws Exception {
@@ -95,6 +94,15 @@ public class Manager {
 	
 	public void changePass(String email, String pwd_old, String pwd1) throws Exception {
 		DAOUsuario.changePassword(email, pwd_old, pwd1);
+	}
+	
+	public void changePhoto(String email, String photo) throws Exception {
+		DAOUsuario.changePhoto(email, photo);
+	}
+	
+	public String getPhoto(String email) throws Exception {
+		System.out.println(email);
+		return DAOUsuario.getPhoto(email);
 	}
 
 	public JSONObject tirarDado(int idPartida, String jugador, int dado) throws Exception {

@@ -4,15 +4,11 @@ import org.bson.BsonDocument;
 import org.bson.BsonInt32;
 import org.bson.BsonString;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoWriteException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-
-//import java.math.BigInteger;
-//import java.security.MessageDigest;
-
-//import org.bson.BsonString;
 
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
 
@@ -54,6 +50,27 @@ public class DAOUsuario {
 		MongoBroker.get().close(conexion);
 		
 		return usuario;
+	}
+	
+	/* OBTENER FOTO */
+	public static String getPhoto(String email) throws Exception {
+		MongoClient conexion = MongoBroker.get().getBD();
+		
+		BsonDocument criterio1=new BsonDocument();
+		criterio1.append("email", new BsonString(email));
+		
+		MongoCollection<BsonDocument> usuarios= conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		FindIterable<BsonDocument> resultado = usuarios.find(criterio1);
+		String photo=null;
+		
+		if (resultado.first()!=null) {
+			photo = resultado.first().getString("photo").getValue();
+		}else
+			throw new Exception("Error en login");
+		
+		MongoBroker.get().close(conexion);
+		
+		return photo;
 	}
 	
 	/* REGISTRAR */
@@ -110,6 +127,36 @@ public class DAOUsuario {
 		
 		try {
 			usuarios.findOneAndReplace(bUsuario, nPassword);
+		}
+		catch (MongoWriteException e) {
+			if (e.getCode()==11000)
+				throw new Exception("¿No estarás ya registrado, chaval/chavala?");
+			throw new Exception("Ha pasado algo muy malorrr");
+		}
+		finally {
+			MongoBroker.get().close(conexion);
+		}
+	}
+	
+	/* CAMBIAR FOTOGRAFIA */
+	public static void changePhoto(String email, String photo) throws Exception{
+		
+		MongoClient conexion=MongoBroker.get().getBD();
+		MongoCollection<BsonDocument> usuarios = 
+				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		
+		BasicDBObject carrier = new BasicDBObject();
+		BasicDBObject query = new BasicDBObject();
+		if(email.contains("@"))
+			query.append("email", email);
+		else
+			query.append("user", email);
+		
+		carrier.put("photo", photo);   
+		
+		BasicDBObject set = new BasicDBObject("$set", carrier);
+		try {
+			usuarios.updateMany(query, set);
 		}
 		catch (MongoWriteException e) {
 			if (e.getCode()==11000)

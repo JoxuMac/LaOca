@@ -318,13 +318,13 @@
 							</div><!-- /.page-header -->
 							
 							<div class="row">
-								<div class="col-md-2">
+								<div class="col-md-2 col-xs-6 col-sm-10">
 									<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="photoUpload" onclick = "showElement('foto')">Subir Fotografia</button>
 									<br>
 									<br>
 									<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="changePassword" onclick = "showElement('password')">Cambiar Password</button>
 								</div>
-								<div class="col-md-10">
+								<div class="col-md-10  col-xs-6 col-sm-2">
 								</div>
 							</div>
 						</div><!-- /.page-content -->
@@ -384,17 +384,26 @@
 								</h1>
 								
 							</div><!-- /.page-header -->
-							
-							<div class="row">
-								<div class="col-md-2">
-									<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="photoUpload" onclick = "location='./registro.html'">Subir Fotografia</button>
-									<br>
-									<br>
-									<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="changePassword" onclick = "location='./registro.html'">Cambiar Password</button>
+							<form action="servers/subirFoto.jsp" enctype="MULTIPART/FORM-DATA" method="post">
+								<div class="row">
+									<div class="col-md-3">
+										<input type="file" name="photo" class="form-control" id="photo" required>
+										<input type="hidden" name=email" id="email" value="">
+										<br>
+										<br>
+										<div class="row">
+											<div class="col-md-6 ">
+												<button class="btn btn-lg btn-primary btn-block btn-signin"  type="submit" value="Upload">Aceptar</button>
+											</div>
+											<div class="col-md-6">
+												<button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="changePassword" onclick = "showElement('ajustes')">Cancelar</button>							
+											</div>
+										</div>
+									</div>
+									<div class="col-md-9">
+									</div>
 								</div>
-								<div class="col-md-10">
-								</div>
-							</div>
+							</form>
 						</div><!-- /.page-content -->
 					</div>
 					
@@ -698,6 +707,7 @@
 			if (localStorage.getItem("nombre")!=null){
 				document.getElementById("nombre").innerHTML=localStorage.getItem("nombre");	
 				document.getElementById("photo").src=localStorage.getItem("photo");
+				document.getElementById("email").value=localStorage.getItem("nombre");
 			}
 			else{
 				document.getElementById("nombre").innerHTML="¿-?";	
