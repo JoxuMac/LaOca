@@ -43,7 +43,7 @@ public class WSPartidas {
 	@OnClose
 	public void usuarioSeVa(Session session) {
 		sesionesPorId.remove(session.getId());
-		broadcast("Se ha ido un usuario");
+		broadcast("Se ha ido un usuario"+session.getId());
 	}
 	
 	@OnMessage

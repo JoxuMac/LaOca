@@ -28,8 +28,9 @@ public class Manager {
 	
 		Usuario usuario = findUsuario(nombreJugador);
 		if (usuario.getPartida()!=null)
-			throw new Exception("El usuario ya está asociado a una partida. Desconéctate para crear una nueva o unirte a otra");
-
+			//throw new Exception("El usuario ya está asociado a una partida. Desconéctate para crear una nueva o unirte a otra");
+			usuario.setPartida(null);
+		
 		Partida partida=new Partida(usuario, numeroDeJugadores);
 		usuario.setPartida(partida);
 		this.partidasPendientes.put(partida.getId(), partida);
@@ -51,7 +52,7 @@ public class Manager {
 		Partida partida=this.partidasPendientes.elements().nextElement();
 		Usuario usuario=findUsuario(nombreJugador);
 		if (usuario.getPartida()!=null)
-			throw new Exception("El usuario ya está asociado a una partida. Desconéctate para crear una nueva o unirte a otra");
+			throw new Exception("El usuario ya esta asociado a una partida. Desconectate para crear una nueva o unirte a otra");
 		partida.add(usuario);
 		usuario.setPartida(partida);
 		if (partida.isReady()) {

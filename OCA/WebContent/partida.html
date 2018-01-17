@@ -25,10 +25,36 @@ Eduardo Fuentes Garcia De Blas
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+	
+	<script>
+		function $_GET(param) {
+			var vars = {};
+			window.location.href.replace( location.hash, '' ).replace( 
+				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+				function( m, key, value ) { // callback
+					vars[key] = value !== undefined ? value : '';
+				}
+			);
+	
+			if ( param ) {
+				return vars[param] ? vars[param] : null;	
+			}
+			return vars;
+		}
+	</script>
 </head>
-
-<body onload="crearPartida()">
-
+<style type="text/css">
+	#divChat {
+		height: 300px;
+		width: 200px;
+		border: 1px solid #ddd;
+		overflow-y: scroll;
+		text-align: left;
+	}
+</style>
+<body>
 	<!-- TITULO -->
 	<div align="center" style="padding: 20px;">
 		<h1>LA OCA</h1>
@@ -53,7 +79,9 @@ Eduardo Fuentes Garcia De Blas
 				<!-- CHAT -->
 				<h3 style="padding: 10px;">Chat</h3>
 				<div class="panel panel-default">
-					<div id="divChat" style="padding: 20px;">#PANEL DE CHAT</div>
+					<div id="divChat" style="padding: 20px; height:213px">#PANEL DE CHAT</div>
+						<input type="text" class="form-control" name="mensaje" placeholder="Mensaje" id="mensaje" aria-describedby="sizing-addon1" required>
+						<button type="submit" class="btn btn-primary btn-signin" id="IngresoLog" onclick = "enviarMensaje()">Enviar <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
 				</div>
 			</div>
 		</div>
@@ -100,15 +128,7 @@ Eduardo Fuentes Garcia De Blas
 	</div>
 		
 	</div>
-
-
-
-	<!-- SCRIPTS -->
-<!-- 	<script>
-		if (localStorage.nombre != undefined)
-			document.getElementById("nombre").value = localStorage.nombre;
-	</script>-->
-
+	
 	<script src="scripts/partidas.js"></script>
 	<script src="scripts/tablero.js"></script>
 	<script src="scripts/dado.js"></script>
@@ -138,7 +158,24 @@ Eduardo Fuentes Garcia De Blas
 			tablerodad.realizarTidada(lienzodado);
 		}
 	</script>
+	
+	<script>
+		function enviarMensaje() {
+			addMensaje(document.getElementById("mensaje").value);
+			document.getElementById("mensaje").value="";
+		}
+	</script>
+	
+	<script>
+		if($_GET('status')==1)
+			crearPartida();
+		
+		if($_GET('status')==0)
+			unirse();
+			
+	</script>
 </body>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<!-- <script src="js/jquery-3.2.1.min.js"></script> -->
+<script src="assets/js/jquery-2.1.4.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 </html>

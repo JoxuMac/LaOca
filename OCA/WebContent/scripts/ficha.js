@@ -30,7 +30,7 @@ function Ficha(idficha, lienzo) {
 // Nueva Tirada de Dado
 Ficha.prototype.moverFicha = function(lienzo, tiradanueva, idficha) {
 	
-	this.idcasilla += tirada;
+	this.idcasilla += tiradanueva;
 	
 	console.log(this.idcasilla);
 	

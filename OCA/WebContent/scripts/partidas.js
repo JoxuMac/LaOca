@@ -16,6 +16,7 @@ function crearPartida() {
 		if (request.readyState==4) {
 			var respuesta=JSON.parse(request.responseText);
 			console.log(respuesta.result);
+			console.log(respuesta.mensaje);
 			conectarWebSocket();
 		//	localStorage.nombre=document.getElementById("nombre").value;
 		}
@@ -36,11 +37,11 @@ function unirse() {
 			var respuesta=request.responseText;
 			console.log(respuesta);
 			conectarWebSocket();
-			localStorage.nombre=document.getElementById("nombre").value;
+		//	localStorage.nombre=document.getElementById("nombre").value;
 		}
 	};
 	var p = {
-		nombre : document.getElementById("nombre").value
+		nombre : localStorage.nombre
 	};
 	request.send("p=" + JSON.stringify(p));
 }
