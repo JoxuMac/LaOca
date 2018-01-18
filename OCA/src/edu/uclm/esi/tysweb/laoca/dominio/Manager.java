@@ -1,8 +1,10 @@
 package edu.uclm.esi.tysweb.laoca.dominio;
 
 import java.io.File;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.bson.BsonDocument;
 import org.json.JSONObject;
 
 import edu.uclm.esi.tysweb.laoca.persistencia.DAOUsuario;
@@ -136,7 +138,6 @@ public class Manager {
 	}
 	
 	public String getPhoto(String email) throws Exception {
-		System.out.println(email);
 		return DAOUsuario.getPhoto(email);
 	}
 
@@ -157,6 +158,40 @@ public class Manager {
 		partidasEnJuego.remove(partida.getId());
 	}
 	
+	public void recuperarPassword(String email, String code) throws Exception {
+		TokenRecuperacionPwd token = getTokenBBDD(email);
+		
+		BsonDocument btoken = token.toBsonDocument();
+		
+		if(!btoken.getString("email").getValue().equals(email))
+			throw new Exception("3");
+			
+		if(!(btoken.getInt64("valor").getValue()+"").equals(code))
+			throw new Exception("3");
+
+		if(btoken.getInt64("caducidad").getValue()<System.currentTimeMillis())
+			throw new Exception("2");
+		
+		int random = (new Random((new java.util.Date()).getTime())).nextInt();
+		if(random<0)
+			random =-random;
+		String newPassword = String.valueOf(random);
+		
+		newPassword(email, newPassword);
+		
+		EmailSenderService ess = new EmailSenderService();
+		ess.enviarPassword(email, newPassword);
+	}
+	
+	private TokenRecuperacionPwd getTokenBBDD(String email) throws Exception {
+		return DAOUsuario.getTokenPwd(email);
+	}
+
+	private void newPassword(String email, String newPassword) throws Exception {
+		DAOUsuario.newPassword(email, newPassword);
+		
+	}
+
 	public void enviarToken(String email, String url) throws Exception {
 		long n= new java.util.Random().nextLong();
 		if(n<0)
@@ -164,10 +199,9 @@ public class Manager {
 		
 		TokenRecuperacionPwd token = new TokenRecuperacionPwd(email, n);
 		Manager.get().saveToken(email, token);
-		// guardarlo en la BD asociado al email y ponerle 10 minutos de caducidad
 	
 		EmailSenderService ess = new EmailSenderService();
-		ess.enviarPorGmail(email, n, url);
+		ess.enviarPeticionPassword(email, n, url);
 	}
 	
 	public Usuario jugar(String nombreJugador, String emailJugador) throws Exception {

@@ -52,8 +52,17 @@ Eduardo Fuentes Garcia De Blas
 		<div class="page-header">
 	  		<h1>LA OCA</h1>
 		</div>
-		<div id="err" class="alert alert-danger" style="display:none">
+		<div id="err1" class="alert alert-danger" style="display:none">
 		  <strong>¡ERROR!</strong> No se pudo recuperar la contraseña
+		</div>
+		<div id="err2" class="alert alert-danger" style="display:none">
+		  <strong>¡ERROR!</strong> Enlace caducado
+		</div>
+		<div id="err3" class="alert alert-danger" style="display:none">
+		  <strong>¡ERROR!</strong> No se pudo cambiar la contraseña
+		</div>
+		<div id="err0" class="alert alert-success" style="display:none">
+		  <strong>¡CORRECTO!</strong> Se envio tu nueva contraseña a tu Correo Electronico
 		</div>
 		<div class="ContentForm">
 		 	<form action="" method="post" name="FormEntrar">				
@@ -68,7 +77,19 @@ Eduardo Fuentes Garcia De Blas
 	 
 	 <script>
 		if($_GET('err')==1)
-			document.getElementById('err').style.display = 'block' ;
+			document.getElementById('err1').style.display = 'block' ;
+	</script>
+	<script>
+		if($_GET('err')==2)
+			document.getElementById('err2').style.display = 'block' ;
+	</script>
+	<script>
+		if($_GET('err')==3)
+			document.getElementById('err3').style.display = 'block' ;
+	</script>
+	<script>
+		if($_GET('err')==0)
+			document.getElementById('err0').style.display = 'block' ;
 	</script>
 </body>
 </html>

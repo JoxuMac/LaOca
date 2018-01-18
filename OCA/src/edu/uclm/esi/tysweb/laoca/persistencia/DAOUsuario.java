@@ -3,6 +3,9 @@ package edu.uclm.esi.tysweb.laoca.persistencia;
 import org.bson.BsonDocument;
 import org.bson.BsonInt32;
 import org.bson.BsonString;
+import org.bson.BsonValue;
+import org.bson.Document;
+import org.json.JSONObject;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -11,6 +14,7 @@ import com.mongodb.client.MongoCollection;
 
 import edu.uclm.esi.tysweb.laoca.dominio.TokenRecuperacionPwd;
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
+import jdk.nashorn.internal.parser.JSONParser;
 
 public class DAOUsuario {
 	
@@ -92,12 +96,10 @@ public class DAOUsuario {
 		usuarios.insertOne(bUsuario);
 		
 		MongoBroker.get().close(conexion);
-		
 	}
 	
 	/* CAMBIAR CLAVE */
 	public static void changePassword(String email, String pwd_old, String pwd1) throws Exception{
-		
 		Usuario usuario = null;
 		try {
 			usuario = login(email, pwd_old);
@@ -123,7 +125,6 @@ public class DAOUsuario {
 		usuarios.findOneAndReplace(bUsuario, nPassword);
 		
 		MongoBroker.get().close(conexion);
-		
 	}
 	
 	/* GUARDAR TOKEN CLAVE */
@@ -146,12 +147,37 @@ public class DAOUsuario {
 		usuarios.updateMany(query, set);
 		
 		MongoBroker.get().close(conexion);
+	}
+	
+	/* OBTENER EL TOKEN DE RECUPERACION */
+	public static TokenRecuperacionPwd getTokenPwd(String email) throws Exception {
+		MongoClient conexion = MongoBroker.get().getBD();
 		
+		BsonDocument criterio1=new BsonDocument();
+		criterio1.append("email", new BsonString(email));
+		
+		MongoCollection<BsonDocument> usuarios= conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		FindIterable<BsonDocument> resultado = usuarios.find(criterio1);
+		TokenRecuperacionPwd token = null;
+		
+		if (resultado.first()!=null) {
+			
+			BsonValue sToken = resultado.first().get("tokenPassword");
+			BsonDocument doc = new BsonDocument();
+			doc = sToken.asDocument();
+			
+			token = new TokenRecuperacionPwd(doc.getString("email").getValue(), doc.getInt64("valor").getValue(), doc.getInt64("caducidad").getValue());
+			
+		}else
+			throw new Exception("Error en el Token");
+		
+		MongoBroker.get().close(conexion);
+		
+		return token;
 	}
 	
 	/* CAMBIAR FOTOGRAFIA */
 	public static void changePhoto(String email, String photo) throws Exception{
-		
 		MongoClient conexion=MongoBroker.get().getBD();
 		MongoCollection<BsonDocument> usuarios = 
 				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
@@ -175,7 +201,6 @@ public class DAOUsuario {
 	
 	/* EXISTE USUARIO */
 	public static boolean existeUsuario (Usuario usuario) throws Exception {
-        
 		MongoClient conexion = MongoBroker.get().getBD();
 		
         BsonDocument criterio=new BsonDocument();
@@ -187,5 +212,25 @@ public class DAOUsuario {
         MongoBroker.get().close(conexion);
         
         return usuario1!=null;
+	}
+
+	/* NUEVA CLAVE */
+	public static void newPassword(String email, String newPassword) throws Exception {
+		MongoClient conexion=MongoBroker.get().getBD();
+		MongoCollection<BsonDocument> usuarios = 
+				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		
+		BasicDBObject carrier = new BasicDBObject();
+		BasicDBObject query = new BasicDBObject();
+		
+		query.append("email", email);
+		
+		carrier.put("pwd", newPassword);   
+		
+		BasicDBObject set = new BasicDBObject("$set", carrier);
+		
+		usuarios.updateMany(query, set);
+		
+		MongoBroker.get().close(conexion);
 	}
 }

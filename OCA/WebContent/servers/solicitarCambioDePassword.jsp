@@ -6,7 +6,8 @@
 	String email = request.getParameter("email");
 	
 	try{
-		Manager.get().enviarToken(email, getServletContext().getRealPath("/"));
+		//Manager.get().enviarToken(email, getServletContext().getRealPath("/"));
+		Manager.get().enviarToken(email, "localhost:8080/OCA");
 		
 		response.sendRedirect("../index.html");
 	}

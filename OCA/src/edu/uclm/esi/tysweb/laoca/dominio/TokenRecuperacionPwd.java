@@ -9,7 +9,13 @@ public class TokenRecuperacionPwd {
 	
 	public TokenRecuperacionPwd(String email, long valor) {
 		this.valor=valor;
-		this.caducidad=System.currentTimeMillis() + 24*60*60*1000 ;
+		this.caducidad=System.currentTimeMillis() + /*24*60**/60*1000 ;
+		this.email = email;
+	}
+	
+	public TokenRecuperacionPwd(String email, long valor, long caducidad) {
+		this.valor=valor;
+		this.caducidad=caducidad ;
 		this.email = email;
 	}
 	
