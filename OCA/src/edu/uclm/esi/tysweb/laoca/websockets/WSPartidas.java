@@ -15,13 +15,13 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.JSONObject;
 
 import edu.uclm.esi.tysweb.laoca.dominio.Manager;
-import edu.uclm.esi.tysweb.laoca.dominio.Partida;
+//import edu.uclm.esi.tysweb.laoca.dominio.Partida;
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
 
 @ServerEndpoint(value="/servidorDePartidas", configurator=HttpSessionConfigurator.class)
 public class WSPartidas {
 	private static ConcurrentHashMap<String, Session> sesionesPorId=new ConcurrentHashMap<>();
-	private static ConcurrentHashMap<String, Session> sesionesPorNombre=new ConcurrentHashMap<>();
+	//private static ConcurrentHashMap<String, Session> sesionesPorNombre=new ConcurrentHashMap<>();
 	
 	@OnOpen
 	public void open(Session sesion, EndpointConfig config) {
@@ -29,21 +29,23 @@ public class WSPartidas {
 		Usuario usuario=(Usuario) httpSession.getAttribute("usuario");
 		usuario.setWSSession(sesion);
 		
-		System.out.println("Sesión " + sesion.getId());
+		//System.out.println("Sesión " + sesion.getId());
 		sesionesPorId.put(sesion.getId(), sesion);
-		sesionesPorNombre.put(usuario.geteMail(), sesion);
+	//	sesionesPorNombre.put(usuario.getNombre(), sesion);
 
-		broadcast("Ha llegado " + usuario.geteMail());
+		broadcast("<b>OCA: </b>Ha llegado " + usuario.getNombre());
+		//Manager.get().addJugador(usuario.geteMail());
 		
-		Partida partida=usuario.getPartida();
-		if (partida.isReady())
-			partida.comenzar();
+	//	Partida partida=usuario.getPartida();
+	//	System.out.println(partida.getId() + "  " + usuario.getPartida());
+	//	if (partida.isReady())
+		//	partida.comenzar();
 	}
 	
 	@OnClose
 	public void usuarioSeVa(Session session) {
 		sesionesPorId.remove(session.getId());
-		broadcast("Se ha ido un usuario"+session.getId());
+		broadcast("<b>OCA:</b>Se ha ido "+session.getId());
 	}
 	
 	@OnMessage
@@ -58,6 +60,7 @@ public class WSPartidas {
 			} catch (Exception e) {
 			}
 		}
+		
 	}
 
 	private void broadcast(String mensaje) {

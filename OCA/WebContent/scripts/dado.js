@@ -8,6 +8,8 @@
  * Eduardo Fuentes Garcia De Blas
  */
 
+var tirada 
+
 // Creacion de Dado
 function Dado(x, y) {
 	this.x = x;
@@ -18,7 +20,7 @@ function Dado(x, y) {
 Dado.prototype.realizarTidada = function(lienzo) {
 	
 	// Tirada entre 1 y 6
-	var tirada = Math.floor(Math.random() * 6) + 1;
+	tirada = Math.floor(Math.random() * 6) + 1;
 	
 	console.log("TIRADA: "+tirada);
 	
@@ -63,6 +65,8 @@ Dado.prototype.realizarTidada = function(lienzo) {
 	}
 	
 	dibujar(lienzo, this.g);
+	
+	
 }
 
 // Circulo Arriba Derecha

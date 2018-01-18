@@ -58,7 +58,7 @@ public class Tablero {
 	}
 
 	void addJugador(Usuario jugador) {
-		jugador.setCasilla(this.casillas[0]);
+		//jugador.setCasilla(this.casillas[0]);
 	}
 
 

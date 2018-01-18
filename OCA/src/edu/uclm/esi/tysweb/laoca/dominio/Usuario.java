@@ -22,7 +22,7 @@ public class Usuario {
 	public Usuario(String nombreJugador) throws Exception {
 		//if (!DAOUsuario.existe(nombreJugador))
 		//	throw new Exception("Usuario no registrado");
-		this.email=nombreJugador;
+		this.nombre=nombreJugador;
 	}
 
 	public Usuario() {

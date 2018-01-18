@@ -15,7 +15,7 @@
 		//String pwd = request.getParameter("pass");
 	
 		Usuario usuario = Manager.get().login(email, pwd);
-		
+		session.setAttribute("usuario", usuario);
 		if(usuario == null)
 			throw new Exception();
 		
