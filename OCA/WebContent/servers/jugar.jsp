@@ -29,6 +29,24 @@ Eduardo Fuentes Garcia De Blas
 		respuesta.put("result", "OK");
 		respuesta.put("mensaje", usuario.getPartida().getId());
 		
+		System.out.println(usuario.getPartida().getJugadores().get(0).getNombre());
+		
+		if(usuario.getPartida().getJugadoresListos()==4){
+			respuesta.put("Jugador1", usuario.getPartida().getJugadores().get(0).getNombre());
+			respuesta.put("Jugador2", usuario.getPartida().getJugadores().get(1).getNombre());
+			respuesta.put("Jugador3", usuario.getPartida().getJugadores().get(2).getNombre());
+			respuesta.put("Jugador4", usuario.getPartida().getJugadores().get(3).getNombre());
+		}
+		
+		 //Gson gson = new Gson();
+
+	        // Convert numbers array into JSON string.
+	    //    String numbersJson = gson.toJson(numbers);
+
+	        // Convert strings array into JSON string
+	   //     String daysJson = gson.toJson(days);
+		//respuesta.put("jugadores", usuario.getPartida().getJugadores());
+		
 		//Cookie cookie=new Cookie("kookie", "" + numeroDeJugadores);
 		//cookie.setMaxAge(30);
 		//response.addCookie(cookie);

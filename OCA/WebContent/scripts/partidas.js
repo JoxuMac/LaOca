@@ -9,6 +9,7 @@
  */
 
 var ws;
+var fichas = [];
 
 function jugar() {
 	var request = new XMLHttpRequest();	
@@ -20,6 +21,7 @@ function jugar() {
 			console.log(respuesta.result);
 			console.log(respuesta.mensaje);
 			conectarWebSocket();
+			partidaLista();
 		}
 	};
 	var p = {
@@ -27,46 +29,15 @@ function jugar() {
 		email: localStorage.email
 	};
 	request.send("p=" + JSON.stringify(p));
+	
 }
-/*
-function crearPartida() {
+
+function partidaLista() {
 	var request = new XMLHttpRequest();	
-	request.open("post", "servers/crearPartida.jsp");
+	request.open("post", "servers/partidaReady.jsp");
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	request.onreadystatechange=function() {
-		if (request.readyState==4) {
-			var respuesta=JSON.parse(request.responseText);
-			console.log(respuesta.result);
-			console.log(respuesta.mensaje);
-			conectarWebSocket();
-		//	localStorage.nombre=document.getElementById("nombre").value;
-		}
-	};
-	var p = {
-		nombre : localStorage.nombre,
-		numeroDeJugadores : 4
-	};
-	request.send("p=" + JSON.stringify(p));
-}*/
-/*
-function unirse() {
-	var request = new XMLHttpRequest();	
-	request.open("post", "servers/llegarASalaDeEspera.jsp");
-	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	request.onreadystatechange=function() {
-		if (request.readyState==4) {
-			var respuesta=request.responseText;
-			console.log(respuesta);
-			conectarWebSocket();
-		//	localStorage.nombre=document.getElementById("nombre").value;
-		}
-	};
-	var p = {
-		nombre : localStorage.nombre
-	};
-	request.send("p=" + JSON.stringify(p));
+	request.send();
 }
-*/
 
 function conectarWebSocket() {
 	ws=new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/OCA/servidorDePartidas");
@@ -79,16 +50,12 @@ function conectarWebSocket() {
 		var mensaje=datos.data;
 		mensaje=JSON.parse(mensaje);
 		if (mensaje.tipo=="DIFUSION") {
-			
-		//	var div=document.createElement("div");
-		//	divChat.appendChild(div);
-		//	div.innerHTML=mensaje.mensaje;
 			addMensaje(mensaje.mensaje);
 		} else 
 			if (mensaje.tipo=="COMIENZO") {
-			addMensaje("Comienza la partida");
+			addMensaje("<b>OCA: </b>Comienza la partida");
 			comenzar(mensaje);
-		} else{
+		} else {
 			console.log(mensaje.tipo);
 			console.log(mensaje.mensaje);
 		}
@@ -96,18 +63,26 @@ function conectarWebSocket() {
 }
 
 function comenzar(mensaje) {
+	var lienzoficha = document.getElementById("casilla0");
+	
+	fichas.push(new Ficha(1, lienzoficha));
+	document.getElementById("jg1").innerHTML = mensaje.Jugador1;
+	
+	fichas.push(new Ficha(2, lienzoficha));
+	document.getElementById("jg2").innerHTML = mensaje.Jugador2;
+	
+	fichas.push(new Ficha(3, lienzoficha));
+	document.getElementById("jg3").innerHTML = mensaje.Jugador3;
+	
+	fichas.push(new Ficha(4, lienzoficha));
+	document.getElementById("jg4").innerHTML = mensaje.Jugador4;
+
 	var btnDado=document.getElementById("lanzarDado");
-	if (mensaje.jugadorConElTurno==localStorage.nombre) {
+	if (mensaje.jugadorConElTurno==localStorage.nombre)
 		btnDado.disabled = false;
-	} else {
+	 else 
 		btnDado.disabled = true;
-	}
-	//var spanListaJugadores=document.getElementById("spanListaJugadores");
-	//var jugadores=mensaje.jugadores;
-	//var r="";
-//	for (var i=0; i<jugadores.length; i++)
-//		r=r+jugadores[i] + " / ";
-	//spanListaJugadores.innerHTML=r;
+	
 	sessionStorage.idPartida=mensaje.idPartida;
 }
 
@@ -119,8 +94,6 @@ function broadcast(texto, tipo) {
 		if (request.readyState==4) {
 			var respuesta=request.responseText;
 			console.log(respuesta);
-		//	conectarWebSocket();
-		//	localStorage.nombre=document.getElementById("nombre").value;
 		}
 	};
 	var p = {
@@ -129,15 +102,10 @@ function broadcast(texto, tipo) {
 		tipo : tipo
 	};
 	request.send("p=" + JSON.stringify(p));
-	//var div=document.createElement("div");
-	//divChat.appendChild(div);
-	//div.innerHTML=texto;
-	
 }
 
 function addMensaje(texto) {
 	var div=document.createElement("div");
 	divChat.appendChild(div);
 	div.innerHTML=texto;
-	
 }

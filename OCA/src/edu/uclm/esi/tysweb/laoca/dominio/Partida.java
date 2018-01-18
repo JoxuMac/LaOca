@@ -27,6 +27,10 @@ public class Partida {
 	public int getId() {
 		return this.id;
 	}
+	
+	public int getJugadoresListos() {
+		return this.jugadores.size();
+	}
 
 	public void add(Usuario jugador) {
 		this.jugadores.add(jugador);
@@ -43,8 +47,10 @@ public class Partida {
 		JSONArray jsa=new JSONArray();
 		this.jugadorConElTurno=(new Random()).nextInt(this.jugadores.size());
 		jso.put("jugadorConElTurno", getJugadorConElTurno().getNombre());
-		for (Usuario jugador : jugadores) 
+		for (Usuario jugador : jugadores) {
 			jsa.put(jugador.getNombre());
+			System.out.println(jugador.getNombre());
+		}
 		jso.put("jugadores", jsa);
 		
 		broadcast(jso);

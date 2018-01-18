@@ -47,6 +47,25 @@ Ficha.prototype.moverFicha = function(lienzo, tiradanueva, idficha) {
 	dibujar(lienzo, this.circulo);
 }
 
+function moverFicha2(lienzo, tiradanueva, idficha) {
+	
+	this.idcasilla += tiradanueva;
+	
+	console.log(this.idcasilla);
+	
+	this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+	
+
+	// blue
+	// green
+	// purple
+	//red
+	
+	//this.g.appendChild(this.circulo);
+	
+	dibujar(lienzo, this.circulo);
+}
+
 //Pintar Ficha 1
 function pintarFicha1(lienzo){
 	this.circulo = document.createElementNS("http://www.w3.org/2000/svg", "circle");

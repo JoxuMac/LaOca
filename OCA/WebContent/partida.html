@@ -45,6 +45,7 @@ Eduardo Fuentes Garcia De Blas
 		}
 	</script>
 </head>
+
 <style type="text/css">
 	#divChat {
 		height: 300px;
@@ -54,6 +55,7 @@ Eduardo Fuentes Garcia De Blas
 		text-align: left;
 	}
 </style>
+
 <body onload="jugar()">
 	<!-- TITULO -->
 	<div align="center" style="padding: 20px;">
@@ -69,10 +71,11 @@ Eduardo Fuentes Garcia De Blas
 				<h3 style="padding: 10px;">Jugadores</h3>
 				<div class="card" style="padding: 20px;">
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item">JUGADOR1</li>
-						<li class="list-group-item">JUGADOR2</li>
-						<li class="list-group-item">JUGADOR3</li>
-						<li class="list-group-item">JUGADOR4</li>
+						<li class="list-group-item" id="jg1">Esperando ...</li>
+						<li class="list-group-item" id="jg2">Esperando ...</li>
+						<li class="list-group-item" id="jg3">Esperando ...</li>
+						<li class="list-group-item" id="jg4">Esperando ...</li>
+						
 					</ul>
 				</div>
 
@@ -140,16 +143,6 @@ Eduardo Fuentes Garcia De Blas
 		tablero.dibujar(lienzo);
 	</script>
 	
-	<script>
-		var lienzoficha = document.getElementById("casilla0");
-		var ficha1 = new Ficha(1, lienzoficha);
-		var ficha2 = new Ficha(2, lienzoficha);
-		var ficha3 = new Ficha(3, lienzoficha);
-		var ficha4 = new Ficha(4, lienzoficha);
-		//ficha1.moverFicha(lienzoficha, "0");
-		
-	</script>
-
 	<script>
 		var tablerodad = new Dado(200, 200);
 		function lanzarDado() {

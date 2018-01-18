@@ -36,10 +36,12 @@ public class Manager {
 	public void broadcast(String nombreJugador, JSONObject msg) throws Exception {
 		Usuario usuario = findUsuario(nombreJugador);
 		Partida partida = usuario.getPartida();
+		
+		
 		if(msg.getString("tipo").equals("DADO"))
-			partida.tirarDado(nombreJugador, Integer.parseInt(msg.getString("msg")));
-		else
-			partida.broadcast(msg);
+			partida.tirarDado(nombreJugador, Integer.parseInt(msg.getString("mensaje")));
+		
+		partida.broadcast(msg);
 		
 		
 			//throw new Exception("El usuario ya está asociado a una partida. Desconéctate para crear una nueva o unirte a otra");
@@ -227,12 +229,10 @@ public class Manager {
 			usuario.setPartida(partida);
 			
 		}
-	
-		lanzarPartidas();
 		return usuario;
 	}
 
-	private void lanzarPartidas() {
+	public void lanzarPartidas() {
 		for (Integer key : partidasPendientes.keySet()) {
 			if (partidasPendientes.get(key).isReady()) {
 				this.partidasEnJuego.put(partidasPendientes.get(key).getId(), partidasPendientes.get(key));
