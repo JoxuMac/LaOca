@@ -66,16 +66,18 @@
 		<![endif]-->
 		
 		<script>
-			function showElement(element) {
-				document.getElementById('crear').style.display = 'none'
+			function showElement(element, button) {
 				document.getElementById('ranking').style.display = 'none'
-				document.getElementById('buscarTodo').style.display = 'none'
-				document.getElementById('buscarID').style.display = 'none'
+				document.getElementById('rk').className = ''
 				document.getElementById('ajustes').style.display = 'none'
+				document.getElementById('aj').className = ''
 				document.getElementById('perfil').style.display = 'none'
 				document.getElementById('password').style.display = 'none'
 				document.getElementById('foto').style.display = 'none'
+				
 				document.getElementById(element).style.display = 'block'
+				if(button=='aj'||button=='jg'||button=='rk')
+					document.getElementById(button).className = 'active'
 			}
 		</script>
 	</head>
@@ -113,7 +115,7 @@
 							</a>
 
 							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li onclick="showElement('ajustes')">
+								<li onclick="showElement('ajustes', 'aj')">
 									<a href="#">
 										<i class="ace-icon fa fa-cog"></i>
 										Ajustes
@@ -178,14 +180,16 @@
 				</div><!-- /.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
-					<li class="active" onclick="showElement('crear')">
-						<a href="#">
+					
+					<li class="" id="jg" onclick="">
+					
+						<a href="./partida.html">
 							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text"> Crear Partida </span>
+							<span class="menu-text"> Jugar </span>
 						</a>
 						<b class="arrow"></b>
 					</li>
-
+<!-- 
 					<li class="">
 						<a href="./partida.html?status=0" class="dropdown-toggle">
 							<i class="menu-icon fa fa-search"></i>
@@ -214,8 +218,8 @@
 							</li>
 						</ul>
 					</li>
-
-					<li class=""  onclick="showElement('ranking')" >
+-->
+					<li class="" id="rk" onclick="showElement('ranking', 'rk')" >
 						<a class="dropdown-toggle" href="#">
 							<i class="menu-icon fa fa-list-ol"></i>
 							<span class="menu-text"> Ranking </span>
@@ -223,7 +227,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="" onclick="showElement('ajustes')">
+					<li class="" id="aj" onclick="showElement('ajustes', 'aj')">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-cog"></i>
 							<span class="menu-text"> Ajustes </span>
@@ -247,24 +251,7 @@
 			</div>
 
 			<div class="main-content">
-				<div class="main-content-inner">
-				
-					<div id="crear">
-						<div class="page-content">
-							<div class="page-header">
-								<h1>
-									Crear partida
-								</h1>
-							</div><!-- /.page-header -->
-							
-							<button type="submit" class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" onclick = "location.href='./partida.html?status=1'">Aceptar
-							</button>
-							
-							<div id="divChat"></div>
-				
-						</div><!-- /.page-content -->
-					</div>
-					
+				<div class="main-content-inner">				
 					<!-- RANKING -->
 					<div id="ranking" style="display:none">
 						<div class="page-content">
