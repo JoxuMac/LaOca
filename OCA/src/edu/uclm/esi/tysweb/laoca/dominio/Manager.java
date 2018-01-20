@@ -105,6 +105,9 @@ public class Manager {
 	public String getWebAppPath() {
 		return webAppPath;
 	}
+	public JSONObject getRanking() throws Exception {
+		return DAOUsuario.getRanking();
+	}
 	
 	private static class ManagerHolder {
 		static Manager singleton=new Manager();

@@ -5,12 +5,15 @@ import org.bson.BsonInt32;
 import org.bson.BsonString;
 import org.bson.BsonValue;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Sorts;
 
 import edu.uclm.esi.tysweb.laoca.dominio.TokenRecuperacionPwd;
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
@@ -203,6 +206,7 @@ public class DAOUsuario {
 	public static boolean existeUsuario (Usuario usuario) throws Exception {
 		MongoClient conexion = MongoBroker.get().getBD();
 		
+		
         BsonDocument criterio=new BsonDocument();
         criterio.append("email", new BsonString(usuario.geteMail()));
         
@@ -232,5 +236,34 @@ public class DAOUsuario {
 		usuarios.updateMany(query, set);
 		
 		MongoBroker.get().close(conexion);
+	}
+	
+	public static JSONObject getRanking() throws Exception{
+		JSONArray score_array = new JSONArray();
+		JSONObject score_obj = new JSONObject();		
+		MongoClient conexion=MongoBroker.get().getBD();
+		Bson sort = Sorts.descending("usuarios", "score");
+		
+		MongoCollection<BsonDocument> usuarios = 
+				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+        //BsonDocument usuario1=usuarios.find(criterio).first();
+
+		FindIterable<BsonDocument> find= usuarios.find().sort(sort).limit(5);
+
+		int pos=0;
+		for(BsonDocument index : find) {
+			pos++;
+			score_obj.put("user", index.getString("user").getValue());
+			score_obj.put("score", index.getInt32("score").getValue());
+			score_obj.put("position", pos+"");
+			score_array.put(score_obj);
+			score_obj = new JSONObject();
+		}
+		JSONObject result = new JSONObject();
+
+		result.put("scores", score_array);
+		MongoBroker.get().close(conexion);
+		return result;
+				
 	}
 }

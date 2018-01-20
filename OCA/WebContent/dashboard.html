@@ -261,21 +261,20 @@
 								</h1>
 							</div><!-- /.page-header -->
 							
-							<div>
-								<ul class="list-group">
-								  <li class="list-group-item">
-								    <span class="badge">1</span>
-								    Cras justo odio
-								  </li>
-								  <li class="list-group-item">
-								    <span class="badge">2</span>
-								    Cras justo odio
-								  </li>
-								  <li class="list-group-item">
-								    <span class="badge">3</span>
-								    Cras justo odio
-								  </li>
-								</ul>
+							<div class="container">
+	  							          
+	  							<table class="table table-condensed">
+							    <thead>
+							      <tr>
+							        <th>Posición</th>
+							        <th>Usuario</th>
+							        <th>Puntuación</th>
+							      </tr>
+							    </thead>
+							    <tbody id="ranking_list">
+							    </tbody>
+							  </table>
+							  <button class="btn btn-lg btn-primary btn-block btn-signin"  type="button" value="mostrarRanking" onclick = "mostrarRanking()">Mostrar Ranking</button>
 							</div>
 							
 						</div><!-- /.page-content -->
@@ -707,6 +706,7 @@
 			}	
 		</script>
 		<script src="scripts/GestionCuentas.js"></script>
+		<script src="scripts/mostrarRanking.js"></script>
 		
 		<script>
 			if($_GET('err')==0){
