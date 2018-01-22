@@ -35,7 +35,7 @@ function pintarFicha(idficha, casilla){
 	
 	if(casilla>0 && casilla<10){
 		cy = 540;
-		cx = 60+50*(casilla);
+		cx = 60+50*casilla;
 		if(idficha==2)
 			cx += 30;
 		else
@@ -48,6 +48,22 @@ function pintarFicha(idficha, casilla){
 				}
 	}
 	
+
+	if(casilla>9 && casilla<20){
+		cy = 490 - 50*(casilla-10)
+		//cy = 40 - 50*casilla;
+		cx = 510;
+		if(idficha==2)
+			cx += 30;
+		else
+			if(idficha==3)
+				cy -= 30;
+			else
+				if(idficha==4){
+					cy -= 30;
+					cx += 30;
+				}
+	}
 	
 	switch(idficha){
 		case 1:
