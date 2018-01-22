@@ -9,108 +9,78 @@
  */
 
 // Creacion de Ficha
-function Ficha(idficha, lienzo) {
+function Ficha(idficha) {
 	this.idficha = idficha;
-	switch(this.idficha){
+	this.idcasilla = 0;
+	pintarFicha(idficha, 0);
+}
+
+// Pintar ficha en una casilla
+function pintarFicha(idficha, casilla){
+	this.circulo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+	var cx;
+	var cy;
+	if(casilla==0){
+		cy = 530;
+		cx = 15;
+		if(idficha==2)
+			cx += 23;
+		else
+			if(idficha==3)
+				cx += 46;
+			else
+				if(idficha==4)
+					cx += 69;
+	}
+	
+	if(casilla>0 && casilla<10){
+		cy = 540;
+		cx = 60+50*(casilla);
+		if(idficha==2)
+			cx += 30;
+		else
+			if(idficha==3)
+				cy -= 30;
+			else
+				if(idficha==4){
+					cy -= 30;
+					cx += 30;
+				}
+	}
+	
+	
+	switch(idficha){
 		case 1:
-			pintarFicha1(lienzo);
+			this.circulo.setAttribute("fill", "purple");
 			break;
 		case 2:
-			pintarFicha2(lienzo);
+			this.circulo.setAttribute("fill", "red");
 			break;
 		case 3:
-			pintarFicha3(lienzo);
+			this.circulo.setAttribute("fill", "blue");
 			break;
 		case 4:
-			pintarFicha4(lienzo);
+			this.circulo.setAttribute("fill", "green");
 			break;
 	}
-}
-
-// Nueva Tirada de Dado
-Ficha.prototype.moverFicha = function(lienzo, tiradanueva, idficha) {
-	
-	this.idcasilla += tiradanueva;
-	
-	console.log(this.idcasilla);
-	
-	this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-	
-
-	// blue
-	// green
-	// purple
-	//red
-	
-	//this.g.appendChild(this.circulo);
-	
-	dibujar(lienzo, this.circulo);
-}
-
-function moverFicha2(lienzo, tiradanueva, idficha) {
-	
-	this.idcasilla += tiradanueva;
-	
-	console.log(this.idcasilla);
-	
-	this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-	
-
-	// blue
-	// green
-	// purple
-	//red
-	
-	//this.g.appendChild(this.circulo);
-	
-	dibujar(lienzo, this.circulo);
-}
-
-//Pintar Ficha 1
-function pintarFicha1(lienzo){
-	this.circulo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-	this.circulo.setAttribute("cx", 15);
-	this.circulo.setAttribute("cy", 530);
+	this.circulo.setAttribute("cx", cx);
+	this.circulo.setAttribute("cy", cy);
 	this.circulo.setAttribute("r", 10);
+	this.circulo.setAttribute("id", "ficha"+idficha);
 	this.circulo.setAttribute("stroke", "black");
-	this.circulo.setAttribute("fill", "purple");
-	dibujar(lienzo, this.circulo);
-}
-
-//Pintar Ficha 2
-function pintarFicha2(lienzo){
-	this.circulo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-	this.circulo.setAttribute("cx", 38);
-	this.circulo.setAttribute("cy", 530);
-	this.circulo.setAttribute("r", 10);
-	this.circulo.setAttribute("stroke", "black");
-	this.circulo.setAttribute("fill", "red");
-	dibujar(lienzo, this.circulo);
-}
-
-//Pintar Ficha 3
-function pintarFicha3(lienzo){
-	this.circulo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-	this.circulo.setAttribute("cx", 61);
-	this.circulo.setAttribute("cy", 530);
-	this.circulo.setAttribute("r", 10);
-	this.circulo.setAttribute("stroke", "black");
-	this.circulo.setAttribute("fill", "blue");
-	dibujar(lienzo, this.circulo);
-}
-
-// Pintar Ficha 4
-function pintarFicha4(lienzo){
-	this.circulo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-	this.circulo.setAttribute("cx", 84);
-	this.circulo.setAttribute("cy", 530);
-	this.circulo.setAttribute("r", 10);
-	this.circulo.setAttribute("stroke", "black");
-	this.circulo.setAttribute("fill", "green");
-	dibujar(lienzo, this.circulo);
+	dibujar(document.getElementById("casilla"+casilla), this.circulo);
 }
 
 // Dibujar en Lienzo
 function dibujar(lienzo, g) {
 	lienzo.appendChild(g);
+}
+
+//Nueva Tirada de Dado
+Ficha.prototype.moverFicha = function(tiradanueva) {
+	this.idcasilla += tiradanueva;
+	
+	document.getElementById("ficha"+this.idficha).remove()
+	
+	pintarFicha(this.idficha, this.idcasilla);
 }
