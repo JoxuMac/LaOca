@@ -65,17 +65,17 @@ function conectarWebSocket() {
 function comenzar(mensaje) {
 	var lienzoficha = document.getElementById("casilla0");
 	
-	fichas.push(new Ficha(1, lienzoficha));
-	document.getElementById("jg1").innerHTML = mensaje.Jugador1;
+	//fichas.push(new Ficha(1, lienzoficha));
+	//document.getElementById("jg1").innerHTML = mensaje.Jugador1;
 	
-	fichas.push(new Ficha(2, lienzoficha));
-	document.getElementById("jg2").innerHTML = mensaje.Jugador2;
+	//fichas.push(new Ficha(2, lienzoficha));
+//	document.getElementById("jg2").innerHTML = mensaje.Jugador2;
 	
-	fichas.push(new Ficha(3, lienzoficha));
-	document.getElementById("jg3").innerHTML = mensaje.Jugador3;
+	//fichas.push(new Ficha(3, lienzoficha));
+	//document.getElementById("jg3").innerHTML = mensaje.Jugador3;
 	
-	fichas.push(new Ficha(4, lienzoficha));
-	document.getElementById("jg4").innerHTML = mensaje.Jugador4;
+	//fichas.push(new Ficha(4, lienzoficha));
+	//document.getElementById("jg4").innerHTML = mensaje.Jugador4;
 
 	var btnDado=document.getElementById("lanzarDado");
 	if (mensaje.jugadorConElTurno==localStorage.nombre)
