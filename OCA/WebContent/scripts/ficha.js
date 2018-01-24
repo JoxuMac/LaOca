@@ -65,6 +65,22 @@ function pintarFicha(idficha, casilla){
 				}
 	}
 	
+	if(casilla>19 && casilla< 30){
+		cy = 40;
+		cx = 460 - 50*(casilla-20);
+		
+		if(idficha==2)
+			cx += 30;
+		else
+			if(idficha==3)
+				cy -= 30;
+			else
+				if(idficha==4){
+					cy -= 30;
+					cx += 30;
+				}
+	}
+	
 	switch(idficha){
 		case 1:
 			this.circulo.setAttribute("fill", "purple");
