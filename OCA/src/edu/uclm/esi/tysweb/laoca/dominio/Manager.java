@@ -21,6 +21,10 @@ public class Manager {
 		this.partidasEnJuego=new ConcurrentHashMap<>();
 	}
 	
+	public Usuario getJugadorTurno(int partida) {
+		return partidasEnJuego.get(partida).getJugadorConElTurno();
+	}
+	
 	public Usuario crearPartida(String nombreJugador, int numeroDeJugadores) throws Exception {
 		Usuario usuario = findUsuario(nombreJugador);
 		if (usuario.getPartida()!=null)

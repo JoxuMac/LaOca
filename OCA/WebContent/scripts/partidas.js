@@ -55,27 +55,68 @@ function conectarWebSocket() {
 			if (mensaje.tipo=="COMIENZO") {
 			addMensaje("<b>OCA: </b>Comienza la partida");
 			comenzar(mensaje);
-		} else {
-			console.log(mensaje.tipo);
-			console.log(mensaje.mensaje);
-		}
+			} else 
+				if (mensaje.tipo=="DADO") {
+					console.log(mensaje.tipo);
+					console.log(mensaje.mensaje);
+					
+					///// EN CONSTRUCCION /////
+					var request = new XMLHttpRequest();	
+					request.open("post", "servers/getJugadorTurno.jsp");
+					request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					request.onreadystatechange=function() {
+						if (request.readyState==4) {
+							var respuesta=JSON.parse(request.responseText);
+							comprobarTurno(respuesta.mensaje);
+							var idJugador;
+							if(respuesta.mensaje==document.getElementById("jg1").innerHTML){
+								idJugador=3;
+								console.log("jg4");
+						}
+							if(respuesta.mensaje==document.getElementById("jg2").innerHTML){
+								idJugador=0;
+								console.log("jg1");
+							}
+								if(respuesta.mensaje==document.getElementById("jg3").innerHTML){
+								idJugador=1;
+								console.log("jg2");
+							}
+								if(respuesta.mensaje==document.getElementById("jg4").innerHTML){
+								idJugador=2;
+								console.log("jg3");
+							}
+							
+							console.log("mensaje"+mensaje.mensaje);
+							
+							//fichas[idJugador].moverFicha(mensaje.mensaje);
+						}
+					};
+					var p = {
+						partida : sessionStorage.idPartida
+					};
+					request.send("p=" + JSON.stringify(p));
+				} else {
+					console.log(mensaje.tipo);
+					console.log(mensaje.mensaje);
+					console.log(mensaje.jugadores);
+				}
 	}	
 }
 
 function comenzar(mensaje) {
-	var lienzoficha = document.getElementById("casilla0");
+	//var lienzoficha = document.getElementById("casilla0");
+	//console.log(mensaje.jugadores[0]);
+	fichas.push(new Ficha(1));
+	document.getElementById("jg1").innerHTML = mensaje.jugadores[0];
 	
-	//fichas.push(new Ficha(1, lienzoficha));
-	//document.getElementById("jg1").innerHTML = mensaje.Jugador1;
+	fichas.push(new Ficha(2));
+	document.getElementById("jg2").innerHTML = mensaje.jugadores[1];
 	
-	//fichas.push(new Ficha(2, lienzoficha));
-//	document.getElementById("jg2").innerHTML = mensaje.Jugador2;
+	fichas.push(new Ficha(3));
+	document.getElementById("jg3").innerHTML = mensaje.jugadores[2];
 	
-	//fichas.push(new Ficha(3, lienzoficha));
-	//document.getElementById("jg3").innerHTML = mensaje.Jugador3;
-	
-	//fichas.push(new Ficha(4, lienzoficha));
-	//document.getElementById("jg4").innerHTML = mensaje.Jugador4;
+	fichas.push(new Ficha(4));
+	document.getElementById("jg4").innerHTML = mensaje.jugadores[3];
 
 	sessionStorage.idPartida=mensaje.idPartida;
 	
