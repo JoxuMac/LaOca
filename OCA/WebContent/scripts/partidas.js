@@ -77,13 +77,17 @@ function comenzar(mensaje) {
 	//fichas.push(new Ficha(4, lienzoficha));
 	//document.getElementById("jg4").innerHTML = mensaje.Jugador4;
 
+	sessionStorage.idPartida=mensaje.idPartida;
+	
+	comprobarTurno(mensaje);
+}
+
+function comprobarTurno(mensaje) {
 	var btnDado=document.getElementById("lanzarDado");
 	if (mensaje.jugadorConElTurno==localStorage.nombre)
 		btnDado.disabled = false;
 	 else 
 		btnDado.disabled = true;
-	
-	sessionStorage.idPartida=mensaje.idPartida;
 }
 
 function broadcast(texto, tipo) {
