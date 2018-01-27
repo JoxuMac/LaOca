@@ -11,11 +11,7 @@ Eduardo Fuentes Garcia De Blas
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript">
-		if (localStorage.getItem("nombre")!=null)
-			location.href="dashboard.html";
-	</script>
-
+	
 	<meta charset="UTF-8">
 	<title>LA OCA | Entrar</title>
 	<link rel="shortcut icon" href="./images/favicon.ico" />
@@ -26,22 +22,7 @@ Eduardo Fuentes Garcia De Blas
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="./css/estilo.css">
 	
-	<script>
-		function $_GET(param) {
-			var vars = {};
-			window.location.href.replace( location.hash, '' ).replace( 
-				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-				function( m, key, value ) { // callback
-					vars[key] = value !== undefined ? value : '';
-				}
-			);
 	
-			if ( param ) {
-				return vars[param] ? vars[param] : null;	
-			}
-			return vars;
-		}
-	</script>
 	
 </head>
 <body>
@@ -58,18 +39,17 @@ Eduardo Fuentes Garcia De Blas
 		 	<form name="FormEntrar" action="" method="GET">	
 		 		<div class="input-group input-group-lg">
 				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-user"></i></span>
-				  <input type="text" class="form-control" name="nombre" placeholder="Usuario o Correo Electronico" id="Nombre" aria-describedby="sizing-addon1" required>
+				  <input type="text" class="form-control" name="nombre" placeholder="Correo Electronico" id="CorreoElectronico" aria-describedby="sizing-addon1" required>
 				</div>
 				<br>
 				<div class="input-group input-group-lg">
-				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
-				  <input type="password" name="pass" class="form-control" placeholder="******" id="pass" aria-describedby="sizing-addon1" required>
-				</div>			
+				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-user"></i></span>
+				  <input type="text" class="form-control" name="user" placeholder="Usuario" id="Nombre" aria-describedby="sizing-addon1" required>
+				</div>	
 				<br>
-				<button type="submit" class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" onclick = "login()">Aceptar
+				<button type="submit" class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" onclick = "registrarAnonimo()">Aceptar
 				</button>
 				<br>
-				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog2" type="button" value="enviar" onclick = "location='./index.html'">Cancelar</button>
 				<div class="opcioncontra"><a href="recordarPass.html">¿Olvidaste tu contraseñaa?</a></div>
 				
 		 	</form>
@@ -77,9 +57,5 @@ Eduardo Fuentes Garcia De Blas
 	 </div>
 	 <script src="scripts/GestionCuentas.js"></script>
 	 
-	 <script>
-		if($_GET('err')==1)
-			document.getElementById('err').style.display = 'block' ;
-	</script>
 </body>
 </html>

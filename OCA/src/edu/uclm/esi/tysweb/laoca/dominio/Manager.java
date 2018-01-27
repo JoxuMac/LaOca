@@ -122,7 +122,7 @@ public class Manager {
 	}
 	
 	public void registrar(String email, String pwd, String user) throws Exception {
-		Usuario usuario=new Usuario();
+		Usuario usuario=new UsuarioRegistrado();
 		usuario.seteMail(email);
 		usuario.setNombre(user);
 		usuario.setScore(0);
@@ -131,8 +131,17 @@ public class Manager {
 	}
 	
 	public Usuario login(String email, String pwd) throws Exception {
-		return DAOUsuario.login(email, pwd);
+		//return DAOUsuario.login(email, pwd);
+		Usuario usuario = new UsuarioRegistrado().login(email, pwd);
+		return usuario;
 	}
+	public Usuario registrar_anonimo(String nombre,String email) throws Exception{
+        Usuario usuarioAnonimo = new Usuario();
+        usuarioAnonimo.setNombre(nombre);
+        usuarioAnonimo.seteMail(email);
+        this.usuarios.put(nombre, usuarioAnonimo);
+        return usuarioAnonimo;
+    }
 	
 	public void changePass(String email, String pwd_old, String pwd1) throws Exception {
 		DAOUsuario.changePassword(email, pwd_old, pwd1);

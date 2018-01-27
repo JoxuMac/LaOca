@@ -17,6 +17,7 @@ import com.mongodb.client.model.Sorts;
 
 import edu.uclm.esi.tysweb.laoca.dominio.TokenRecuperacionPwd;
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
+import edu.uclm.esi.tysweb.laoca.dominio.UsuarioRegistrado;
 import jdk.nashorn.internal.parser.JSONParser;
 
 public class DAOUsuario {
@@ -40,14 +41,14 @@ public class DAOUsuario {
 		Usuario usuario=null;
 
 		if (resultado.first()!=null) {
-			usuario=new Usuario();
+			usuario=new UsuarioRegistrado();
 			usuario.seteMail(resultado.first().getString("email").getValue());
 			usuario.setNombre(resultado.first().getString("user").getValue());
 			usuario.setPhoto(resultado.first().getString("photo").getValue());
 		}else {
 			resultado = usuarios.find(criterio2);
 			if (resultado.first()!=null) {
-				usuario=new Usuario();
+				usuario=new UsuarioRegistrado();
 				usuario.seteMail(resultado.first().getString("email").getValue());
 				usuario.setNombre(resultado.first().getString("user").getValue());
 				usuario.setPhoto(resultado.first().getString("photo").getValue());

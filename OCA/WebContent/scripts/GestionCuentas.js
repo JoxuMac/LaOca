@@ -18,6 +18,29 @@ function registrar() {
 	request.send("p=" + JSON.stringify(p));
 	sleep(1000);
 }
+function registrarAnonimo() {
+	var request = new XMLHttpRequest();	
+	request.open("post", "servers/sinRegistrar.jsp");
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.onreadystatechange=function() {
+		if (request.readyState==4) {
+			var respuesta=JSON.parse(request.responseText);
+			if (respuesta.result=="OK"){
+				localStorage.nombre= Nombre.value;
+				localStorage.email= CorreoElectronico.value;
+
+    				location.href="partida.html";
+
+			}else
+				location.href="registro.html?err=1";
+		}
+	};
+	var p = {
+		nombre:Nombre.value, email:CorreoElectronico.value
+	};
+	request.send("p=" + JSON.stringify(p));
+	sleep(3000);
+}
 
 function login(){
     var request = new XMLHttpRequest();
