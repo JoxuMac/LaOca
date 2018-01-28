@@ -13,9 +13,11 @@
 		String email = jso.optString("email");
 		String token = jso.optString("token");
 		String user = jso.optString("user");
+		String photo = jso.optString("photo");
+
 
 			
-		Manager.get().registrarGoogle(email,token,user);
+		Manager.get().registrarGoogle(email,token,user,photo);
 		respuesta.put("result", "OK");
 	}
 	catch (Exception e) {

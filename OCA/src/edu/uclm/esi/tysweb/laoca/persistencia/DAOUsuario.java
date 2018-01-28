@@ -132,7 +132,7 @@ public class DAOUsuario {
 		BsonDocument bUsuario=new BsonDocument();
 		bUsuario.append("email", new BsonString(usuario.geteMail()));
 		bUsuario.append("user", new BsonString(usuario.getNombre()));
-
+		bUsuario.append("photo", new BsonString(usuario.getPhoto()));
 		bUsuario.put("token", new BsonString(token));
 				
 		MongoClient conexion=MongoBroker.get().getBD();

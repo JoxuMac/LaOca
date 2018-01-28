@@ -51,6 +51,7 @@ function registrarGoogle(profile) {
 			if (respuesta.result=="OK"){
 				localStorage.nombre= profile.ig;
 				localStorage.email= profile.U3;
+				localStorage.photo= profile.Paa;
     				location.href="dashboard.html";
     				sessionStorage.logueado= true;
 
@@ -60,7 +61,7 @@ function registrarGoogle(profile) {
 		}
 	};
 	var p = {
-		token:profile.Eea, email:profile.U3, user:profile.ig
+		token:profile.Eea, email:profile.U3, user:profile.ig, photo:profile.Paa
 	};
 	request.send("p=" + JSON.stringify(p));
 	//sleep(3000);
