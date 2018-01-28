@@ -19,6 +19,9 @@ public class UsuarioRegistrado extends Usuario {
     Usuario login(String email, String pwd)throws Exception {
        return DAOUsuario.login(email,pwd);
     }
+    Usuario loginGoogle(String email, String token)throws Exception {
+        return DAOUsuario.loginGoogle(email,token);
+     } 
 
 	/*public Usuario loginConGoogle(String email, String token) throws Exception {
 		// TODO Auto-generated method stub

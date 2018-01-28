@@ -18,6 +18,7 @@ public class Usuario {
 	private Session session;
 	private Casilla casilla;
 	private int turnosSinTirar;
+	private String token;
 
 	public Usuario(String nombreJugador) throws Exception {
 		//if (!DAOUsuario.existe(nombreJugador))
@@ -72,6 +73,9 @@ public class Usuario {
 	public void insert(String pwd) throws Exception {
 		DAOUsuario.insert(this, pwd);
 	}
+	public void insertToken(String token) throws Exception {
+		DAOUsuario.insertToken(this, token);
+	}
 
 	public void enviar(JSONObject jso) throws IOException {
 		this.session.getBasicRemote().sendText(jso.toString());
@@ -104,5 +108,10 @@ public class Usuario {
 	
 	public int getScore() {
 		return this.score;
+	}
+
+	public void setToken(String token) {
+		this.token =token;
+		
 	}
 }

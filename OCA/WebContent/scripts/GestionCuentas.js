@@ -41,6 +41,29 @@ function registrarAnonimo() {
 	request.send("p=" + JSON.stringify(p));
 	sleep(3000);
 }
+function registrarGoogle(profile) {
+	var request = new XMLHttpRequest();	
+	request.open("post", "servers/registroGoogle.jsp");
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.onreadystatechange=function() {
+		if (request.readyState==4) {
+			var respuesta=JSON.parse(request.responseText);
+			if (respuesta.result=="OK"){
+				localStorage.nombre= profile.ig;
+				localStorage.email= profile.U3;
+
+    				location.href="dashboard.html";
+
+			}else
+				location.href="registro.html?err=1";
+		}
+	};
+	var p = {
+		token:profile.Eea, email:profile.U3, user:profile.ig
+	};
+	request.send("p=" + JSON.stringify(p));
+	sleep(3000);
+}
 
 function login(){
     var request = new XMLHttpRequest();
@@ -68,6 +91,34 @@ function login(){
     sleep(1000);
 
 }
+function loginGoogle(profile){
+    var request = new XMLHttpRequest();
+    request.open("post","servers/loginGoogle.jsp");
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = function (){
+        if(request.readyState === 4){
+            var respuesta = JSON.parse(request.responseText);
+            if(respuesta.result ==="OK"){	
+            	
+            	localStorage.nombre= profile.ig;
+			localStorage.email= profile.U3;
+            	//localStorage.photo = respuesta.photo;
+            	
+            	location.href="dashboard.html";
+            }else{
+            	location.href="login.html?err=1";
+            }
+        }
+    };
+    var p = {
+    			token:profile.Eea, email:profile.U3
+
+    };
+    request.send("p="+JSON.stringify(p));
+    sleep(1000);
+
+}
+
 
 function actualizarPassword(){
 	if(pass1.value==pass2.value){
@@ -110,7 +161,16 @@ function estaConectado() {
 
 function cerrarSesion() {
 	localStorage.clear();
+	sessionStorage.clear();
 	location.href="index.html";
+	console.log("Cerrando sesión");
+	signOut();
+}
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+	});
 }
 
 function sleep(milliseconds) {

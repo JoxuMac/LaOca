@@ -129,10 +129,25 @@ public class Manager {
 		usuario.setPhoto("profile/default.png");
 		usuario.insert(pwd);
 	}
+	public void registrarGoogle(String email,String token,String user) throws Exception {
+		Usuario usuario=new UsuarioRegistrado();
+		usuario.seteMail(email);
+		usuario.setNombre(user);
+		usuario.setToken(token);
+		usuario.setScore(0);
+		usuario.setPhoto("profile/default.png");
+		//usuario.insert(pwd);
+		usuario.insertToken(token);
+	}
 	
 	public Usuario login(String email, String pwd) throws Exception {
 		//return DAOUsuario.login(email, pwd);
 		Usuario usuario = new UsuarioRegistrado().login(email, pwd);
+		return usuario;
+	}
+	public Usuario loginGoogle(String email, String token) throws Exception {
+		//return DAOUsuario.login(email, pwd);
+		Usuario usuario = new UsuarioRegistrado().loginGoogle(email, token);
 		return usuario;
 	}
 	public Usuario registrar_anonimo(String nombre,String email) throws Exception{

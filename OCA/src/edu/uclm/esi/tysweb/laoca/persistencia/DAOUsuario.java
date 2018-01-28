@@ -59,6 +59,30 @@ public class DAOUsuario {
 		
 		return usuario;
 	}
+	public static Usuario loginGoogle(String email, String token) throws Exception {
+		MongoClient conexion = MongoBroker.get().getBD();
+		
+		BsonDocument criterio1=new BsonDocument();
+		criterio1.append("email", new BsonString(email));
+		criterio1.append("token", new BsonString(token));
+		
+		MongoCollection<BsonDocument> usuarios= conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		FindIterable<BsonDocument> resultado = usuarios.find(criterio1);
+		Usuario usuario=null;
+
+		if (resultado.first()!=null) {
+			usuario=new UsuarioRegistrado();
+			usuario.seteMail(resultado.first().getString("email").getValue());
+			usuario.setToken(resultado.first().getString("token").getValue());
+			usuario.setNombre(resultado.first().getString("user").getValue());
+			
+		} else
+				throw new Exception("Error en login");
+		
+		MongoBroker.get().close(conexion);
+		
+		return usuario;
+	}
 	
 	/* OBTENER FOTO */
 	public static String getPhoto(String email) throws Exception {
@@ -93,6 +117,24 @@ public class DAOUsuario {
 		bUsuario.put("score", new BsonInt32(usuario.getScore()));
 		bUsuario.put("photo", new BsonString(usuario.getPhoto()));
 		
+		MongoClient conexion=MongoBroker.get().getBD();
+		MongoCollection<BsonDocument> usuarios = 
+				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		
+		usuarios.insertOne(bUsuario);
+		
+		MongoBroker.get().close(conexion);
+	}
+	public static void insertToken(Usuario usuario, String token) throws Exception{
+		if(existeUsuario(usuario))
+			throw new Exception ("ESTAS REGISTRADO");
+		
+		BsonDocument bUsuario=new BsonDocument();
+		bUsuario.append("email", new BsonString(usuario.geteMail()));
+		bUsuario.append("user", new BsonString(usuario.getNombre()));
+
+		bUsuario.put("token", new BsonString(token));
+				
 		MongoClient conexion=MongoBroker.get().getBD();
 		MongoCollection<BsonDocument> usuarios = 
 				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
@@ -267,4 +309,6 @@ public class DAOUsuario {
 		return result;
 				
 	}
+
+	
 }
