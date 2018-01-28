@@ -136,13 +136,13 @@ public class Manager {
 		usuario.setPhoto("profile/default.png");
 		usuario.insert(pwd);
 	}
-	public void registrarGoogle(String email,String token,String user) throws Exception {
+	public void registrarGoogle(String email,String token,String user,String photo) throws Exception {
 		Usuario usuario=new UsuarioRegistrado();
 		usuario.seteMail(email);
 		usuario.setNombre(user);
 		usuario.setToken(token);
 		usuario.setScore(0);
-		usuario.setPhoto("profile/default.png");
+		usuario.setPhoto(photo);
 		//usuario.insert(pwd);
 		usuario.insertToken(token);
 	}
