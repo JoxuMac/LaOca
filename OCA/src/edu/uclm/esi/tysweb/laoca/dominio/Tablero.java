@@ -61,5 +61,4 @@ public class Tablero {
 		jugador.setCasilla(this.casillas[0]);
 	}
 
-
 }

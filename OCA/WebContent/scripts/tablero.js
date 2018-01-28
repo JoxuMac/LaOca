@@ -203,7 +203,7 @@ Casilla.prototype.crearCirculo = function(width, heigth, casill, casillas) {
 	this.numero.setAttribute("fill", "black");
 	this.numero.setAttribute("font-weight", "bold");
 	this.numero.setAttribute("font-family", "Arial");
-	this.numero.innerHTML = (casill + 1);
+	this.numero.innerHTML = (casill);
 	this.g.appendChild(this.numero);
 
 	// Imagen Casilla

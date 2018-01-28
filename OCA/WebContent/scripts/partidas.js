@@ -9,7 +9,7 @@
  */
 
 var ws;
-var fichas = [];
+var fichas = [4];
 
 function jugar() {
 	var request = new XMLHttpRequest();	
@@ -56,9 +56,9 @@ function conectarWebSocket() {
 			addMensaje("<b>OCA: </b>Comienza la partida");
 			comenzar(mensaje);
 			} else 
-				if (mensaje.tipo=="DADO") {
+				if (mensaje.tipo=="TIRADA") {
 					console.log(mensaje.tipo);
-					console.log(mensaje.mensaje);
+					console.log(mensaje.dado);
 					
 					///// EN CONSTRUCCION /////
 					var request = new XMLHttpRequest();	
@@ -71,22 +71,35 @@ function conectarWebSocket() {
 							var idJugador;
 							if(respuesta.mensaje==document.getElementById("jg1").innerHTML){
 								idJugador=3;
-								console.log("jg4");
+							//	console.log("jg4");
 						}
 							if(respuesta.mensaje==document.getElementById("jg2").innerHTML){
 								idJugador=0;
-								console.log("jg1");
+							//	console.log("jg1");
 							}
 								if(respuesta.mensaje==document.getElementById("jg3").innerHTML){
 								idJugador=1;
-								console.log("jg2");
+							//	console.log("jg2");
 							}
 								if(respuesta.mensaje==document.getElementById("jg4").innerHTML){
 								idJugador=2;
-								console.log("jg3");
+							//	console.log("jg3");
 							}
 							
-							console.log("mensaje"+mensaje.mensaje);
+							//console.log("mensaje"+mensaje.mensaje);
+							//console.log(fichas[idJugador].idcasilla);
+							
+							var fc = fichas[respuesta.mensaje];
+							
+							console.log(respuesta.mensaje);
+							
+							fc.moverFicha(mensaje.dado);
+							
+							if(respuesta.destinoFinal!==null){
+								console.log("eee");
+								console.log(respuesta.destinoFinal-mensaje.dado);
+								fc.moverFicha(respuesta.destinoFinal-mensaje.dado);
+							}
 							
 							//fichas[idJugador].moverFicha(mensaje.mensaje);
 						}
@@ -106,29 +119,40 @@ function conectarWebSocket() {
 function comenzar(mensaje) {
 	//var lienzoficha = document.getElementById("casilla0");
 	//console.log(mensaje.jugadores[0]);
-	fichas.push(new Ficha(1));
+	//fichas.push(new Ficha(1));
+	fichas[mensaje.jugadores[0]] = new Ficha(1);
 	document.getElementById("jg1").innerHTML = mensaje.jugadores[0];
+	document.getElementById("jg1").style.color = "purple" ;
 	
-	fichas.push(new Ficha(2));
+	fichas[mensaje.jugadores[1]] = new Ficha(2);
+//	fichas.push(new Ficha(2));
 	document.getElementById("jg2").innerHTML = mensaje.jugadores[1];
+	document.getElementById("jg2").style.color = "red";
 	
-	fichas.push(new Ficha(3));
+	fichas[mensaje.jugadores[2]] = new Ficha(3);
+	//fichas.push(new Ficha(3));
 	document.getElementById("jg3").innerHTML = mensaje.jugadores[2];
+	document.getElementById("jg3").style.color = "blue";
 	
-	fichas.push(new Ficha(4));
+	fichas[mensaje.jugadores[3]] = new Ficha(4);
+	//fichas.push(new Ficha(4));
 	document.getElementById("jg4").innerHTML = mensaje.jugadores[3];
+	document.getElementById("jg4").style.color = "green";
 
 	sessionStorage.idPartida=mensaje.idPartida;
 	
-	comprobarTurno(mensaje);
+	comprobarTurno(mensaje.jugadorConElTurno);
 }
 
 function comprobarTurno(mensaje) {
+//	console.log("turno:"+mensaje);
 	var btnDado=document.getElementById("lanzarDado");
-	if (mensaje.jugadorConElTurno==localStorage.nombre)
+	if (mensaje==localStorage.nombre)
 		btnDado.disabled = false;
 	 else 
 		btnDado.disabled = true;
+	
+//	console.log("eee");
 }
 
 function broadcast(texto, tipo) {

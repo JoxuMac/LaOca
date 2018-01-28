@@ -70,7 +70,9 @@ public class Partida {
 		result.put("tipo", "TIRADA");
 		result.put("casillaOrigen", jugador.getCasilla().getPos());
 		result.put("dado", dado);
+		result.put("jugador", nombreJugador);
 		Casilla destino=this.tablero.tirarDado(jugador, dado);
+		result.put("e", destino.getMensaje());
 		result.put("destinoInicial", destino.getPos());
 		Casilla siguiente=destino.getSiguiente();
 		boolean conservarTurno=false;
