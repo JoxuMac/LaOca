@@ -16,7 +16,7 @@ function registrar() {
 		nombre:Nombre.value, email:CorreoElectronico.value, pwd1:pwd1.value, pwd2:pwd2.value
 	};
 	request.send("p=" + JSON.stringify(p));
-	sleep(1000);
+	//sleep(1000);
 }
 function registrarAnonimo() {
 	var request = new XMLHttpRequest();	
@@ -39,7 +39,7 @@ function registrarAnonimo() {
 		nombre:Nombre.value, email:CorreoElectronico.value
 	};
 	request.send("p=" + JSON.stringify(p));
-	sleep(3000);
+	//sleep(3000);
 }
 function registrarGoogle(profile) {
 	var request = new XMLHttpRequest();	
@@ -51,8 +51,9 @@ function registrarGoogle(profile) {
 			if (respuesta.result=="OK"){
 				localStorage.nombre= profile.ig;
 				localStorage.email= profile.U3;
-
     				location.href="dashboard.html";
+    				sessionStorage.logueado= true;
+
 
 			}else
 				location.href="registro.html?err=1";
@@ -62,7 +63,7 @@ function registrarGoogle(profile) {
 		token:profile.Eea, email:profile.U3, user:profile.ig
 	};
 	request.send("p=" + JSON.stringify(p));
-	sleep(3000);
+	//sleep(3000);
 }
 
 function login(){
@@ -103,6 +104,11 @@ function loginGoogle(profile){
             	localStorage.nombre= profile.ig;
 			localStorage.email= profile.U3;
             	//localStorage.photo = respuesta.photo;
+			// Almacena la información en sessionStorage
+			//sessionStorage.setItem('logueado', true);
+			sessionStorage.logueado= true;
+
+
             	
             	location.href="dashboard.html";
             }else{
@@ -115,7 +121,7 @@ function loginGoogle(profile){
 
     };
     request.send("p="+JSON.stringify(p));
-    sleep(1000);
+    //sleep(1000);
 
 }
 
@@ -138,7 +144,7 @@ function actualizarPassword(){
             email:localStorage.email, pwd_old:pass_old.value, pwd1:pass1.value
     };
     request.send("p="+JSON.stringify(p));
-    sleep(1000);
+    //sleep(1000);
 	}
 	else
 		location.href="dashboard.html?err=1";
@@ -161,7 +167,7 @@ function estaConectado() {
 
 function cerrarSesion() {
 	localStorage.clear();
-	sessionStorage.clear();
+	//sessionStorage.clear();
 	location.href="index.html";
 	console.log("Cerrando sesión");
 	signOut();
