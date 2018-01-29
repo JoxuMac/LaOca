@@ -9,6 +9,7 @@
  */
 
 var ws;
+var fin = false;
 var fichas = [4];
 
 function jugar() {
@@ -57,10 +58,7 @@ function conectarWebSocket() {
 			comenzar(mensaje);
 			} else 
 				if (mensaje.tipo=="TIRADA") {
-					console.log(mensaje.tipo);
-					console.log(mensaje.dado);
 					
-					///// EN CONSTRUCCION /////
 					var request = new XMLHttpRequest();	
 					request.open("post", "servers/getJugadorTurno.jsp");
 					request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -71,16 +69,26 @@ function conectarWebSocket() {
 							
 							var fc = fichas[mensaje.jugador];
 							
-							console.log(respuesta.mensaje);
-							
 							fc.moverFicha(mensaje.dado);
+							document.getElementById("card").innerHTML = "Has sacado un " + mensaje.dado;
 							
+							// CASILLA ESPECIAL
 							if(mensaje.destinoFinal!=undefined){
-								console.log("eee"+parseInt(mensaje.destinoFinal));
 								var mov = parseInt(mensaje.destinoFinal)-parseInt(mensaje.destinoInicial);
-								console.log(mov);
 								fc.moverFicha(mov);
+								document.getElementById("card").innerHTML += "\n" + mensaje.msg;
 							}
+							
+							// MUERTE
+							if(mensaje.muerte!=undefined)
+								document.getElementById("card").innerHTML = mensaje.muerte;
+							
+							// GANADOR
+							if(mensaje.ganador!=undefined){
+								document.getElementById("card").innerHTML = "Ha ganado " + mensaje.ganador;
+								fin = true;
+							}
+							
 						}
 					};
 					var p = {
@@ -119,7 +127,7 @@ function comenzar(mensaje) {
 
 function comprobarTurno(mensaje) {
 	var btnDado=document.getElementById("lanzarDado");
-	if (mensaje==localStorage.nombre)
+	if (mensaje==localStorage.nombre && !fin)
 		btnDado.disabled = false;
 	 else 
 		btnDado.disabled = true;

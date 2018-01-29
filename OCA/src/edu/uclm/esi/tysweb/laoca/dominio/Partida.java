@@ -57,7 +57,6 @@ public class Partida {
 		jso.put("jugadorConElTurno", getJugadorConElTurno().getNombre());
 		for (Usuario jugador : jugadores) {
 			jsa.put(jugador.getNombre());
-			System.out.println(jugador.getNombre());
 		}
 		jso.put("jugadores", jsa);
 		
@@ -80,7 +79,7 @@ public class Partida {
 		result.put("dado", dado);
 		result.put("jugador", nombreJugador);
 		Casilla destino=this.tablero.tirarDado(jugador, dado);
-		result.put("e", destino.getMensaje());
+		result.put("msg", destino.getMensaje());
 		result.put("destinoInicial", destino.getPos());
 		Casilla siguiente=destino.getSiguiente();
 		boolean conservarTurno=false;
@@ -98,6 +97,7 @@ public class Partida {
 		if (destino.getPos()==57) { // Muerte
 			jugador.setPartida(null);
 			result.put("mensaje", jugador.getNombre() + " cae en la muerte");
+			result.put("muerte", jugador.getNombre() + " cae en la muerte");
 			this.jugadores.remove(jugador);
 			this.jugadorConElTurno--;
 			if (this.jugadores.size()==1) {
@@ -111,7 +111,7 @@ public class Partida {
 		}
 		int turnosSinTirar=destino.getTurnosSinTirar();
 		if (turnosSinTirar>0) {
-			result.put("mensajeAdicional", jugador.getNombre() + " está " + turnosSinTirar + " turnos sin tirar porque ha caído en ");
+			result.put("mensajeAdicional", jugador.getNombre() + " esta " + turnosSinTirar + " turnos sin tirar porque ha caido en ");
 			jugador.setTurnosSinTirar(destino.getTurnosSinTirar());
 		}
 		result.put("jugadorConElTurno", pasarTurno(conservarTurno));
