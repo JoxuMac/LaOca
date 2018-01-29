@@ -58,25 +58,23 @@ function conectarWebSocket() {
 			comenzar(mensaje);
 			} else 
 				if (mensaje.tipo=="TIRADA") {
-					
 					var request = new XMLHttpRequest();	
 					request.open("post", "servers/getJugadorTurno.jsp");
 					request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 					request.onreadystatechange=function() {
 						if (request.readyState==4) {
 							var respuesta=JSON.parse(request.responseText);
-							comprobarTurno(respuesta.mensaje);
 							
 							var fc = fichas[mensaje.jugador];
 							
 							fc.moverFicha(mensaje.dado);
-							document.getElementById("card").innerHTML = "Has sacado un " + mensaje.dado;
+							document.getElementById("card").innerHTML = mensaje.jugador + " ha sacado un " + mensaje.dado;
 							
 							// CASILLA ESPECIAL
 							if(mensaje.destinoFinal!=undefined){
 								var mov = parseInt(mensaje.destinoFinal)-parseInt(mensaje.destinoInicial);
 								fc.moverFicha(mov);
-								document.getElementById("card").innerHTML += "\n" + mensaje.msg;
+								document.getElementById("card").innerHTML += " - " + mensaje.msg;
 							}
 							
 							// MUERTE
@@ -88,6 +86,8 @@ function conectarWebSocket() {
 								document.getElementById("card").innerHTML = "Ha ganado " + mensaje.ganador;
 								fin = true;
 							}
+							
+							comprobarTurno(respuesta.mensaje);
 							
 						}
 					};
