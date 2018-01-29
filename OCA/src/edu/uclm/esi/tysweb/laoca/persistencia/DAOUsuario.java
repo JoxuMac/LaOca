@@ -1,10 +1,19 @@
+/*
+LA OCA - 2017 - Tecnologias y Sistemas Web
+Escuela Superior de Informatica de Ciudad Real 
+
+Josue Gutierrez Duran
+Sonia Querencia Martin
+Enrique Simarro Santamaria
+Eduardo Fuentes Garcia De Blas
+*/
+
 package edu.uclm.esi.tysweb.laoca.persistencia;
 
 import org.bson.BsonDocument;
 import org.bson.BsonInt32;
 import org.bson.BsonString;
 import org.bson.BsonValue;
-import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,7 +27,6 @@ import com.mongodb.client.model.Sorts;
 import edu.uclm.esi.tysweb.laoca.dominio.TokenRecuperacionPwd;
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
 import edu.uclm.esi.tysweb.laoca.dominio.UsuarioRegistrado;
-import jdk.nashorn.internal.parser.JSONParser;
 
 public class DAOUsuario {
 	
@@ -289,7 +297,6 @@ public class DAOUsuario {
 		
 		MongoCollection<BsonDocument> usuarios = 
 				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
-        //BsonDocument usuario1=usuarios.find(criterio).first();
 
 		FindIterable<BsonDocument> find= usuarios.find().sort(sort).limit(5);
 
@@ -309,6 +316,4 @@ public class DAOUsuario {
 		return result;
 				
 	}
-
-	
 }

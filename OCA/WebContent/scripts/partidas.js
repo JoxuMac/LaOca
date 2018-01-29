@@ -96,25 +96,19 @@ function conectarWebSocket() {
 }
 
 function comenzar(mensaje) {
-	//var lienzoficha = document.getElementById("casilla0");
-	//console.log(mensaje.jugadores[0]);
-	//fichas.push(new Ficha(1));
 	fichas[mensaje.jugadores[0]] = new Ficha(1);
 	document.getElementById("jg1").innerHTML = mensaje.jugadores[0];
 	document.getElementById("jg1").style.color = "purple" ;
 	
 	fichas[mensaje.jugadores[1]] = new Ficha(2);
-//	fichas.push(new Ficha(2));
 	document.getElementById("jg2").innerHTML = mensaje.jugadores[1];
 	document.getElementById("jg2").style.color = "red";
 	
 	fichas[mensaje.jugadores[2]] = new Ficha(3);
-	//fichas.push(new Ficha(3));
 	document.getElementById("jg3").innerHTML = mensaje.jugadores[2];
 	document.getElementById("jg3").style.color = "blue";
 	
 	fichas[mensaje.jugadores[3]] = new Ficha(4);
-	//fichas.push(new Ficha(4));
 	document.getElementById("jg4").innerHTML = mensaje.jugadores[3];
 	document.getElementById("jg4").style.color = "green";
 
@@ -124,14 +118,11 @@ function comenzar(mensaje) {
 }
 
 function comprobarTurno(mensaje) {
-//	console.log("turno:"+mensaje);
 	var btnDado=document.getElementById("lanzarDado");
 	if (mensaje==localStorage.nombre)
 		btnDado.disabled = false;
 	 else 
 		btnDado.disabled = true;
-	
-//	console.log("eee");
 }
 
 function broadcast(texto, tipo) {

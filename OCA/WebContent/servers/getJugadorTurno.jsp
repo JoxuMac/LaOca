@@ -26,15 +26,10 @@ try {
 	
 	respuesta.put("result", "OK");
 	respuesta.put("mensaje", usuario.getNombre());
-//	respuesta.put("idJugador", usuario.get());
 }
 catch (Exception e) {
-	//response.sendRedirect("../login.html?err=1");
 	respuesta.put("result", "ERROR");
 	respuesta.put("mensaje", e.getMessage());
 }
 out.println(respuesta.toString());
-
-
-	//Manager.get().getTurnoPartida();
 %>

@@ -1,3 +1,13 @@
+/**
+ * LA OCA - 2017 - Tecnologias y Sistemas Web 
+ * Escuela Superior de Informatica de Ciudad Real
+ * 
+ * Josue Gutierrez Duran 
+ * Sonia Querencia Martin 
+ * Enrique Simarro Santamaria
+ * Eduardo Fuentes Garcia De Blas
+ */
+
 function mostrarRanking(){
 	var request = new XMLHttpRequest();	
 	request.open("get", "servers/mostrarRanking.jsp");

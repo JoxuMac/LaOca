@@ -1,3 +1,12 @@
+/*
+LA OCA - 2017 - Tecnologias y Sistemas Web
+Escuela Superior de Informatica de Ciudad Real 
+
+Josue Gutierrez Duran
+Sonia Querencia Martin
+Enrique Simarro Santamaria
+Eduardo Fuentes Garcia De Blas
+*/
 package edu.uclm.esi.tysweb.laoca.websockets;
 
 import java.io.IOException;
@@ -15,13 +24,11 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.JSONObject;
 
 import edu.uclm.esi.tysweb.laoca.dominio.Manager;
-//import edu.uclm.esi.tysweb.laoca.dominio.Partida;
 import edu.uclm.esi.tysweb.laoca.dominio.Usuario;
 
 @ServerEndpoint(value="/servidorDePartidas", configurator=HttpSessionConfigurator.class)
 public class WSPartidas {
 	private static ConcurrentHashMap<String, Session> sesionesPorId=new ConcurrentHashMap<>();
-	//private static ConcurrentHashMap<String, Session> sesionesPorNombre=new ConcurrentHashMap<>();
 	
 	@OnOpen
 	public void open(Session sesion, EndpointConfig config) {
@@ -29,17 +36,9 @@ public class WSPartidas {
 		Usuario usuario=(Usuario) httpSession.getAttribute("usuario");
 		usuario.setWSSession(sesion);
 		
-		//System.out.println("Sesión " + sesion.getId());
 		sesionesPorId.put(sesion.getId(), sesion);
-	//	sesionesPorNombre.put(usuario.getNombre(), sesion);
 
 		broadcast("<b>OCA: </b>Ha llegado " + usuario.getNombre());
-		//Manager.get().addJugador(usuario.geteMail());
-		
-	//	Partida partida=usuario.getPartida();
-	//	System.out.println(partida.getId() + "  " + usuario.getPartida());
-	//	if (partida.isReady())
-		//	partida.comenzar();
 	}
 	
 	@OnClose
@@ -56,7 +55,7 @@ public class WSPartidas {
 			String jugador=jso.getString("nombreJugador");
 			int dado=jso.getInt("puntos");
 			try {
-				JSONObject mensaje=Manager.get().tirarDado(idPartida, jugador, dado);
+				Manager.get().tirarDado(idPartida, jugador, dado);
 			} catch (Exception e) {
 			}
 		}

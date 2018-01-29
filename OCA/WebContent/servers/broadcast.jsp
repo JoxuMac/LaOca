@@ -26,13 +26,10 @@ Eduardo Fuentes Garcia De Blas
 		JSONObject msgJSON = new JSONObject();
 		msgJSON.put("tipo", tipo);
 		msgJSON.put("mensaje", msg);
-		
-		//int numeroDeJugadores=jso.getInt("numeroDeJugadores");
-		//Usuario usuario=Manager.get().crearPartida(nombreJugador, numeroDeJugadores);
+
 		Manager.get().broadcast(usuario, msgJSON);
-		//session.setAttribute("usuario", usuario);	
+		
 		respuesta.put("result", "OK");
-	//	respuesta.put("mensaje", usuario.getPartida().getId());
 		
 	}
 	catch (Exception e) {

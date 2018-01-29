@@ -1,3 +1,13 @@
+/*
+LA OCA - 2017 - Tecnologias y Sistemas Web
+Escuela Superior de Informatica de Ciudad Real 
+
+Josue Gutierrez Duran
+Sonia Querencia Martin
+Enrique Simarro Santamaria
+Eduardo Fuentes Garcia De Blas
+*/
+
 package edu.uclm.esi.tysweb.laoca.dominio;
 
 import java.io.IOException;
@@ -57,11 +67,6 @@ public class Usuario {
 		this.session=sesion;
 	}
 
-	public void enviar(String jugador, int dado) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void seteMail(String email) {
 		this.email=email;
 	}
@@ -110,8 +115,11 @@ public class Usuario {
 		return this.score;
 	}
 
+	public String getToken() {
+		return token;
+	}
+	
 	public void setToken(String token) {
 		this.token =token;
-		
 	}
 }

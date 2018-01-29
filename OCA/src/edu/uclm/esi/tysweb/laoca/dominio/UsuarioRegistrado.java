@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+LA OCA - 2017 - Tecnologias y Sistemas Web
+Escuela Superior de Informatica de Ciudad Real 
+
+Josue Gutierrez Duran
+Sonia Querencia Martin
+Enrique Simarro Santamaria
+Eduardo Fuentes Garcia De Blas
+*/
+
 package edu.uclm.esi.tysweb.laoca.dominio;
 
 import edu.uclm.esi.tysweb.laoca.persistencia.*;
@@ -21,12 +26,5 @@ public class UsuarioRegistrado extends Usuario {
     }
     Usuario loginGoogle(String email, String token)throws Exception {
         return DAOUsuario.loginGoogle(email,token);
-     } 
-
-	/*public Usuario loginConGoogle(String email, String token) throws Exception {
-		// TODO Auto-generated method stub
-		return DAOUsuario.loginGoogle(email,token);
-	}*/
-
-  
+     }
 }

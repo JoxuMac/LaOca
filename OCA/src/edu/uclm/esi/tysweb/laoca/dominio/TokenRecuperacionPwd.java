@@ -1,3 +1,13 @@
+/*
+LA OCA - 2017 - Tecnologias y Sistemas Web
+Escuela Superior de Informatica de Ciudad Real 
+
+Josue Gutierrez Duran
+Sonia Querencia Martin
+Enrique Simarro Santamaria
+Eduardo Fuentes Garcia De Blas
+*/
+
 package edu.uclm.esi.tysweb.laoca.dominio;
 
 import org.bson.*;

@@ -25,10 +25,6 @@ Eduardo Fuentes Garcia De Blas
 		session.setAttribute("usuario", usuario);	
 		respuesta.put("result", "OK");
 		respuesta.put("mensaje", usuario.getPartida().getId());
-		
-		Cookie cookie=new Cookie("kookie", "" + numeroDeJugadores);
-		cookie.setMaxAge(30);
-		response.addCookie(cookie);
 	}
 	catch (Exception e) {
 		respuesta.put("result", "ERROR");

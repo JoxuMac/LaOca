@@ -1,3 +1,13 @@
+/*
+LA OCA - 2017 - Tecnologias y Sistemas Web
+Escuela Superior de Informatica de Ciudad Real 
+
+Josue Gutierrez Duran
+Sonia Querencia Martin
+Enrique Simarro Santamaria
+Eduardo Fuentes Garcia De Blas
+*/
+
 package edu.uclm.esi.tysweb.laoca.dominio;
 
 import java.util.Random;
@@ -5,8 +15,6 @@ import java.util.Vector;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import edu.uclm.esi.tysweb.laoca.websockets.WSPartidas;
 
 public class Partida {
 	private Vector<Usuario> jugadores;
@@ -144,10 +152,7 @@ public class Partida {
 				jugador.enviar(jso);
 			}
 			catch (Exception e) {
-				// TODO: eliminar de la colección, mirar si la partida ha terminado
-				// y decirle al WSServer que quite a este jugador
 				this.jugadores.remove(jugador);
-			//	WSPartidas.removeSession(jugador);
 			}
 		}
 	}
