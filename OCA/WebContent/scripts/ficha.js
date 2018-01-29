@@ -385,8 +385,11 @@ function dibujar(lienzo, g) {
 Ficha.prototype.moverFicha = function(tiradanueva) {
 	this.idcasilla += parseInt(tiradanueva);
 	
-	document.getElementById("ficha"+this.idficha).remove()
+	if(casilla<63){
 	
-	//pintarFicha(this.idficha, this.idcasilla);
-	pintarFicha(this.idficha, parseInt(this.idcasilla));
+		document.getElementById("ficha"+this.idficha).remove()
+	
+		//pintarFicha(this.idficha, this.idcasilla);
+		pintarFicha(this.idficha, parseInt(this.idcasilla));
+	}
 }

@@ -49,8 +49,8 @@ public class Manager {
 		partida.broadcast(jso);
 		
 		try {
-			System.out.println(jso.get("destinoInicial"));
-			System.out.println(jso.get("destinoFinal"));
+			System.out.println("INICAL:"+jso.get("destinoInicial"));
+			System.out.println("FINAL"+jso.get("destinoFinal"));
 			System.out.println(jso.get("e"));
 		}catch(Exception e) {System.out.println("Error: "+e);}
 		

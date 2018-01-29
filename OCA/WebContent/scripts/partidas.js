@@ -68,37 +68,38 @@ function conectarWebSocket() {
 						if (request.readyState==4) {
 							var respuesta=JSON.parse(request.responseText);
 							comprobarTurno(respuesta.mensaje);
-							var idJugador;
-							if(respuesta.mensaje==document.getElementById("jg1").innerHTML){
-								idJugador=3;
+						//	var idJugador;
+						//	if(respuesta.mensaje==document.getElementById("jg1").innerHTML){
+						//		idJugador=3;
 							//	console.log("jg4");
-						}
-							if(respuesta.mensaje==document.getElementById("jg2").innerHTML){
-								idJugador=0;
+						//}
+						//	if(respuesta.mensaje==document.getElementById("jg2").innerHTML){
+						//		idJugador=0;
 							//	console.log("jg1");
-							}
-								if(respuesta.mensaje==document.getElementById("jg3").innerHTML){
-								idJugador=1;
+						//	}
+						//		if(respuesta.mensaje==document.getElementById("jg3").innerHTML){
+						//		idJugador=1;
 							//	console.log("jg2");
-							}
-								if(respuesta.mensaje==document.getElementById("jg4").innerHTML){
-								idJugador=2;
+						//	}
+						//		if(respuesta.mensaje==document.getElementById("jg4").innerHTML){
+						//		idJugador=2;
 							//	console.log("jg3");
-							}
+						//	}
 							
 							//console.log("mensaje"+mensaje.mensaje);
 							//console.log(fichas[idJugador].idcasilla);
 							
-							var fc = fichas[respuesta.mensaje];
+							var fc = fichas[mensaje.jugador];
 							
 							console.log(respuesta.mensaje);
 							
 							fc.moverFicha(mensaje.dado);
 							
-							if(respuesta.destinoFinal!==null){
-								console.log("eee");
-								console.log(respuesta.destinoFinal-mensaje.dado);
-								fc.moverFicha(respuesta.destinoFinal-mensaje.dado);
+							if(mensaje.destinoFinal!=undefined){
+								console.log("eee"+parseInt(mensaje.destinoFinal));
+								var mov = parseInt(mensaje.destinoFinal)-parseInt(mensaje.destinoInicial);
+								console.log(mov);
+								fc.moverFicha(mov);
 							}
 							
 							//fichas[idJugador].moverFicha(mensaje.mensaje);
