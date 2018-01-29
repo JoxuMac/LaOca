@@ -385,7 +385,7 @@ function dibujar(lienzo, g) {
 Ficha.prototype.moverFicha = function(tiradanueva) {
 	this.idcasilla += parseInt(tiradanueva);
 	
-	if(casilla<63){
+	if(parseInt(this.idcasilla)<63){
 	
 		document.getElementById("ficha"+this.idficha).remove()
 	
