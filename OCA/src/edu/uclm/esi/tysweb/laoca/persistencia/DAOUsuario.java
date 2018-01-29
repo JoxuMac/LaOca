@@ -83,6 +83,8 @@ public class DAOUsuario {
 			usuario.seteMail(resultado.first().getString("email").getValue());
 			usuario.setToken(resultado.first().getString("token").getValue());
 			usuario.setNombre(resultado.first().getString("user").getValue());
+			usuario.setPhoto(resultado.first().getString("photo").getValue());
+
 			
 		} else
 				throw new Exception("Error en login");
@@ -139,8 +141,9 @@ public class DAOUsuario {
 		
 		BsonDocument bUsuario=new BsonDocument();
 		bUsuario.append("email", new BsonString(usuario.geteMail()));
-		bUsuario.append("user", new BsonString(usuario.getNombre()));
-		bUsuario.append("photo", new BsonString(usuario.getPhoto()));
+		bUsuario.put("user", new BsonString(usuario.getNombre()));
+		bUsuario.put("photo", new BsonString(usuario.getPhoto()));
+		bUsuario.put("score", new BsonInt32(usuario.getScore()));
 		bUsuario.put("token", new BsonString(token));
 				
 		MongoClient conexion=MongoBroker.get().getBD();

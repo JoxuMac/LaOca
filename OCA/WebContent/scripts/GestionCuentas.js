@@ -114,6 +114,8 @@ function loginGoogle(profile){
             	
             	localStorage.nombre= profile.ig;
 			localStorage.email= profile.U3;
+			localStorage.photo= profile.Paa;
+
             	//localStorage.photo = respuesta.photo;
 			// Almacena la información en sessionStorage
 			//sessionStorage.setItem('logueado', true);
@@ -183,6 +185,7 @@ function cerrarSesion() {
 	console.log("Cerrando sesión");
 	signOut();
 }
+
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
