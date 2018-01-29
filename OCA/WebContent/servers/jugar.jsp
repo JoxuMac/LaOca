@@ -47,9 +47,9 @@ Eduardo Fuentes Garcia De Blas
 	   //     String daysJson = gson.toJson(days);
 		//respuesta.put("jugadores", usuario.getPartida().getJugadores());
 		
-		//Cookie cookie=new Cookie("kookie", "" + numeroDeJugadores);
-		//cookie.setMaxAge(30);
-		//response.addCookie(cookie);
+		Cookie cookie=new Cookie("kookie", "eeee");
+		cookie.setMaxAge(30);
+		response.addCookie(cookie);
 	}
 	catch (Exception e) {
 		respuesta.put("result", "ERROR");

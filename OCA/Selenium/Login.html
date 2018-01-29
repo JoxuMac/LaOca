@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+	<title>Login</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">LoginOK</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:8080/OCA/index.html<datalist><option>http://localhost:8080/OCA/index.html</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>xpath=(//button[@id='IngresoLog'])[2]<datalist><option>xpath=(//button[@id='IngresoLog'])[2]</option><option>//div[@id='Contenedor']/div[7]/form/button[2]</option><option>//button[2]</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=Nombre<datalist><option>id=Nombre</option><option>name=nombre</option><option>css=#Nombre</option><option>//input[@id='Nombre']</option><option>//div[@id='Contenedor']/div[4]/form/div/input</option><option>//input</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=Nombre<datalist><option>id=Nombre</option><option>name=nombre</option><option>css=#Nombre</option><option>//input[@id='Nombre']</option><option>//div[@id='Contenedor']/div[4]/form/div/input</option><option>//input</option></datalist></td><td>pepe1</td>
+</tr>
+<tr><td>click</td><td>id=pass<datalist><option>id=pass</option><option>name=pass</option><option>css=#pass</option><option>//input[@id='pass']</option><option>//div[@id='Contenedor']/div[4]/form/div[2]/input</option><option>//div[2]/input</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=pass<datalist><option>id=pass</option><option>name=pass</option><option>css=#pass</option><option>//input[@id='pass']</option><option>//div[@id='Contenedor']/div[4]/form/div[2]/input</option><option>//div[2]/input</option></datalist></td><td>pepe</td>
+</tr>
+<tr><td>click</td><td>id=IngresoLog<datalist><option>id=IngresoLog</option><option>css=#IngresoLog</option><option>//button[@id='IngresoLog']</option><option>//div[@id='Contenedor']/div[4]/form/button</option><option>//button</option></datalist></td><td>http://localhost:8080/OCA/dashboard.html</td>
+</tr>
+<tr><td>verifyLocation</td><td>http://localhost:8080/OCA/dashboard.html<datalist><option>getLocation()</option><option>getHtmlSource()</option><option>respuesta.result</option><option>location.href</option><option>id=err</option><option>http://localhost:8080/OCA/login.html?err=1</option><option>http://localhost:8080/OCA/dashboard.html</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">LoginFail</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:8080/OCA/index.html<datalist><option>http://localhost:8080/OCA/index.html</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>xpath=(//button[@id='IngresoLog'])[2]<datalist><option>xpath=(//button[@id='IngresoLog'])[2]</option><option>//div[@id='Contenedor']/div[7]/form/button[2]</option><option>//button[2]</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=Nombre<datalist><option>id=Nombre</option><option>name=nombre</option><option>css=#Nombre</option><option>//input[@id='Nombre']</option><option>//div[@id='Contenedor']/div[4]/form/div/input</option><option>//input</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=Nombre<datalist><option>id=Nombre</option><option>name=nombre</option><option>css=#Nombre</option><option>//input[@id='Nombre']</option><option>//div[@id='Contenedor']/div[4]/form/div/input</option><option>//input</option></datalist></td><td>pepe1</td>
+</tr>
+<tr><td>click</td><td>id=pass<datalist><option>id=pass</option><option>name=pass</option><option>css=#pass</option><option>//input[@id='pass']</option><option>//div[@id='Contenedor']/div[4]/form/div[2]/input</option><option>//div[2]/input</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=pass<datalist><option>id=pass</option><option>name=pass</option><option>css=#pass</option><option>//input[@id='pass']</option><option>//div[@id='Contenedor']/div[4]/form/div[2]/input</option><option>//div[2]/input</option></datalist></td><td>pepe1</td>
+</tr>
+<tr><td>click</td><td>id=IngresoLog<datalist><option>id=IngresoLog</option><option>css=#IngresoLog</option><option>//button[@id='IngresoLog']</option><option>//div[@id='Contenedor']/div[4]/form/button</option><option>//button</option></datalist></td><td></td>
+</tr>
+<tr><td>verifyLocation</td><td>http://localhost:8080/OCA/login.html?err=1<datalist><option>id=err</option><option>location.href</option><option>window.location.href</option><option>http://localhost:8080/OCA/login.html?err=1</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

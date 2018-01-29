@@ -157,6 +157,7 @@ Eduardo Fuentes Garcia De Blas
 		function enviarMensaje() {
 			broadcast(document.getElementById("mensaje").value, "DIFUSION");
 			document.getElementById("mensaje").value="";
+			$("#divChat").animate({ scrollTop: $('#divChat')[0].scrollHeight}, 1000);
 		}
 	</script>
 	

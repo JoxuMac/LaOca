@@ -29,8 +29,7 @@ public class Manager {
 		Usuario usuario = findUsuario(nombreJugador);
 		if (usuario.getPartida()!=null)
 			throw new Exception("El usuario ya está asociado a una partida. Desconéctate para crear una nueva o unirte a otra");
-			//usuario.setPartida(null);
-		
+			
 		Partida partida=new Partida(usuario, numeroDeJugadores);
 		usuario.setPartida(partida);
 		this.partidasPendientes.put(partida.getId(), partida);
@@ -42,41 +41,12 @@ public class Manager {
 		Partida partida = usuario.getPartida();
 		JSONObject jso = null;
 		
-		if(msg.getString("tipo").equals("DADO"))
+		if(msg.getString("tipo").equals("DADO")) {
 			jso = partida.tirarDado(nombreJugador, Integer.parseInt(msg.getString("mensaje")));
 		
-		//partida.broadcast(msg);
-		partida.broadcast(jso);
-		
-		try {
-			System.out.println("INICAL:"+jso.get("destinoInicial"));
-			System.out.println("FINAL"+jso.get("destinoFinal"));
-			System.out.println(jso.get("e"));
-		}catch(Exception e) {System.out.println("Error: "+e);}
-		
-		
-			//throw new Exception("El usuario ya está asociado a una partida. Desconéctate para crear una nueva o unirte a otra");
-		//	usuario.setPartida(null);
-		
-		//if (this.partidasPendientes.isEmpty()) {
-			// NO HAY PARTIDAS - SE CREA UNA NUEVA
-		//	System.out.println("SE CREA UNA PARTIDA");
-		//	partida = new Partida(usuario, 4);
-		//	usuario.setPartida(partida);
-		//	this.partidasPendientes.put(partida.getId(), partida);
-			
-		//}else{
-			// HAY PARTIDAS - SE UNE A UNA
-		//	System.out.println("SE UNE A UNA PARTIDA");
-		//	partida=this.partidasPendientes.elements().nextElement();
-		//	partida.add(usuario);
-		//	usuario.setPartida(partida);
-			
-		//}
-	
-		//lanzarPartidas();
-		
-		
+			partida.broadcast(jso);
+		} else
+			partida.broadcast(msg);
 	}
 
 	private Usuario findUsuario(String nombreJugador) throws Exception {
@@ -148,12 +118,10 @@ public class Manager {
 	}
 	
 	public Usuario login(String email, String pwd) throws Exception {
-		//return DAOUsuario.login(email, pwd);
 		Usuario usuario = new UsuarioRegistrado().login(email, pwd);
 		return usuario;
 	}
 	public Usuario loginGoogle(String email, String token) throws Exception {
-		//return DAOUsuario.login(email, pwd);
 		Usuario usuario = new UsuarioRegistrado().loginGoogle(email, token);
 		return usuario;
 	}
