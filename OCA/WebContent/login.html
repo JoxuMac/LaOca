@@ -11,6 +11,8 @@ Eduardo Fuentes Garcia De Blas
 <!DOCTYPE html>
 <html>
 <head>
+
+	<script src="scripts/GestionCuentas.js"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="253852485413-irovlddf0j56dp75hqg3ohb2o4oe8nl2.apps.googleusercontent.com">
 	
@@ -28,7 +30,7 @@ Eduardo Fuentes Garcia De Blas
 	<!-- Temas-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="./css/estilo.css">
-	
+		 
 	<script>
 		function $_GET(param) {
 			var vars = {};
@@ -58,7 +60,7 @@ Eduardo Fuentes Garcia De Blas
 		  <strong>¡ERROR!</strong> Usuario o Contraseña erroneos
 		</div>
 		<div class="ContentForm">
-		 	<form name="FormEntrar" action="" method="GET">	
+		 	<form name="FormEntrar" action="" method="POST">	
 		 		<div class="input-group input-group-lg">
 				  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-user"></i></span>
 				  <input type="text" class="form-control" name="nombre" placeholder="Usuario o Correo Electronico" id="Nombre" aria-describedby="sizing-addon1" required>
@@ -108,7 +110,7 @@ Eduardo Fuentes Garcia De Blas
   	}
 
 	</script>
-	 <script src="scripts/GestionCuentas.js"></script>
+
 	 
 	 <script>
 		if($_GET('err')==1)

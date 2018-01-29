@@ -16,7 +16,7 @@ function registrar() {
 		nombre:Nombre.value, email:CorreoElectronico.value, pwd1:pwd1.value, pwd2:pwd2.value
 	};
 	request.send("p=" + JSON.stringify(p));
-	//sleep(1000);
+	sleep(1000);
 }
 function registrarAnonimo() {
 	var request = new XMLHttpRequest();	
