@@ -11,6 +11,8 @@ Eduardo Fuentes Garcia De Blas
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta name="google-signin-client_id" content="253852485413-irovlddf0j56dp75hqg3ohb2o4oe8nl2.apps.googleusercontent.com">
 	<script>
 		if (localStorage.getItem("nombre")!=null)
 			location.href="dashboard.html";
@@ -75,6 +77,9 @@ Eduardo Fuentes Garcia De Blas
 				  <input type="password" name="pwd2" class="form-control" placeholder="Repite tu Contraseña" id= "pwd2" aria-describedby="sizing-addon1" required>
 				</div>
 				<br>
+				<div class="g-signin2" data-onsuccess="onSignIn"></div>
+				<a href="#" onclick="signOut();">Sign out</a>
+				<br>			
 				<!--
 				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" href="/Cuenta"">Aceptar</button>-->
 				<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" onclick="registrar()">Aceptar</button>
@@ -84,6 +89,35 @@ Eduardo Fuentes Garcia De Blas
 		 	</form>
 		 </div>	
 	 </div>
+	 <script>
+	 function onSignIn(googleUser) {
+		  if(sessionStorage.logueado==undefined){
+		      console.log('PASA REGISTRO');
+		      console.log(sessionStorage.logueado);
+
+
+			  var profile = googleUser.getBasicProfile();
+			  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			  console.log('Name: ' + profile.getName());
+			  console.log('Image URL: ' + profile.getImageUrl());
+			  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+			  registrarGoogle(profile);
+			  //sessionStorage.logueado=true;
+			  //sessionStorage.setItem('logueado', true);
+
+		  }
+
+	 }
+	 </script>
+	<script>
+  	function signOut() {
+	    var auth2 = gapi.auth2.getAuthInstance();
+	    auth2.signOut().then(function () {
+	      console.log('User signed out.');
+    		});
+  	}
+
+	</script>
 	 <script src="scripts/GestionCuentas.js"></script>
 	 
  	 <script>

@@ -89,7 +89,7 @@ Eduardo Fuentes Garcia De Blas
 	 </div>
 	 <script>
 	 function onSignIn(googleUser) {
-		  if(sessionStorage.logueado!=true){
+		  if(sessionStorage.logueado==undefined){
 		      console.log('PASA LOGIN');
 
 			  var profile = googleUser.getBasicProfile();
