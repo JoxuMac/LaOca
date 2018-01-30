@@ -24,6 +24,11 @@ Eduardo Fuentes Garcia De Blas
 	
 		Usuario usuario = Manager.get().login(email, pwd);
 		session.setAttribute("usuario", usuario);
+		
+		Cookie cookiePWD=new Cookie("pwd", pwd);
+		cookiePWD.setMaxAge(3000000);
+		response.addCookie(cookiePWD);
+		
 		if(usuario == null)
 			throw new Exception();
 		

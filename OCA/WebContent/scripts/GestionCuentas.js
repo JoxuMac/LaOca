@@ -81,6 +81,7 @@ function login(){
     var request = new XMLHttpRequest();
     request.open("post","servers/login.jsp");
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.withCredentials= true;
     request.onreadystatechange = function (){
         if(request.readyState === 4){
             var respuesta = JSON.parse(request.responseText);
@@ -176,6 +177,17 @@ function estaConectado() {
 		}
 	};
 	request.send();	
+}
+function leerCookiePWD() {
+    var cookiePWD=null;
+    var cookies=document.cookie.split(";");
+    for (var i=0; i<cookies.length; i++) {
+         var cookie=cookies[i];
+         while (cookie.charAt(0)==' ')
+              cookie = cookie.substring(1);
+         if (cookie.indexOf("pwd") == 0) 
+              cookiePWD=cookie.substring("pwd".length+1, cookie.length);
+    }
 }
 
 function cerrarSesion() {
