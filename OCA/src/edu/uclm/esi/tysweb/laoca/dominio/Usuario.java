@@ -107,8 +107,9 @@ public class Usuario {
 		return this.nombre + " jugando en " + (this.partida!=null ? this.partida.getId() : "ninguna ") + ", " + this.casilla.getPos() + ", turnos: " + this.turnosSinTirar;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setScore(int score) throws Exception {
+		this.score += score;
+		DAOUsuario.setScore(this.email, this.score);
 	}
 	
 	public int getScore() {

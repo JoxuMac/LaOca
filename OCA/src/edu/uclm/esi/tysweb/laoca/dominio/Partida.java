@@ -92,6 +92,7 @@ public class Partida {
 			if (siguiente.getPos()==62) { // Llegada
 				this.ganador=jugador;
 				result.put("ganador", this.ganador.getNombre());
+				jugador.setScore(100);
 			}
 		}
 		if (destino.getPos()==57) { // Muerte
@@ -103,11 +104,14 @@ public class Partida {
 			if (this.jugadores.size()==1) {
 				this.ganador=this.jugadores.get(0);
 				result.put("ganador", this.ganador.getNombre());
+				jugadores.get(0).setScore(100);
 			}
 		}
 		if (destino.getPos()==62) { // Llegada
 			this.ganador=jugador;
 			result.put("ganador", this.ganador.getNombre());
+			jugador.setScore(100);;
+			
 		}
 		int turnosSinTirar=destino.getTurnosSinTirar();
 		if (turnosSinTirar>0) {

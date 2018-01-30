@@ -319,4 +319,21 @@ public class DAOUsuario {
 		return result;
 				
 	}
+	public static void setScore(String email, int score) throws Exception {
+		MongoClient conexion=MongoBroker.get().getBD();
+		MongoCollection<BsonDocument> usuarios = 
+				conexion.getDatabase(db).getCollection("usuarios", BsonDocument.class);
+		
+		BasicDBObject carrier = new BasicDBObject();
+		BasicDBObject query = new BasicDBObject();
+
+		query.append("email", email);
+		carrier.put("score", score);   
+		
+		BasicDBObject set = new BasicDBObject("$set", carrier);
+		
+		usuarios.updateMany(query, set);
+		
+		MongoBroker.get().close(conexion);
+	}
 }
