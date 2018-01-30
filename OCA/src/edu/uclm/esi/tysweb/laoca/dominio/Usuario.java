@@ -11,6 +11,7 @@ Eduardo Fuentes Garcia De Blas
 package edu.uclm.esi.tysweb.laoca.dominio;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 import javax.websocket.Session;
 
@@ -122,5 +123,9 @@ public class Usuario {
 	
 	public void setToken(String token) {
 		this.token =token;
+	}
+
+	public Session getWSSession() {
+		return session;
 	}
 }

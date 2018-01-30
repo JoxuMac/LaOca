@@ -23,7 +23,17 @@ public class Partida {
 	private int jugadorConElTurno;
 	private Tablero tablero;
 	private Usuario ganador;
+	//	private myTimeout timeout;
 
+	public class myTimeout extends Thread {
+		public void run() {
+			try {
+				jugadoresInactivos();
+			} catch (Exception e) {
+			}
+		}
+	}
+	
 	public Partida(Usuario creador, int numeroDeJugadores) {
 		this.jugadores=new Vector<>();
 		this.jugadores.add(creador);
@@ -61,8 +71,23 @@ public class Partida {
 		jso.put("jugadores", jsa);
 		
 		broadcast(jso);
+		//timeout = new myTimeout();
+		//timeout.start();
 	}
 
+	protected void jugadoresInactivos() throws Exception {
+		Thread.sleep(30000);
+		eliminarJugador(getJugadorConElTurno());
+	}
+
+	private void eliminarJugador(Usuario usuario) throws Exception {
+		this.jugadores.remove(usuario);
+		usuario.setPartida(null);
+		usuario.getWSSession().close();
+		System.out.println("JUGADOR ELIMINADO");
+		pasarTurno(false);
+	}
+	
 	public Usuario getJugadorConElTurno() {
 		if (this.jugadores.size()==0)
 			return null;
